@@ -1,19 +1,8 @@
 ::Composer
 composer reqire ....
-
-composer create-project --prefer-dist laravel/laravel %1 "5.8.*"
-
-http://silex.sensiolabs.org/
-
-::Laravel
-
-php artisan serve
-php artisan make:model Task -mc
-
+composer global reqire
 
 ::Git
-git push heroku master
-
 git status
 	-статус проекта
 

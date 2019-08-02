@@ -1,3 +1,28 @@
+:: Синтаксис
+    :: Не выводить сами команды
+        @echo lol
+    :: Отключить вывод всех команд
+        @echo off
+    
+    :: Выполнять, если ошибок нет
+        set /a a = 1 / 1 && echo Ok!
+    :: Выполнять, если есть ошибка
+        set /a a = 1 / 0 || echo Err!
+
+    :: Выполнить несколько команд
+        2> nul set /a a = 1 / 0 || (
+            echo Error del zero
+        )
+
+:: Вывод переменных
+    :: Обычный вывод
+        echo Hello
+    :: Вывод с символами пробела
+        echo.    Hello
+
+:: Переменные
+
+    :: Ввод пользователя
         set /p =Choose: "
 
     :: Двоичные операции (& - and; | - or; ^ - xor)
@@ -126,7 +151,28 @@
     :: Найти строку из найденых строк
         findstr "1" * | findstr "0"
 
+:: Пространства имён
+    :: Установить пространство имён (внутренние переменные не влияют на внешние)
+        setlocal
 
+    :: Завершение
+        :: Закончить пространство имён (переменные в жтом пространстве удалятся)
+            endlocal
+        :: Закончить и сохранить в глобальные переменные
+            endlocal & (
+                set gVar_a = %a%
+                set gVar_b = %b%
+            )
+
+:: Расширения
+    :: Добавить /i и defined в команду if
+        setlocal EnableExtensions
+
+    :: Новый тип "Долгих" переменных для цикла и не только
+        setlocal EnableDelayedExpansion
+
+        :: Пример
+            for /l %%a in (1,1,5) do set /a a=!a! * 5
 
 if    '%a%'=='5' ()
         :: gtr - больше
@@ -137,8 +183,6 @@ if /i not        1 gtr 1 () else ()
 if    exist      new.txt () else if 1 == 2 () else ()
 if    defined    var     ()
 if    errorlevel 1       ()
-
-
 
 for     %%i in (1, "d", 234) do ()
 for     %%i in (Dir\*)       do ()
@@ -156,18 +200,6 @@ for /f "tokens=1,2,* delims= "  %%a in ("1 2 3")    do ()
 for /f "usebackq" %%a in (`"findstr '12345' test.txt"`) do ()
 for /f "eol=#"    %%a in (test.txt)    do ()
 for /f "skip=3"   %%a in (test.txt)    do ()
-
-setlocal
-setlocal EnableExtensions
-setlocal EnableDelayedExpansion
-
-for /l %%a in (1,1,5) do set /a a=!a! * 5
-
-endlocal
-endlocal & (
-    set LcVar1 = %a%
-    set LcVar2 = %b%
-)
 
 for /f "tokens=1 delims=." %%a in (
     '"prompt $h. & echo on & for %%b in (1) do rem"'

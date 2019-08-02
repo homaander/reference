@@ -2,13 +2,13 @@
     require_once '/vendor/autoload.php';
 
 # Lavarel
-    # Установка
-        composer global require laravel/installer
-        laravel new blog
-    # или
-        composer create-project --prefer-dist laravel/laravel blog "5.8.*"
+    # CMD
+        # Установка
+            composer global require laravel/installer
+            laravel new blog
+        # или
+            composer create-project --prefer-dist laravel/laravel blog "5.8.*"
 
-    # CMD   
         # Запустить лок. сервер (по умолчанию localhost:8000)
             php artisan serve
         # Очистить кеш (в основнои после изменения .env)
