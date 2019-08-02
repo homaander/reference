@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Canvas</title>
+	</head>
+	
+	<body style="margin: 0;">
+		<canvas id="canvas" style="display: block;">This browser is not supported</canvas>
+		
+		<script>
+			//Connect
+			var 
+				canv = document.getElementById('canvas'),
+				stx  = canv.getContext('2d');
+				
+			canv.width = window.innerWidth;
+			canv.height = window.innerHeight;
+			
+			//Code
+			stx.fillStyle = 'blue'; //Цвет
+			stx.strokeStyle = 'red';
+			stx.lineWidth = 1;
+			
+			stx.fillRect(10, 10, 100, 100); //Заполненый прямоугольник ( x, y, w ,h )
+			stx.strokeRect(120,10,100,100); //Пустой прямоугольник ( x, y, w ,h )
+			
+			stx.fillStyle = 'gray';
+			stx.arc(280, 60, 50, 0, Math.PI, false);
+			stx.fill();
+			
+			stx.beginPath();
+			stx.moveTo(340, 110);
+			stx.lineTo(390, 10);
+			stx.lineTo(440, 110);
+			stx.lineTo(340, 110); //closePath() - вернёт в нач. точка
+			stx.stroke();
+			
+			stx.scale(1, 1); //Множитель размера (x, y)
+			stx.rotate(0 * Math.PI/180); //Повернуть на 0 гр.
+			
+			var grad = stx.createLinearGradient(100,100,200,200);
+			grad.addColorStop('0','green');
+			grad.addColorStop('1','blue');
+			
+			stx.fillStyle = grad;
+			stx.textAlign = 'center';
+			stx.font = '50px Times New Roman';
+			stx.fillText('Hello world!', 150, 150);
+			
+			stx.beginPath();
+			stx.lineWidth = 10;
+			stx.strokeStyle = 'gray';
+			
+			var paint = false;
+			canv.addEventListener('mousedown', function(e){ paint = true; });
+			canv.addEventListener('mouseup', function(e){ paint = false; stx.beginPath(); });
+			
+			canv.addEventListener('mousemove', function(e){
+				if (paint) {
+					stx.lineTo(e.clientX, e.clientY);
+					stx.stroke();
+				
+					stx.beginPath();
+					stx.fillStyle = 'gray';
+					stx.arc(e.clientX, e.clientY, 5, 0, Math.PI * 2, false);
+					stx.fill();
+					
+					stx.beginPath();
+					stx.moveTo(e.clientX, e.clientY);
+				}
+			});
+		</script>
+	</body>
+
+</html>

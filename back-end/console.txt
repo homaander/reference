@@ -1,0 +1,36 @@
+::Composer
+composer reqire ....
+
+composer create-project --prefer-dist laravel/laravel %1 "5.8.*"
+
+http://silex.sensiolabs.org/
+
+::Laravel
+
+php artisan serve
+php artisan make:model Task -mc
+
+
+::Git
+git push heroku master
+
+git status
+	-статус проекта
+
+git add "index.html"
+git add -A
+	-подготовка отправки одного или всех файлов
+
+git clone https://github.com/homaander/test.git
+
+git commit -m "New index file"
+	-добовление коментария
+
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
+
+git push
+	-отправка проекта
+
+git pull
+	-обновить файлы с облока

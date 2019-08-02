@@ -1,0 +1,45 @@
+# Выучил
+    Laravel
+        composer global require laravel/installer
+        laravel new blog
+    Eloquent        - ORM (for Laravel)
+
+    PHP Simple HTML DOM Parser - Для парсинга страниц
+        https://simplehtmldom.sourceforge.io/
+
+    pQuery          - Для парсинга страниц
+        composer require tburry/pquery
+
+    Monolog         - наверное лучшая система логирования
+        composer require monolog/monolog
+
+    MassagePack     - Аналог JSON
+        composer require rybakit/msgpack
+
+    Faker           - Генерация рандомных данных
+        composer require fzaninotto/faker
+    
+# Обезательны к изучению
+    PHPSpreadsheet  - для работы с офисными документами
+    
+    
+    xCRUD           - Крад система
+    
+    
+    
+    RedBeanPHP      - ORM
+    
+    xDebug          - Для эффективного дебаггинга
+    XHProf          - Для эффективного дебаггинга
+    
+    
+    Imagine         - Работа с изображениями
+    Fuse - отличная либа для реализации "нечёткого" поиска
+    
+    Stash           - Кеширование
+    PHPMailer       - Почта
+    SXGeo           - Для работы с геолокацией, например, чтобы узнать страну по айпи
+    Guzzle - для работы с HTTP
+    
+    Symfony
+    Twig
