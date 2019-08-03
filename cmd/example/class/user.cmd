@@ -11,8 +11,14 @@
 
         :: Статические свойства
         set /a user.count+=1
-        set user.array=%user.array%"%2,%3";
 
+        if not defined logins.array (
+            call :array logins
+            call :array passwords
+        )
+
+        call :logins.add %2
+        call :passwords.add %3
 
         :: Методы
         >> %app% (
@@ -32,8 +38,11 @@
     )
 exit /b
 
-:user.isset [var]
-    set %1=getMethods
+:user.isset [login][var]
+    call :logins.find %1 user.is
+    if not '!user.is!'=='' (
+        set %2=1
+    ) else set %2=0
 exit /b
 
 :user.enter [var]

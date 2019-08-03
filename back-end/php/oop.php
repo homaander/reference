@@ -11,9 +11,9 @@ class People {
 	public function __construct($name)	{ $this->Name = $name; }
 	public function __destruct()		{ fclose($this->f); }
 	#При сериализации объекта (что сериализировать)
-	public function __sleep()			{ return ['Name', 'Age'] }
+	public function __sleep()			{ return ['Name', 'Age']; }
 	#При унсериализации
-	public function __wakeup()			{ $this->Money = 0 }
+	public function __wakeup()			{ $this->Money = 0; }
 
 	#Перехват запроса к несуществующим свыйствам\матадам
 	#Перехват запроса на получение несуществующего свойства:
@@ -38,7 +38,7 @@ class People {
 
 $obj = new People;			#Создание объекта
 $obj = new People(16, 2);	#Создание объекта с параметрами в конструктор
-$fake clone $obj;			#Создаёт копию обекта но ссылающийся на другое пространство
+$fake = clone $obj;			#Создаёт копию обекта но ссылающийся на другое пространство
 
 $obj->Write_Name2(1, 3);	#Вызываем публичный метод
 
@@ -50,9 +50,9 @@ $obj->Write_Name2(1, 3);	#Вызываем публичный метод
 # Просто выызов функции
 	People::Delete_P($obj);
 # Оброщение к константе
-	People::MESSAGE
+	People::MESSAGE;
 # Обращение к строке
-	People::$Name
+	People::$Name;
 
 class People2 {
 	#При обращении к static свойствам используется класс::свойства
@@ -63,7 +63,7 @@ class People2 {
 		#Если нет, создаётся новый  
 		return self::$loggers[$name] = new self($name);
 	}
-	public static function Delete_P(People $obj) { self::$Count++ }
+	public static function Delete_P(People $obj) { self::$Count++; }
 
 	public static function write() { echo 'Hello from '.__CLASS__; }
 	#static - В отличие от self не привязывается к классу где был определён и при наследовании будет вызыватся метод/свойство наследника
@@ -120,8 +120,8 @@ interface IC extends IA { protected function Info(); }
 abstract class ID implements IA {} # Наследование интерфейсов
 
 class Child extends Test implements A, B {
-	public function Write { echo 123; }
-	public function Read  { echo 321; }
+	public function Write() { echo 123; }
+	public function Read()  { echo 321; }
 }
 
 #Трейды
@@ -168,18 +168,18 @@ try {
 	throw new Exception('Hello!');
 	throw new FileException('Hello!');
 	$a = 1 / 0;
+} catch (FileException $e) {
+	echo $e->GetMessage();
+} catch (Exception $e) {
+	echo $e->GetMessage();
+	#Идём дальше в следующий try catch
+	throw $e;
+} catch (Error $e) {
+	#Базовый класс для всех внутр. ошибок
+	echo 'Ошибка!';
 } finally {
 	echo 'Всё ровны выполнится!';
-} catch (FileException $e) {
-	echo $e->GetMessage()
-} catch (Exception $e) {		#Базовый класс для пользовалельских искл.
-	echo $e->GetMessage()
-} catch (Error $e) {			#Базовый класс для всех внутр. ошибок
-	echo 'Ошибка!';
-	throw $e; #Идём дальше в следующий try catch
 }
-
-
 
 
 #Итереторы:
@@ -262,7 +262,7 @@ $dir = new RecursiveIteratorIterator(
 );
 
 foreach ($dir as $file) {
-	int $dir->getDepth();
+	$dir->getDepth();
 }
 
 #Отражение

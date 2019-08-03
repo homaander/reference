@@ -19,8 +19,22 @@
 
             echo.
             echo :%var%.add [value]
-            echo.    set %var%.array=%%%var%.array%%%%1,
+            echo.    if defined %var%.array set dot=,
+            echo.    set %var%.array=%%%var%.array%%%%dot%%%%1
             echo.    set /a %var%.lenght+=1
+            echo exit /b
+
+            echo.
+            echo :%var%.find [value][var]
+            echo.    set array.serch=%%%var%.array:,= %%
+            echo.    set array.count=0
+            echo.    for %%%%i in ^(%%array.serch%%^) do ^(
+            echo.        if '%%%%i'=='%%1' ^(
+            echo.            set %%2=^^!array.count^^!
+            echo.            exit /b
+            echo.        ^)
+            echo.        set /a count+=1
+            echo.    ^)
             echo exit /b
         )
 

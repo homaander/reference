@@ -393,6 +393,7 @@ string wordwrap($str, 50, '\n', false);    #Разделяет строку по
 string trim($str);                     #Удаление пробелов до и после строки
 string strip_tags($str);             #Удалить все теги
 string htmlspecialchars($str);        #Обязательна для работы с введённым пользователем
+
 string addslashes($str);            #Добавить \ перед ' " и \
 string stripslashes($str);            #Убрать \
 

@@ -25,6 +25,6 @@
         type %1.cmd
 
         set /a autoload.count += 1
+        set autoload.modules=%autoload.modules%%1 
     )
-
 exit /b

@@ -29,39 +29,45 @@ if not '%1'=='s' (
 
     :: User
     echo.
-    echo User:
-    echo.
+    echo User----
 
-    call :user obj foo 123
+    call :user obj root 1111 Admin -1
 
-    echo %user.count%
+    call :user.isset root a
+    echo root is !a!
+    call :user.isset lol b
+    echo lol is !b!
 
-    echo %obj.name%
-    echo %obj.age%
 
-    call :obj.set Andrew 17
-    call :obj.print
+    echo --------
 
     :: Array
     echo.
-    echo Array:
-    echo.
+    echo Array---
 
     call :array arr
 
     call :arr.add Andrew
     call :arr.add Vitya
+    call :arr.add Vanya
+    call :arr.add Iliya
+    call :arr.add Vova
 
     call :arr.get 0 tt
     echo Index 0: %tt%
 
-    echo %arr.lenght%
-    echo %arr.array%
+    call :arr.find Vova hh
+    echo Index of Vova: %hh%
+
+    echo Count items: %arr.lenght%
+    echo Array: %arr.array%
+
+    echo --------
 
     :: AutoLoad
     call :autoload.debug
-    :: echo %autoload.count%
-    :: echo %autoload.modules%
+    echo count: %autoload.count%
+    echo list: %autoload.modules%
 
     > nul pause
 exit /b
