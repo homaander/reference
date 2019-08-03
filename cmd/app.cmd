@@ -4,6 +4,9 @@
     :: Отключить вывод всех команд
         @echo off
     
+    :: Выполнить несколько команд
+        echo foo & echo bar
+
     :: Выполнять, если ошибок нет
         set /a a = 1 / 1 && echo Ok!
     :: Выполнять, если есть ошибка
@@ -116,6 +119,9 @@
 
     :: Содержимое файла
         type test.txt
+
+        :: Вывод постранично (если нет места в буфере)
+            more test.txt
     :: Путь к файлу app
         where app
 
@@ -174,47 +180,72 @@
         :: Пример
             for /l %%a in (1,1,5) do set /a a=!a! * 5
 
-if    '%a%'=='5' ()
-        :: gtr - больше
-        :: geq - больше или ровно
-        :: lss - меньше
-        :: leq - меньше или ровно
-if /i not        1 gtr 1 () else ()
-if    exist      new.txt () else if 1 == 2 () else ()
-if    defined    var     ()
-if    errorlevel 1       ()
+:: Ветвление
+    :: Математические
+        if /i not        1 gtr 1 () else ()
+                :: gtr - больше
+                :: geq - больше или ровно
+                :: lss - меньше
+                :: leq - меньше или ровно
 
-for     %%i in (1, "d", 234) do ()
-for     %%i in (Dir\*)       do ()
-for /l  %%i in (1,1,5)    do ()
-for /d  %%i in (Dir\*0)   do ()
-for /r  %%i in (Dir\*)    do ()
+    :: Строковые
+        if    '%a%'=='5' ()
+    :: Существование файла
+        if    exist      new.txt () else if 1 == 2 () else ()
+    :: Существование переменных
+        if    defined    var     ()
+    :: Проверка ошибок
+        if    errorlevel 1       ()
 
-for /f  %%a in (test.txt)                    do ()
-for /f  %%a in ('findstr 123453 test.txt') do ()
+:: Циклы
+    :: Перебор элементов
+        for %%i in (1, Andrew, "hello world!") do echo %%i
+        for %%i in (1 Andrew "hello world!") do echo %%i
 
-for /f "tokens=*     delims= "  %%a in (test.txt)    do ()
-for /f "tokens=1-3   delims=."  %%a in (test.txt)     do ()
-for /f "tokens=1,2,* delims= "  %%a in ("1 2 3")    do ()
+    :: Математический перебор
+        for /l  %%i in (1, 1, 5)  do echo %%i
+        for /l  %%i in (5, -1, 1) do echo %%i
 
-for /f "usebackq" %%a in (`"findstr '12345' test.txt"`) do ()
-for /f "eol=#"    %%a in (test.txt)    do ()
-for /f "skip=3"   %%a in (test.txt)    do ()
+    :: Перебор файлов
+        for %%i in (dir\*) do echo %%i
+        :: Во всех подкаталогах
+            for /r "dir\"  %%i in (*.lnk) do echo %%i
+    :: Перебор каталогов
+        for /d  %%i in (dir\*.lnk) do echo %%i
 
-for /f "tokens=1 delims=." %%a in (
-    '"prompt $h. & echo on & for %%b in (1) do rem"'
-) do (
-    set bs=%%a
-)
+:: Перебрать все строки файла
+    for /f  %%a in (test.txt)                  do ()
 
-tasklist
-taskkill /IM notepad.exe
+:: Перебор вывода команды
+    for /f  %%a in ('findstr 123453 test.txt') do ()
 
-set /p ".=."< nul > Text
-findstr /a:CA "." Text*
-set /p ".= %bs%%bs%"< nul
+:: Запись отдельных частей набора в переменные в аловитном порядке
+:: С помощью некоторого раздалителя
+    for /f "tokens=*     delims= "  %%a in (test.txt) do ( echo %%a & echo %%b )
+    for /f "tokens=1-3   delims=."  %%a in (test.txt) do echo %%a
+    for /f "tokens=1,2,* delims= "  %%a in ("1 2 3")  do ( echo %%a & echo %%b )
 
-cscript /nologo sc.js
+:: Переназначить ковычки (для файлов сод. пробелы в пути или команд сод. апострафы)
+    for /f "usebackq" %%a in (`findstr '12345' test.txt`) do ()
+:: Символ начала коментария
+    for /f "eol=#"    %%a in (test.txt)    do ()
+:: Пропуск количества символов
+    for /f "skip=3"   %%a in (test.txt)    do ()
 
-ping –n 1 –w 2500 1.1.1.1 ::Работает, если нет интернета
-pathping -h 1 -q 1 -p 10000 localhost
+
+:: Символ бекспейса
+    for /f "tokens=1 delims=." %%a in ('prompt $h. & echo on & for %%b in (1) do set .=') do set bs=%%a
+
+:: Цветной текст
+    < nul > Text set /p ".=."
+    findstr /a:CA "." Text*
+    set /p ".= %bs%%bs%"< nul
+
+:: Процессы
+    :: Показать список процессов
+        tasklist
+    :: Отключить процесс
+        taskkill /IM notepad.exe
+
+:: Исполнить JScript
+    cscript /nologo sc.js
