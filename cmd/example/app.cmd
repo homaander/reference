@@ -35,6 +35,7 @@ if not '%1'=='s' (
 
     call :user.isset root a
     echo root is !a!
+
     call :user.isset lol b
     echo lol is !b!
 
@@ -65,9 +66,9 @@ if not '%1'=='s' (
     echo --------
 
     :: AutoLoad
-    call :autoload.debug
-    echo count: %autoload.count%
-    echo list: %autoload.modules%
+    ::call :autoload.debug
+    ::echo count: %autoload.count%
+    ::echo list: %autoload.modules%
 
     > nul pause
 exit /b

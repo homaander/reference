@@ -35,6 +35,7 @@ if not '%1'=='s' (
 
     call :user.isset root a
     echo root is !a!
+
     call :user.isset lol b
     echo lol is !b!
 
@@ -119,8 +120,9 @@ exit /b
             echo.            set %%2=^^!array.count^^!
             echo.            exit /b
             echo.        ^)
-            echo.        set /a count+=1
+            echo.        set /a array.count+=1
             echo.    ^)
+            echo.    set %%2=
             echo exit /b
         )
 
@@ -209,8 +211,9 @@ exit /b
             set %2=!array.count!
             exit /b
         )
-        set /a count+=1
+        set /a array.count+=1
     )
+    set %2=
 exit /b
 
 :passwords.get [index][var]
@@ -234,8 +237,9 @@ exit /b
             set %2=!array.count!
             exit /b
         )
-        set /a count+=1
+        set /a array.count+=1
     )
+    set %2=
 exit /b
 
 :obj.set [name][age]
@@ -269,6 +273,7 @@ exit /b
             set %2=!array.count!
             exit /b
         )
-        set /a count+=1
+        set /a array.count+=1
     )
+    set %2=
 exit /b

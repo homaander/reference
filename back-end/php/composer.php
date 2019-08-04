@@ -2,47 +2,51 @@
     require_once '/vendor/autoload.php';
 
 # Lavarel
-    # CMD
-        # Установка
+    /* CMD
+        Установка
             composer global require laravel/installer
             laravel new blog
-        # или
+        или
             composer create-project --prefer-dist laravel/laravel blog "5.8.*"
 
-        # Запустить лок. сервер (по умолчанию localhost:8000)
+        Запустить лок. сервер (по умолчанию localhost:8000)
             php artisan serve
-        # Очистить кеш (в основнои после изменения .env)
+
+        Очистить кеш (в основнои после изменения .env)
             php artisan cache:clear
-        # Обновить Composer
+
+        Обновить Composer
             composer dumpautoload
         
-        # Регистрация
+        Регистрация
             php artisan make:auth
         
-        # Письма
+        Письма
             php artisan make:mail newMail --markdown=email
-            # Кастомизация
+
+            Кастомизация
                 php artisan vendor:publish --tag=laravel-mail
         
-        # Модели
+        Модели
             #Создать модель +миграцию [ +контроллер ]
                 php artisan make:model Task -m[c]
 
         
-        # Контроллеры
+        Контроллеры
             php artisan make:controller TasksController
         
-        # Миграции
-            # Создать системные миграции:
+        Миграции
+            Создать системные миграции:
                 php artisan migrate
-            # Удалить все миграции:
+            Удалить все миграции:
                 php artisan migrate:reset
-            # Переустановить системные файлы:
+            Переустановить системные файлы:
                 php artisan migrate:fresh
-            # Обновить миграции:
+            Обновить миграции:
                 php artisan migrate:refresh
-            # Создать миграцию:
+            Создать миграцию:
                 php artisan make:migration create_tasks_table --create=tasks
+    */
 
     # Роутинг (routes/routes.php)
         # Установить возврат на страницу name:
@@ -89,11 +93,12 @@
     
         # Шаблонизатор
             # Добавить ссылки-переключатели страниц
-                {{ $users->link() }}
+                {{ $users->link(); }}
         
 
     # Почта
-        # (config/mail.php)
+        /* Конфигурация
+            (config/mail.php)
             'stream' => [
                'ssl' => [
                   'allow_self_signed' => true,
@@ -101,14 +106,14 @@
                   'verify_peer_name' => false,
                ],
             ],
-    
-        # (.env)
-            MAIL_HOST=smtp.gmail.com
-            MAIL_PORT=587
-            MAIL_USERNAME=hom.ander23@gmail.com
-            MAIL_PASSWORD=null
-            MAIL_ENCRYPTION=tls
         
+            (.env)
+                MAIL_HOST=smtp.gmail.com
+                MAIL_PORT=587
+                MAIL_USERNAME=hom.ander23@gmail.com
+                MAIL_PASSWORD=null
+                MAIL_ENCRYPTION=tls
+        */
             Mail::send(
                 # Ссылка на шаблонизатор
                 ['text'=>'mail'],
@@ -121,12 +126,14 @@
             );
 
     # БД
-        # (.env)
-            DB_CONNECTION=mysql
-            DB_HOST=127.0.0.1
-            DB_DATABASE=app
-            DB_USERNAME=root
-            DB_PASSWORD=1111
+        /* Конфигурация
+            (.env)
+                DB_CONNECTION=mysql
+                DB_HOST=127.0.0.1
+                DB_DATABASE=app
+                DB_USERNAME=root
+                DB_PASSWORD=1111
+        */
 
         # Миграции
             Schema::create('tasks', function(Blueprint $table){
@@ -138,8 +145,10 @@
                 $table->timestamps();
             });
         # Модели
-            public static function incimpleted() {
-                return static::where('completed', 0)->get();
+            class Model {
+                public static function incimpleted() {
+                    return static::where('completed', 0)->get();
+                }
             }
 ?>
 
@@ -240,8 +249,8 @@
 
 # Monolog
     # Подключение
-        use Monolog\Logger
-        use Monolog\Handler\StreamHandler
+        use Monolog\Logger;
+        use Monolog\Handler\StreamHandler;
     # Создание
         $log = new Logger('info');
         $log->pushHandler(

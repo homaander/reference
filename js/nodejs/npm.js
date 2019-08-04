@@ -1,22 +1,22 @@
-// CMD
-    // Инициализоровать
+/* CMD
+    Инициализоровать
         npm init
 
-    // Установить и запустить отдельно
+    Установить и запустить отдельно
         npm install -g browser-sync
         browser-sync start --proxy "test.loc" --files "css/*.css"
 
-    // Использовать вместе с gulp
+    Использовать вместе с gulp
         npm install -D browser-sync
 
-    // Electron
+    Electron
         npm install -g electron
 
         npm install -S electron
 
         electron -v
 
-    // Gulp
+    Gulp
         npm install -g gulp-cli
 
         npm install -D gulp
@@ -28,16 +28,17 @@
 
         gulp -v
 
-        // Запустить дефолтную функцию
+        Запустить дефолтную функцию
             gulp
 
-        // Запустить другой процесс
+        Запустить другой процесс
             gulp print
 
-// Colors
-    // CMD
-        nom i colors
+    Colors
+        npm i colors
+*/
 
+// Colors
     // Examples
         var colors = require('colors');
 

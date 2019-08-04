@@ -1,48 +1,72 @@
 <?php    
-#Стандартные функции:
-string escapeshellarg('args');    #Экранировать как аргумент
-string eval($str)                #Выполнить php код
-string exec('dir', $arr);        #Команда сис. консоли (последний результат)
-        #Заполняет массив всеми строка
+# Стандартные функции
+    #(string) Экранировать как аргумент CMD
+        escapeshellarg($var);
+    #(string) Выполнить php код
+        eval($str);
+    #(string) Команда сис. консоли (последний результат), [заполняет массив результатами]
+        exec('dir', $arr);
 
-# Проверить, загружен ли файл
-    bool   is_uploaded_file($tmp_name);
-# Переместить файл
-    bool   move_uploaded_file($tmp_name);
+# Загрузка файла на сервер
+    $tmp_file = $_FILE['file']['tmp_name'];
+
+    #(bool) Проверить, загружен ли файл
+        is_uploaded_file($tmp_name);
+    #(bool) Переместить загруженный файл файл
+        move_uploaded_file($tmp_name, 'D:/mysite');
 
 
 #Функции
-array  func_get_args();            #Получить аргументы в виде массива
+    function foo() {
+        #(array) Получить аргументы в виде массива
+            func_get_args();
+        #(int) Количество аргументов функции
+            func_num_args();
+    }
 
 #Общие
-void   unset($a);                #Удалить переменную
-bool   isset($a);                #Существует ли переменная
-bool   empty($a);                #Пустая ли переменная
-
-void   usleep(5000);            #Пауза скрипта на 5 секунд
-string uniqid("str_");            #Рандомная комбинация символов с префиксом
-void   exit();                    #die(); Завершить скрипт
+    # Удалить переменную
+        unset($a);
+    #(bool) Существует ли переменная
+        isset($a);
+    #(bool) Пустая ли переменная
+        empty($a);
+    # Пауза скрипта на 5 секунд
+        usleep(5000);
+    #(string) Рандомная комбинация символов с префиксом
+        uniqid("str_");
+    #Завершить скрипт
+        exit();
+        die('Скрипт завершён');
 
 
 #Регулярные выражение
-int    preg_match($pat, $sub, $arr);
-        #Ищет шаблон $pat в $sub и заполнят $arr
-int    preg_match_all($pat, $sub, $arr); #Ищет все шаблоны
-int    preg_replace($pat, $rep, $sub);     #Заменить найденый $pat в строке $sub
-int    preg_split($pattern, $subject);     #Разбивает строку по рег. выражению
+    #(int) Проверка, соотвецтвия шаблона и строки и заполнят $arr[0] полными сумками $arr[1] ервыми сумками  т.д.
+        preg_match($pat, $sub, $arr);
+    #(int) Количество найданных шаблонов в строке заполняет $arr результатами
+        preg_match_all($pat, $sub, $arr);
+    #(string\array) Заменить найденый $pat в строке\массиве $sub на $rep
+        preg_replace($pat, $rep, $sub);
+    #(array) Разбивает строку по рег. выражению
+        preg_split($pattern, $subject);
 
-int    preg_replace_callback($pat, function($result) {}, $sub );
-        #Поиск по рег выражению и замену с помощью функции:
+    #(string\array) Поиск по рег выражению и замену с помощью функции
+        preg_replace_callback($pat, function($result) {}, $sub);
 
 
 
 
 #Заголовки:
-int    header("Location: http://php.net");
-        #Задать заголовок
-bool   headers_sent();            #Проверка на отправку
-list   headers_list();            #Список выведеных заголовков
-array  getallheaders();            #Все заголовки
+    # Отправить заголовок
+        header("Location: http://php.net");
+    #(bool) Проверка на отправление в браузер
+        headers_sent();
+    #(array) Список своих заголовков
+        headers_list();
+    #(array) Список всех заголовков
+        getallheaders();
+    #(array) Заголовки, которые пришли с сервера
+        get_headers($url);
 
 #Отключение кеширования
         header("Expires: " . date("r"));
@@ -65,38 +89,39 @@ mail('to@mail.ru', 'Robobo', 'Hello');
 
 
 #Фильтры:
-#Проверка переменной
-mixed  filter_var($a, FILTER_DEFAULT);
-        #FILTER_CALLBACK
-        # ['options' => function() {}]
+    #(mixed) Проверка переменной
+        filter_var($a, FILTER_DEFAULT, $param);
+                /* Фильтры
+                    FILTER_CALLBACK
+                    $param = ['options' => function() {}]
 
-        #FILTER_VALIDATE_EMAIL - проверка email
-        #FILTER_SANITIZE_EMAIL - удалить неправ. символы email
+                    FILTER_VALIDATE_EMAIL - проверка email
+                    FILTER_SANITIZE_EMAIL - удалить неправ. символы email
 
-        #FILTER_VALIDATE_BOOLEAN - проверка на 'on','yes','true' и '1' 
-            #FILTER_NULL_ON_FAILURE - для проверки на bool возв. true/false/null
+                    FILTER_VALIDATE_BOOLEAN - проверка на 'on','yes','true' и '1' 
+                        FILTER_NULL_ON_FAILURE - для проверки на bool возв. true/false/null
 
-        #FILTER_VALIDATE_FLOAT - проверка на число с плавающей точкой
+                    FILTER_VALIDATE_FLOAT - проверка на число с плавающей точкой
 
-        #FILTER_VALIDATE_IP - проверка ip
-            #FILTER_FLAG_IPV4
-            #FILTER_FLAG_IPV6
+                    FILTER_VALIDATE_IP - проверка ip
+                        FILTER_FLAG_IPV4
+                        FILTER_FLAG_IPV6
 
-        #FILTER_VALIDATE_URL - проверка url
+                    FILTER_VALIDATE_URL - проверка url
 
-        #FILTER_VALIDATE_INT - проверка на число + доп. параметр - диапозон
-        #    ['options' => ['min_range' => 1, 'max_range' => 100]]
+                    FILTER_VALIDATE_INT - проверка на число + доп. параметр - диапозон
+                    $param = ['options' => ['min_range' => 1, 'max_range' => 100]]
 
-        #FILTER_VALIDATE_REGEXP - проверка на рег выражение в доп.параметре
-        #    ['options' => ['regexp' => '/\w/']]
-
-#Проверка элементов массива
-mixed  filter_var_array(
-        $arr,
-        ['first' => ['filter' => $filter, 'opions' =>]
-    );
-#Проверка суперглобальных массивов
-mixed  filter_input(INPUT_POST, 'name', $filter)
+                    FILTER_VALIDATE_REGEXP - проверка на рег выражение в доп.параметре
+                    $param = ['options' => ['regexp' => '/\w/']]
+                */
+    #(mixed) Проверка элементов массива
+        filter_var_array(
+            $arr,
+            ['first' => ['filter' => $filter, 'opions' => []]]
+        );
+    #(mixes) Проверка суперглобальных массивов
+        filter_input(INPUT_POST, 'name', $filter)
 
 
 

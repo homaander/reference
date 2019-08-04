@@ -33,8 +33,9 @@
             echo.            set %%2=^^!array.count^^!
             echo.            exit /b
             echo.        ^)
-            echo.        set /a count+=1
+            echo.        set /a array.count+=1
             echo.    ^)
+            echo.    set %%2=
             echo exit /b
         )
 
