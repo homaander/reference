@@ -1,43 +1,96 @@
-~
-~1
-~-1
+# Относительне (для исполнителя) координаты (прибавить/отнять к относителльным координатам)
+    ~
+    ~1
+    ~-1
+# Пример (координаты исполнителя 0 0 0)
+    ~ ~3 ~-2
+# будут читатся как (0 0+3 0-2)=(0 3 -2)
 
-@a
-@p
-@r
-@s
-@e[
-    type=pig
+# Селекторы сущьностей
+
+@a - Все игроки
+@p - Ближайший игрок
+@r - Случайный игрок
+@s - Исполнитель
+@e - Все entity (Животные, Лежащие предметы, Игроки, Вагонетки, Лодки)
+
+[
+    type=minecraft:pig
+    type=!minecraft:player
+    r=10
+
+    tag=friend
     sort=nearest
     limit=1
 
-    r=10
-    tag=friend
+    scores={IQ=1}
+    scores={IQ=1..2}
+    scores={IQ=1..}
 ]
 
 gamemode creative @a
+weather clear
+
+setworldspawn
+spawnpoint
+
+effect
+enchant
+
+time set day
+time query
+
+team
+tag
 
 setblock [x] [y] [z] minecraft:diamond_block
 
-fill
+fill [x] [y] [z] [x2] [y2] [z2] minecraft:dirt
+fill [x] [y] [z] [x2] [y2] [z2] minecraft:dirt 0 hollow
+fill [x] [y] [z] [x2] [y2] [z2] minecraft:dirt 0 replace minecraft:air
 
 particle
 
 say
-title @a title
+me
+
+title @a title "Hello"
+title @a title [{"text":"Red","color":"red"}{"text":"Red","color":"red"}]
 
 bossbar
 
-scoreboard
 
+
+# Scorebord
+scoreboard objectives add IQ dummy
+scoreboard objectives setdisplay sidebar IQ
+scoreboard players set @p IQ 1
+scoreboard players add @p IQ 1
+scoreboard players remove @p IQ 1
+scoreboard players reset @p IQ
+scoreboard players list @p
+
+scoreboard players test @p IQ 1 80
+
+scoreboard players operation @p Money -= @p Price
+
+scoreboard objectives add trig trigger
+scoreboard players enable trig
+
+trigger add 10
+trigger set 11
+
+
+
+# Execute
 execute at @p run setblock ~ ~ ~ minecraft:diamond_block
 execute as @p run clear @s
 execute as @p at @s run say 123
 
 execute if block ~ ~1 ~ minecraft:stone run say OK
 execute if entity @e run say OK
-execute if blocks x1 y1 z1 x2 y2 z2 x y z all run say OK
-execute if blocks x1 y1 z1 x2 y2 z2 x y z masked run say OK
+execute if blocks [x1] [y1] [z1] [x2] [y2] [z2] [x] [y] [z] all run say OK
+execute if blocks [x1] [y1] [z1] [x2] [y2] [z2] [x] [y] [z] masked run say OK
 execute if score @p Name >= @a Name
 execute if score @p Name matches 2..5 run say OK
 
@@ -54,6 +107,7 @@ execute store success
 
 
 
+# Data
 data get block ~ ~ ~
 data merge block ~ ~1 ~
 
@@ -73,10 +127,10 @@ data get entity @e Comp.Tag.mytag
 data get entity @e Comp.Tag.mytag[0]
 data get entity @e Comp.Tag.mytag[{Slot:1b}]
 
-recipe take @s
+# Удалить знания о крафтах из NBT
+    recipe take @s
 
-testfor
-testforblock
+
 
 # NBT
     Item: {id:"",count:10b,tag:{Enchantments:[{lvl:2s, id:"..."}]}}
@@ -147,6 +201,8 @@ testforblock
 # Для функций сохратить в world\function\myfunc\walk.mcfunction
 
 reload
+
+datapack list
 
 function myfunc:walk
 function myfunc:walk if @a[name=friend]

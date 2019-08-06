@@ -1,0 +1,16 @@
+{
+	"type":"crafting_shaped",
+	"pattern": [
+		"###",
+		" T "
+	],
+	"key": {
+		"#": {
+			"item":"minecraft:stone"
+		}
+	},
+	"result": {
+		"item":"minecraft:tnt",
+		"count":1
+	}
+}
