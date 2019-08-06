@@ -28,6 +28,7 @@
     scores={IQ=1..}
 ]
 
+give @a minecraft:dirt 1
 gamemode creative @a
 weather clear
 
@@ -132,7 +133,21 @@ data get entity @e Comp.Tag.mytag[{Slot:1b}]
 
 
 
+
 # NBT
+    # Кликабельная табличка
+        {
+            BlockEntityTag:{
+                Text1:'{
+                    "text":"Go up",
+                    "clickEvent":{
+                        "action":"run_command",
+                        "value":"tp @p ~ ~5 ~"
+                    }
+                }'
+            }
+        }
+
     Item: {id:"",count:10b,tag:{Enchantments:[{lvl:2s, id:"..."}]}}
 
     # Скелет, Зомби, арморстенд
