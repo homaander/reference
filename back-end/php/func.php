@@ -49,6 +49,8 @@
         preg_replace($pat, $rep, $sub);
     #(array) Разбивает строку по рег. выражению
         preg_split($pattern, $subject);
+    #(array) Для многобайтовых
+        preg_split('//u', $str, null, PREG_SPLIT_NO_EMPTY);
 
     #(string\array) Поиск по рег выражению и замену с помощью функции
         preg_replace_callback($pat, function($result) {}, $sub);

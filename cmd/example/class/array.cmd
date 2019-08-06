@@ -1,4 +1,4 @@
-:array [var]
+:Array [var]
     setlocal
         set var=%1
 

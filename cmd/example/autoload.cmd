@@ -1,30 +1,29 @@
-:autoload [file]
-    if '%1'=='init' (
-        set autoload.flag=0
-        exit /b
-    )
-
-    if '%1'=='close'  (
-        >> %temp%\%app.name% (
+:Autoload [file]
+    if '%1'=='start'  (
+        >> %temp%\%app.name%.cmd (
             echo.
-            echo :autoload.debug
-            echo.    type %temp%\%app.name% ^> %~dp0debug.cmd
+            echo :Autoload.debug
+            echo.    echo --Autoload.debug--
+            echo.    echo List: %Autoload.list%
+            echo.    echo Count: %Autoload.count%
+            echo.    type %temp%\%app.name%.cmd ^> %~dp0debug.cmd
             echo exit /b
         )
 
-        %temp%\%app.name% s
+        %temp%\%app.name%
+        exit /b
     )
 
-    if not '%autoload.flag%'=='1' (
-        set autoload.flag=1
-        > %temp%\%app.name% type %app.name%
+    if '%1'=='' (
+        > %temp%\%app.name%.cmd type %app.name%.cmd
+        exit /b
     )
 
-    >> %temp%\%app.name% (
+    >> %temp%\%app.name%.cmd (
         echo.
         type %1.cmd
 
-        set /a autoload.count += 1
-        set autoload.modules=%autoload.modules%%1 
+        set /a Autoload.count += 1
+        set Autoload.list=%Autoload.list%%1 
     )
 exit /b
