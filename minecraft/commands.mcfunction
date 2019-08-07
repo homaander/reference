@@ -1,32 +1,32 @@
 # Относительне (для исполнителя) координаты (прибавить/отнять к относителльным координатам)
-    ~
-    ~1
-    ~-1
+#    ~
+#    ~1
+#    ~-1
 # Пример (координаты исполнителя 0 0 0)
-    ~ ~3 ~-2
+#    ~ ~3 ~-2
 # будут читатся как (0 0+3 0-2)=(0 3 -2)
 
 # Селекторы сущьностей
 
-@a - Все игроки
-@p - Ближайший игрок
-@r - Случайный игрок
-@s - Исполнитель
-@e - Все entity (Животные, Лежащие предметы, Игроки, Вагонетки, Лодки)
-
-[
-    type=minecraft:pig
-    type=!minecraft:player
-    r=10
-
-    tag=friend
-    sort=nearest
-    limit=1
-
-    scores={IQ=1}
-    scores={IQ=1..2}
-    scores={IQ=1..}
-]
+# @a - Все игроки
+# @p - Ближайший игрок
+# @r - Случайный игрок
+# @s - Исполнитель
+# @e - Все entity (Животные, Лежащие предметы, Игроки, Вагонетки, Лодки)
+# 
+# [
+#     type=minecraft:pig
+#     type=!minecraft:player
+#     distance=0..10
+# 
+#     tag=friend
+#     sort=nearest
+#     limit=1
+# 
+#     scores={IQ=1}
+#     scores={IQ=1..2}
+#     scores={IQ=1..}
+# ]
 
 give @a minecraft:dirt 1
 gamemode creative @a
@@ -128,89 +128,118 @@ data get entity @e Comp.Tag.mytag
 data get entity @e Comp.Tag.mytag[0]
 data get entity @e Comp.Tag.mytag[{Slot:1b}]
 
-# Удалить знания о крафтах из NBT
+# Удалить знания о крафтах из NBT Игрока
     recipe take @s
 
+#NBT
+#    Блоки:
+#        CanPlaceOn:["minecraft:stone"],
+#        BlockEntityTag:{}
+#        
+#
+#    Табличка:
+#        BlockEntityTag:{
+#            Text1:'{
+#                "text":"Go up",
+#                "clickEvent":{
+#                    "action":"run_command",
+#                    "value":"tp @p ~ ~5 ~"
+#                }
+#            }'
+#        }
+#    
+#    Сундук:
+#        Items:[{Slot:0b, id:"...", Count:1b}]
+#
+#    Предметы:
+#        Item: {
+#            id:"",
+#            Count:10b,
+#            Damage:,
+#
+#            PickupDelay:-1,
+#            
+#            Age:-32768,
+#
+#            tag:{
+                Enchantments:[{lvl:2s, id:"minecraft:"}],
+                Unbreakable:1b,
 
+                CanDestroy: ["minecraft:stone","#minecraft:planks"]
 
+                display: {
+                    Name:'{"text":"Hello world","color":"red"}',
 
-# NBT
-    # Кликабельная табличка
-        {
-            BlockEntityTag:{
-                Text1:'{
-                    "text":"Go up",
-                    "clickEvent":{
-                        "action":"run_command",
-                        "value":"tp @p ~ ~5 ~"
-                    }
-                }'
-            }
-        }
+                    Name:'{"translate":"gui.toTitle"}',
+                    Name:'{"translate":"item.minecraft.diamond"}',
+                    
+                    Lore:['{"text":"lore"}']
+                },
 
-    Item: {id:"",count:10b,tag:{Enchantments:[{lvl:2s, id:"..."}]}}
+                SkullOwner:"Lololowka",
 
-    # Скелет, Зомби, арморстенд
-        ArmorItems:[{id:""},{id:""},{id:""},{id:""}],
-        HandItems:[{id:""},{id:""}]
+#            }
+#        }
+# 
+#    Все мобы:
+#        Time: 1b
+#        Motion: [1.0d,1.0d,1.0d]
+#        Health: 20f
+#   
+#        CustomName:"{
+#            \"text\":\"Hell\",
+#            \"color\":\"black\",
+#            \"bold\":\"true\",
+#            \"italic\":\"true\",
+#            \"obfuscated\":\"true\",
+#            \"strikethrough\":\"true\"
+#        }",
+# 
+#        CustomNameVisible:1b
+#
+#        ArmorItems:[{id:""},{id:""},{id:""},{id:""}],
+#        HandItems:[{id:""},{id:""}]
+#
+#        Посадить моба на моба:
+            Passengers:[{id:"minecraft:creeper"}]
 
-    # Все мобы
-        Time: 1b
-        Motion: [1.0d,1.0d,1.0d]
-        Health: 20f
-
-        # Дать эффект
-            ActiveEffects:[{id:8,amplifier:1,duration:10}]
-        # Неуязвимость
+#        Дать эффект:
+            ActiveEffects:[{id:8,amplifier:1,duration:10}] 
+#        Неуязвимость:
             Invulnerable: 1b;
 
-        # Стоять на месте
+#        Стоять на месте:
             NoAI: 1b;
 
-    # Слайм
-        Size: 1;
-
-    # Свинья
-        Saddle: 1b;
-
-    # Player
-    scoreboard players tag @a add frost {
-        SelectedItem:{count:1 id:"minecraft:ise"},
-        SelectedItemSlot: 0
-    }
-
-    # Armor Stand
-    summon armor_stand ~ ~ ~ {
-        Invisible: 1b,
-        Invulnerable: 1b,
-        NoBasePlate: 1b,
-        NoGravity: 1b,
-        ShowArms: 1b,
-        Small: 1b,
-
-        CustomName:"{
-            \"text\":\"Hell\",
-            \"color\":\"black\",
-            \"bold\":\"true\",
-            \"italic\":\"true\",
-            \"obfuscated\":\"true\",
-            \"strikethrough\":\"true\"
-        }",
-
-        CustomNameVisible:1b
-
-        Rotation: [11f],
-        Pose: {
-            Body: [45f, 45f, 45f],
-            Head: [45f, 45f, 45f],
-
-            LeftArm: [45f, 45f, 45f],
-            RightArm:  [45f, 45f, 45f],
-
-            LeftLeg: [45f, 45f, 45f],
-            RightLeg: [45f, 45f, 45f]
-        }
-    }
+#    Слайм:
+#        Size: 1;
+#
+#    Свинья:
+#        Saddle: 1b;
+#
+#    Игрок:
+#        SelectedItem:{count:1 id:"minecraft:ise"},
+#        SelectedItemSlot: 0
+# 
+#    Стойка брони:
+#        Invisible: 1b,
+#        Invulnerable: 1b,
+#        NoBasePlate: 1b,
+#        NoGravity: 1b,
+#        ShowArms: 1b,
+#        Small: 1b,
+# 
+#        Rotation: [11f],
+#        Pose: {
+#            Body: [45f, 45f, 45f],
+#            Head: [45f, 45f, 45f],
+# 
+#            LeftArm: [45f, 45f, 45f],
+#            RightArm:  [45f, 45f, 45f],
+# 
+#            LeftLeg: [45f, 45f, 45f],
+#            RightLeg: [45f, 45f, 45f]
+#        }
 
 # Функции
 # Для функций сохратить в world\function\myfunc\walk.mcfunction
