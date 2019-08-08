@@ -148,7 +148,8 @@
 
 # Проиграть эффект
     particle happy_villager ~ ~ ~
-
+# Проиграть звук
+    playsound block.anvil.land master @p ~ ~ ~10
 
 
 team list
@@ -453,4 +454,5 @@ function myfunc:walk if @a[name=friend]
 function myfunc:walk unless @a[name=friend]
 
 gamerule gameLoopFunction myfunc:walk
+schedule function myfunc:walk
 
