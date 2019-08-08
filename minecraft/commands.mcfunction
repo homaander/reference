@@ -22,42 +22,53 @@
 #    @s - Исполнитель
 #    @e - Все entity (Животные, Лежащие предметы, Игроки, Вагонетки, Лодки)
 
-    [
-        Тип сущьностей (равен\не равен)
-            type=pig
-            type=!player
+#    [
+#        Тип сущьностей (равен\не равен)
+#            type=pig
+#            type=!player
+#
+#        Растояние до сущьностей (ровно\больше\меньше\в интервале)
+#            distance=2
+#            distance=2..
+#            distance=..10
+#            distance=2..10
+#
+#        Тег сушьности
+#            tag=friend
+#
+#        Сортировка сушьностей (от самых дальних\самых ближайших\случайно)
+#            sort=
+#            sort=nearest
+#            sort=random
+#
+#        Максимальное количество сущьностей
+#            limit=1
+#
+#        Проверка NBT
+#            nbt={}
+#
+#        Проверка очков        
+#            scores={IQ=1}
+#            scores={IQ=1..2}
+#            scores={IQ=1..}
+#    ]
 
-        Растояние до сущьностей (ровно\больше\меньше\в интервале)
-            distance=2
-            distance=2..
-            distance=..10
-            distance=2..10
+# Отправить личное сообщение
+    msg friend HEllo
+# Отправить сообщение
+    say Hello
+# Имитировать действие
+    me Упал
 
-        Тег сушьности
-            tag=friend
-
-        Сортировка сушьностей (от самых дальних\самых ближайших\случайно)
-            sort=
-            sort=nearest
-            sort=random
-
-        Максимальное количество сущьностей
-            limit=1
-
-        Проверка NBT
-            nbt={}
-
-        Проверка очков        
-            scores={IQ=1}
-            scores={IQ=1..2}
-            scores={IQ=1..}
-    ]
-
-# Телепортация (на координаты\к человеку\человека к человеку\к случайному мобу)
-    tp 0 ~ 0
-    tp friend
-    tp friend @s
-    tp @s @e[sort=random,limit=1]
+# Телепортация
+    #  На координаты
+        tp 0 ~ 0
+    # К человеку
+        tp friend
+    # Человека к человеку
+        tp friend @s
+    # К случайному мобу
+        tp @e[sort=random,limit=1]
 
 # Выдать предмет
     give @a minecraft:dirt 1
@@ -70,41 +81,132 @@
     # Креатив
         gamemode creative @a
 
+# Установить сложность
+    difficulty peaceful
+    difficulty easy
+    difficulty normal
+    difficulty hard
+
 # Изменить правила игры
     # Сохранить инвентарь при смерти
         gamerule keepInventory true
 
+        gamerule doDaylightCycle false
+
+        gamerule doWeatherCycle false
+
+        gamerule doMobSpawning false
+
+        gamerule doMobLoot false
+
+        gamerule commandBlockOutput false
+
+        gamerule doFireTick false
+
+        gamerule doTileDrops false
+
+        gamerule mobGriefing false
+
+        gamerule randomTickSpeed 6
+
 # Установить погоду
     weather clear
 
-# Установить время
-    time set day
-    time query
+# Время
+    # Установить время
+        time set day
+    # Запросить время
+        # Получить время
+            time query daytime
+        # Время в игре
+            time query gametime
 
-setworldspawn
-spawnpoint
+# Установить точку появления игроков
+    setworldspawn ~ ~ ~
 
-effect
-enchant
+# Точка возраждения игрока
+    spawnpoint @p ~ ~ ~
 
-team
-tag
+# Эфекты
+    # Дать эффект
+        effect give @a blindness
+    # Убрать эффекты
+        efftct clear @a
 
-setblock [x] [y] [z] minecraft:diamond_block
+# Зачаровать предмет в руках (если его можно зачаровать)
+    enchant @a minecraft:sharpness 2
 
-fill [x] [y] [z] [x2] [y2] [z2] minecraft:dirt
-fill [x] [y] [z] [x2] [y2] [z2] minecraft:dirt 0 hollow
-fill [x] [y] [z] [x2] [y2] [z2] minecraft:dirt 0 replace minecraft:air
+# Опыт
+    # Установить уровень\очки
+        xp set @p 1 levels
+        xp set @p 1 points
+    # Добавить уровень\очки
+        xp add @p 1 levels
+        xp add @p 1 points
+    # Узнать количество уровней\очкоы
+        xp query @p levels
 
-clone
+# Проиграть эффект
+    particle happy_villager ~ ~ ~
 
-particle
 
-say
-me
 
-title @a title "Hello"
-title @a title [{"text":"Red","color":"red"}{"text":"Red","color":"red"}]
+team list
+
+team add red
+team empty red
+team remove red
+team join red
+team leave red
+
+team modify red friendlyFire false
+team modify red color false
+
+
+
+tag @p list
+tag @p add pass
+tag @p remove pass
+
+# Поставить блок на координату
+    setblock [x] [y] [z] minecraft:diamond_block
+
+# Заполнение
+    # Заполнить область блоками
+        fill [x] [y] [z] [x2] [y2] [z2] minecraft:dirt
+    # Заменить блок воздуха на землю
+        fill [x] [y] [z] [x2] [y2] [z2] minecraft:dirt replace minecraft:air
+    # Заполнить область пустой коробкой со стенками из блока земли
+        fill [x] [y] [z] [x2] [y2] [z2] minecraft:dirt hollow
+    # Заполнить блоками только воздух
+        fill [x] [y] [z] [x2] [y2] [z2] minecraft:dirt keep
+    # Заполнить блоками только воздух но зтенки запонить полностью
+        fill [x] [y] [z] [x2] [y2] [z2] minecraft:dirt outline
+
+# Скопировать облость и поставить её в точку, где будет распологатся наименьший по всем координатам
+# угол этой облости
+    clone [x1] [y1] [z1] [x2] [y2] [z2] [x] [y] [z]
+
+    # Вставить несмотря на пересечение зон копирования и вставки
+        clone [x1] [y1] [z1] [x2] [y2] [z2] [x] [y] [z] replace force
+    # Удалить копируемый объект после клонирования
+        clone [x1] [y1] [z1] [x2] [y2] [z2] [x] [y] [z] replace move
+
+# Скопировать только блоки определённого типа
+    clone [x1] [y1] [z1] [x2] [y2] [z2] [x] [y] [z] filtered minecraft:stone
+# Скопиповать все блоки кроме воздуха
+    clone [x1] [y1] [z1] [x2] [y2] [z2] [x] [y] [z] masked normal
+
+    # Вставить несмотря на пересечение зон копирования и вставки
+        clone [x1] [y1] [z1] [x2] [y2] [z2] [x] [y] [z] masked force
+    # Удалить копируемый объект после клонирования
+        clone [x1] [y1] [z1] [x2] [y2] [z2] [x] [y] [z] masked move
+
+# Сообщение на экран
+    title @a title {"text":"Hello","color":"red","italic":"false"}
+    title @a title [{"text":"Red","color":"red"}{"text":"Red","color":"red"}]
+
+
 
 bossbar create bbid {"text":"Привет"}
 bossbar set minecraft:bbid players @a
@@ -189,154 +291,154 @@ data get entity @e Comp.Tag.mytag[{Slot:1b}]
 # Удалить знания о крафтах из NBT Игрока
     recipe take @s *
 
- NBT
-    Блоки:
-        CanPlaceOn:["minecraft:stone"],
-        BlockEntityTag:{}
-        
-
-    Табличка:
-        BlockEntityTag:{
-            Text1:'{
-                "text":"Go up",
-                "clickEvent":{
-                    "action":"run_command",
-                    "value":"tp @p ~ ~5 ~"
-                }
-            }'
-        }
-    
-    Сундук:
-        Items:[{Slot:0b, id:"...", Count:1b}]
-
-    Предметы:
-        Item: {
-            id:"",
-            Count:10b,
-
-            PickupDelay:-1,
-            Age:-32768,
-
-            tag:{
-                Damage:1,
-
-                AttributeModifiers: [
-                    {
-                        AttributeName:"generic.movementSpeed",
-                        Name:"generic.movementSpeed",
-                        Amount:20,
-
-                        Operation:0,
-                        Operation:1,
-                        Operation:2,
-
-                        Slot:"",
-                        
-                        UUIDLeast:1,
-                        UUIDMost:1
-                    }
-                ]
-
-                Enchantments:[{lvl:2s, id:"minecraft:"}],
-                Unbreakable:1b,
-
-                CanDestroy: ["minecraft:stone","#minecraft:planks"]
-
-                display: {
-                    Name:'{"text":"Hello world","color":"red"}',
-
-                    Name:'{"translate":"gui.toTitle"}',
-                    Name:'{"translate":"item.minecraft.diamond"}',
-                    
-                    Lore:['{"text":"lore"}']
-
-                    Tags:["pass"]
-                },
-
-                SkullOwner:"Lololowka",
-
-            }
-        }
- 
-    Все мобы:
-        DeathLootTable:"custom/entities/my_loot_table"
-        LootTable:"custom/chests/chest_loot_table"
-
-        Time: 1b,
-        Motion: [1.0d,1.0d,1.0d],
-        Health: 20f,
-        Fire: 200s,
-   
-        CustomName:"{
-            \"text\":\"Hell\",
-            \"color\":\"black\",
-            \"bold\":\"true\",
-            \"italic\":\"true\",
-            \"obfuscated\":\"true\",
-            \"strikethrough\":\"true\"
-        }",
-
-        Attributes:[
-            {Base:20d, Name:"generic.maxHealth"}
-            {Base:20d, Name:"generic.followRange"}
-            {Base:20d, Name:"generic.knockbackResistance"}
-            {Base:20d, Name:"generic.movementSpeed"}
-            {Base:20d, Name:"generic.attackDamage}
-            {Base:20d, Name:"generic.armor"}
-            {Base:20d, Name:"generic.armorToughness"}
-            {Base:20d, Name:"generic.attackKnockback"}
-        ]
- 
-        CustomNameVisible:1b,
-
-        ArmorItems:[{id:""},{id:""},{id:""},{id:""}],
-        HandItems:[{id:""},{id:""}],
-
-        ArmorDropChances:[1.0f,...],
-        HandDropChances:[1.0f,...],
-
-
-        Посадить моба на моба:
-            Passengers:[{id:"minecraft:creeper"}]
-
-        Дать эффект:
-            ActiveEffects:[{id:8,amplifier:1,duration:10}] 
-        Неуязвимость:
-            Invulnerable: 1b;
-        Стоять на месте:
-            NoAI: 1b;
-
-    Слайм:
-        Size: 1;
-
-    Свинья:
-        Saddle: 1b;
-
-    Игрок:
-        SelectedItem:{count:1 id:"minecraft:ise"},
-        SelectedItemSlot: 0b,
-
-        Inventory:[]
- 
-    Стойка брони:
-        Invisible: 1b,
-        Invulnerable: 1b,
-        NoBasePlate: 1b,
-        NoGravity: 1b,
-        ShowArms: 1b,
-        Small: 1b,
- 
-        Rotation: [11f],
-        Pose: {
-            Body: [45f, 45f, 45f],
-            Head: [45f, 45f, 45f],
- 
-            LeftArm: [45f, 45f, 45f],
-            RightArm:  [45f, 45f, 45f],
- 
-            LeftLeg: [45f, 45f, 45f],
-            RightLeg: [45f, 45f, 45f]
-        }
+# NBT
+#    Блоки:
+#        CanPlaceOn:["stone"],
+#        BlockEntityTag:{}
+#        
+#
+#    Табличка:
+#        BlockEntityTag:{
+#            Text1:'{
+#                "text":"Go up",
+#                "clickEvent":{
+#                    "action":"run_command",
+#                    "value":"tp @p ~ ~5 ~"
+#                }
+#            }'
+#        }
+#    
+#    Сундук:
+#        Items:[{Slot:0b, id:"...", Count:1b}]
+#        LootTable:"custom/chests/chest_loot_table"
+#
+#    Предметы:
+#        Item: {
+#            id:"",
+#            Count:10b,
+#
+#            PickupDelay:-1,
+#            Age:-32768,
+#
+#            tag:{
+#                Damage:1,
+#
+#                AttributeModifiers: [
+#                    {
+#                        AttributeName:"generic.movementSpeed",
+#                        Name:"generic.movementSpeed",
+#                        Amount:20,
+#
+#                        Operation:0,
+#                        Operation:1,
+#                        Operation:2,
+#
+#                        Slot:"",
+#                        
+#                        UUIDLeast:1,
+#                        UUIDMost:1
+#                    }
+#                ]
+#
+#                Enchantments:[{lvl:2s, id:"sharpness"}],
+#                Unbreakable:1b,
+#
+#                CanDestroy: ["stone","#minecraft:planks"]
+#
+#                display: {
+#                    Name:'{"text":"Hello world","color":"red"}',
+#
+#                    Name:'{"translate":"gui.toTitle"}',
+#                    Name:'{"translate":"item.minecraft.diamond"}',
+#                    
+#                    Lore:['{"text":"lore"}']
+#
+#                    Tags:["pass"]
+#                },
+#
+#                SkullOwner:"Lololowka",
+#
+#            }
+#        }
+# 
+#    Все мобы:
+#        DeathLootTable:"custom/entities/my_loot_table"
+#
+#        Time: 1b,
+#        Motion: [1.0d,1.0d,1.0d],
+#        Health: 20f,
+#        Fire: 200s,
+#   
+#        CustomName:'{
+#            "text":"Hello",
+#            "color":"black",
+#            "bold":"true",
+#            "italic":"true",
+#            "obfuscated":"true",
+#            "strikethrough":"true"
+#        }'',
+#
+#        Attributes:[
+#            {Base:20d, Name:"generic.maxHealth"}
+#            {Base:20d, Name:"generic.followRange"}
+#            {Base:20d, Name:"generic.knockbackResistance"}
+#            {Base:20d, Name:"generic.movementSpeed"}
+#            {Base:20d, Name:"generic.attackDamage}
+#            {Base:20d, Name:"generic.armor"}
+#            {Base:20d, Name:"generic.armorToughness"}
+#            {Base:20d, Name:"generic.attackKnockback"}
+#        ]
+# 
+#        CustomNameVisible:1b,
+#
+#        ArmorItems:[{id:""},{id:""},{id:""},{id:""}],
+#        HandItems:[{id:""},{id:""}],
+#
+#        ArmorDropChances:[1.0f,...],
+#        HandDropChances:[1.0f,...],
+#
+#
+#        Посадить моба на моба:
+#            Passengers:[{id:"minecraft:creeper"}]
+#
+#        Дать эффект:
+#            ActiveEffects:[{id:8,amplifier:1,duration:10}] 
+#        Неуязвимость:
+#            Invulnerable: 1b;
+#        Стоять на месте:
+#            NoAI: 1b;
+#
+#    Слайм:
+#        Size: 1;
+#
+#    Свинья:
+#        Saddle: 1b;
+#
+#    Игрок:
+#        SelectedItem:{count:1 id:"minecraft:ise"},
+#        SelectedItemSlot: 0b,
+#
+#        Inventory:[]
+# 
+#    Стойка брони:
+#        Invisible: 1b,
+#        Invulnerable: 1b,
+#        NoBasePlate: 1b,
+#        NoGravity: 1b,
+#        ShowArms: 1b,
+#        Small: 1b,
+# 
+#        Rotation: [11f],
+#        Pose: {
+#            Body: [45f, 45f, 45f],
+#            Head: [45f, 45f, 45f],
+# 
+#            LeftArm: [45f, 45f, 45f],
+#            RightArm:  [45f, 45f, 45f],
+# 
+#            LeftLeg: [45f, 45f, 45f],
+#            RightLeg: [45f, 45f, 45f]
+#        }
 
 # Функции
 # Для функций сохратить в world\function\myfunc\walk.mcfunction
@@ -344,6 +446,7 @@ data get entity @e Comp.Tag.mytag[{Slot:1b}]
 reload
 
 datapack list
+datapack disable lol
 
 function myfunc:walk
 function myfunc:walk if @a[name=friend]

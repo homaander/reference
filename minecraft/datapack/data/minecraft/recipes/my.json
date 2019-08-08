@@ -1,11 +1,15 @@
 {
 	"type":"crafting_shaped",
 	"pattern": [
-		"#"
+		"###",
+		" T "
 	],
 	"key": {
 		"#": {
 			"item":"minecraft:stone"
+		},
+		"T": {
+			"item":"minecraft:stick"
 		}
 	},
 	"result": {
