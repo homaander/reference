@@ -17,7 +17,7 @@
         # Системные константы (имя скрипта)
             echo $_SERVER['SCRIPT_NAME'];
             
-            echo $_SERVER['REQUEST_URI']
+            echo $_SERVER['REQUEST_URI'];
         # Все поступившие значения
             echo $_REQUEST;
         # POST значения
