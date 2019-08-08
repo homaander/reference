@@ -123,103 +123,145 @@ mail('to@mail.ru', 'Robobo', 'Hello');
             ['first' => ['filter' => $filter, 'opions' => []]]
         );
     #(mixes) Проверка суперглобальных массивов
-        filter_input(INPUT_POST, 'name', $filter)
+        filter_input(INPUT_POST, 'name', $filter);
 
 
 
-#Буфер
-bool   ob_start();                #Включить буферизацию
-bool   ob_start('ob_gzhandler', 9); #Включить архивирование
+# Выходной поток
+    #(bool) Включить буферизацию
+        ob_start();
 
-int    ob_get_level();            #Уровень вложености буфера
-string ob_get_contents();         #Содержимое буфера
-void   ob_clean();                #Очистить буфер
-void   ob_flush();                #Отправить буфер в браузер
-bool   ob_end_clean();            #Очистить буфер и откл. буферизацию
-bool   ob_end_flush();            #Отправить буфер и откл. буферизацию
+    #(bool) Включить архивирование
+        ob_start('ob_gzhandler', 9);
 
-void   flush();                   #Отправить системный буфер
+    #(int) Уровень вложености буфера
+        ob_get_level();
+
+    #(string) Содержимое буфера
+        ob_get_contents();
+    # Очистить буфер
+        ob_clean();
+    # Отправить буфер в браузер
+        ob_flush();
+    # Очистить буфер и откл. буферизацию
+        ob_end_clean();
+    # Отправить буфер и откл. буферизацию
+        ob_end_flush();
+
+    #Отправить системный буфер
+        flush();
 
 
 
 #Изображения
-array  getimagesize($file);       #Размер картинки
+    # Размер картинки
+        getimagesize($file);
 
-#GD
-int    imageCreate($x, $y);                #Создать картинку
-int    imageCreateTrueColor($x, $y);    #Создать картинку с полноцветной палитрой
+    #GD
+        #(int) Создать картинку
+            imageCreate($x, $y);
+        #(int) Создать картинку с полноцветной палитрой
+            imageCreateTrueColor($x, $y);
+            
+        #(int) Вывести в браузер
+            imagePNG($image);
+        #(int) Сохратить в файл
+            imagePNG($image, $file);
+        #(int) Ширина картинки
+            imageSX($image);
+        #(int) Количество цветов в картинке
+            imageColorsTotal($image);
+        #(bool) Это truecolor изображение
+            imageIsTrueColor($im);
 
-int    imagePNG($image);        #Вывести в браузер
-int    imagePNG($image, $file);    #Сохратить в файл
-int    imageSX($image);            #Ширина картинки
-int    imageColorsTotal($image);#Количество цветов в картинке
-bool   imageIsTrueColor($im);    #Это truecolor изображение
+        # Цвета
+            # Задать ргб цвет
+                imageColorAllocate($im, $r, $g, $b);
+            # Возратить ближайший к данному ргб цвет с картинки
+                imageColorClosest($im, $r, $g, $b);
+            # Задать полупрозрачный ргб цвет
+                imageColorAllocateAlpha($im, $r, $g, $b, $a);
+            # Возратить ближайший к данному полупрозрачный ргб цвет с картинки
+                imageColorClosestAlpha($im, $r, $g, $b, $a);
 
-#Цвета
-int    imageColorAllocate($im, $r, $g, $b);    #Задать ргб цвет
-int    imageColorClosest($im, $r, $g, $b);    #Возратить ближайший к данному ргб цвет с картинки
-int    imageColorAllocateAlpha($im, $r, $g, $b, $a);    #Задать полупрозрачный ргб цвет
-int    imageColorClosestAlpha($im, $r, $g, $b, $a);    
-        #Возратить ближайший к данному полупрозрачный ргб цвет с картинки
+            #(array) Получить RGB с ID по картинке
+                imageColorsForIndex($im, $id);
+            #(int) Цвет координаты пиксела
+                imageColorAt($im, $x, $y);
+            #(int) Задаёт ID как прозрачный цвет
+                imageColorTransparent($im, $id);
+            #(int) Копировать участок src (x,y,w,h) в участок изображения dst (x,y,w,h)
+                imageCopyResized($dst, $src, $dx, $dy, $sx, $sy, $dw, $dh, $sw, $sh);
 
-array  imageColorsForIndex($im, $id);         #получить RGB с ID по картинке
-int    imageColorAt($im, $x, $y);            #цвет координаты пиксела
-int    imageColorTransparent($im, $id);        #задаёт ID как прозрачный цвет
+        # Перо
+            #(bool) Толщина Пера
+                imageSetThickness($im, 2);
+            #(bool) Стиль пера
+                imageSetStyle($im, [$r, $r, $g, $g, $b, $b]);
 
-int    imageCopyResized($dst, $src, $dx, $dy, $sx, $sy, $dw, $dh, $sw, $sh);
-        #Копировать участок src (x,y,w,h) в участок изображения dst (x,y,w,h)
+        # Линия
+            imageLine($im, $x1, $y1, $x2, $y2, $color);
 
-#Перо
-bool   imageSetThickness($im, 2); #Толщина Пера
-bool   imageSetStyle($im, [$r, $r, $g, $g, $b, $b]); #Стиль пера
-#Линия
-int    imageLine($im, $x1, $y1, $x2, $y2, $color); #Линия
-#Фигуры [Добавить перед фигурой Filled для заполненой фигуры]
-int    imageRectangle($im, $x1, $y1, $x2, $y2, $color); #Прямоугольник
-int    imageArc($im, $x, $y, $w, $h, $start, $end, $color); #Сектор
-int    imageEllipse($im, $x, $y, $w, $h, $color); #Круг
-    #Для использования кисти писать вместо цвета IMG_COLOR_STYLED
-    #Для текстуры IMG_COLOR_TILED
-#Заполнение
-int    imageFill($im, $x, $y, $color);    #Заливка одноцветной области
-int    imageFillToBorder($im, $x, $y, $border, $color); #Заливка всего в пределах границы
-int    imageSetTile($im, $file); #Текстура заливки
-#Многоугольники
-int    imagePolygon($im, [$x1, $y1, $x2, $y2], $count, $color); 
-        #Построить многоугольник с точками координат
-#Шрифты
-int    imageLoadFont($file); #Загрузить шрифт
+        # Фигуры [Добавить перед фигурой Filled для заполненой фигуры]
+            # Прямоугольник
+                imageRectangle($im, $x1, $y1, $x2, $y2, $color);
+            # Сектор
+                imageArc($im, $x, $y, $w, $h, $start, $end, $color);
+            # Круг
+                imageEllipse($im, $x, $y, $w, $h, $color);
+        #Для использования кисти писать вместо цвета IMG_COLOR_STYLED
+        #Для текстуры IMG_COLOR_TILED
 
-int    imageFontWidth($font); #Ширина символов
-int    imageFontHeight($font); #Высота символов
-#Вывод строки
-int    imageString($im, $font, $x, $y, $str, $color); #Начертить строку
-int    imageStringUp($im, $font, $x, $y, $str, $color); #Начертить строку верикально
+        # Заполнение
+            # Заливка одноцветной области
+                imageFill($im, $x, $y, $color);
+            # Заливка всего в пределах границы
+                imageFillToBorder($im, $x, $y, $border, $color);
+            # Текстура заливки
+                imageSetTile($im, $file);
+
+        # Многоугольники
+            # Построить многоугольник с точками координат
+                imagePolygon($im, [$x1, $y1, $x2, $y2], $count, $color); 
+        # Шрифты
+            # Загрузить шрифт
+                imageLoadFont($file);
+
+            # Ширина символов
+                imageFontWidth($font);
+            # Высота символов
+                imageFontHeight($font);
+
+        #Вывод строки
+            #Начертить строку
+                imageString($im, $font, $x, $y, $str, $color);
+            #Начертить строку верикально
+                imageStringUp($im, $font, $x, $y, $str, $color);
 
 
 
 # Curl
-# Создать запрос
-$ch = curl_init($url);
-# Установить опции ()
-curl_setopt($ch, CURLOPT_URL, $url);
-        #CURLOPT_HEADER
-        #CURLOPT_USERAGENT
-        #CURLOPT_REFERER
-        #CURLOPT_RETURNTRANSFER
-        #
-        #CURLOPT_SSL_VERIFYHOST
-        #CURLOPT_SSL_VERIFYPEER
+    # Создать запрос
+        $ch = curl_init($url);
+    # Установить опции ()
+        curl_setopt($ch, CURLOPT_URL, $url);
+            #CURLOPT_HEADER
+            #CURLOPT_USERAGENT
+            #CURLOPT_REFERER
+            #CURLOPT_RETURNTRANSFER
+            #
+            #CURLOPT_SSL_VERIFYHOST
+            #CURLOPT_SSL_VERIFYPEER
 
 
-# Отправить
-curl_exec($ch);
+    # Отправить
+        curl_exec($ch);
 
-# 
-curl_error($ch);
+    # Описание ошибки
+        curl_error($ch);
 
-# Удалить родключение
-curl_close($ch);
+    # Удалить родключение
+        curl_close($ch);
 
 
 
@@ -623,7 +665,6 @@ echo file_get_contents('http://php.net', false, $context);
 
 
 #Права доступа:
-
 fileowner('file.txt');    #UID пользователя владеющего файлом
 filegroup('file.txt');    #GID группы
 fileperms('file.txt');    #Права доступа к файлу первые 7 - тип, остальные 9 - права доступа
@@ -639,9 +680,11 @@ chgrp('file.txt', '1001');            #Изменить группу, котор
 chmod('file.ttx', 0775);            #Изменить права доступа
 
 # JSON
-string json_encode($val, $option);    #JSON кодирование
-        #Опции: JSON_UNESCAPED_UNICODE - нормальная кодировка
-string json_decode($json, true);    #true - асоц. массив
+    #(string) Кодирование
+        json_encode($val, $option);
+        # Опции: JSON_UNESCAPED_UNICODE - нормальная кодировка
+    #(string)  Декодирование #true - асоц. массив
+        json_decode($json, true);
 
 
 
