@@ -259,6 +259,9 @@ data get entity @e Comp.Tag.mytag[{Slot:1b}]
         }
  
     Все мобы:
+        DeathLootTable:"custom/entities/my_loot_table"
+        LootTable:"custom/chests/chest_loot_table"
+
         Time: 1b,
         Motion: [1.0d,1.0d,1.0d],
         Health: 20f,
