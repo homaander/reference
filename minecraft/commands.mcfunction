@@ -44,7 +44,7 @@
 #        Максимальное количество сущьностей
 #            limit=1
 #
-#        Проверка NBT
+#        Проверка содержания NBT
 #            nbt={}
 #
 #        Проверка очков        
@@ -146,8 +146,11 @@
     # Узнать количество уровней\очкоы
         xp query @p levels
 
-# Проиграть эффект
-    particle happy_villager ~ ~ ~
+# Проиграть эффект на координате xyz c разбросом whl скоростью speed количеством count и видно из далека
+    particle happy_villager [x] [y] [z] [w] [h] [l] [speed] [count] force
+
+    # для dust можно задать цвет rgb и размер
+        particle dust [r] [g] [b] [size] [x] [y] [z] [xd] [yd] [zd] [count]
 # Проиграть звук
     playsound block.anvil.land master @p ~ ~ ~10
 
@@ -221,6 +224,8 @@ bossbar set minecraft:bbid visible notched_6
 
 # Scorebord
 scoreboard objectives add IQ dummy
+scoreboard objectives add Use minecraft.used:
+
 scoreboard objectives setdisplay sidebar IQ
 scoreboard players set @p IQ 1
 scoreboard players add @p IQ 1
@@ -289,10 +294,47 @@ data get entity @e Comp.Tag.mytag
 data get entity @e Comp.Tag.mytag[0]
 data get entity @e Comp.Tag.mytag[{Slot:1b}]
 
+
+tellraw @a [{"text":"ok","color":"red","clickEvent":{"action":"run_command","value":"/kill @s"}}, ...]
+give @p written_book{title:"Book",author:"norm",pages:['JSON text', ...]} 1
+
 # Удалить знания о крафтах из NBT Игрока
     recipe take @s *
 
 # NBT
+#    JSON text:
+#        {
+#            "text":"ok\nko\\",
+#            "color":"red",
+#            "bold":"true",
+#            "italic":"false",
+#            "strikethrough":"true",
+#            "underlined":"true",
+#
+#            "translate":"gui.toTitle",
+#            "translate":"item.minecraft.diamond",
+#
+#            "selector":"@p"
+#
+#            "score":{
+#                "name":"friend",
+#                "objective":"var"
+#            }
+#
+#            "clickEvent":{
+#                "action":"run_command",
+#                "action":"suggest_command",
+#                "value":"/kill @s"
+#            },
+#
+#            "hoverEvent":{
+#                "action":"show_text",
+#                "value":"text"
+#
+#                "action":"show_item",
+#                "value":"{id:diamond,Count:1b}"
+#            }
+#        }
 #    Блоки:
 #        CanPlaceOn:["stone"],
 #        BlockEntityTag:{}
@@ -300,13 +342,7 @@ data get entity @e Comp.Tag.mytag[{Slot:1b}]
 #
 #    Табличка:
 #        BlockEntityTag:{
-#            Text1:'{
-#                "text":"Go up",
-#                "clickEvent":{
-#                    "action":"run_command",
-#                    "value":"tp @p ~ ~5 ~"
-#                }
-#            }'
+#            Text1:'{JSON text}'
 #        }
 #    
 #    Сундук:
@@ -347,12 +383,9 @@ data get entity @e Comp.Tag.mytag[{Slot:1b}]
 #                CanDestroy: ["stone","#minecraft:planks"]
 #
 #                display: {
-#                    Name:'{"text":"Hello world","color":"red"}',
-#
-#                    Name:'{"translate":"gui.toTitle"}',
-#                    Name:'{"translate":"item.minecraft.diamond"}',
+#                    Name:'{JSON text}',
 #                    
-#                    Lore:['{"text":"lore"}']
+#                    Lore:['JSON text']
 #
 #                    Tags:["pass"]
 #                },
@@ -370,14 +403,7 @@ data get entity @e Comp.Tag.mytag[{Slot:1b}]
 #        Health: 20f,
 #        Fire: 200s,
 #   
-#        CustomName:'{
-#            "text":"Hello",
-#            "color":"black",
-#            "bold":"true",
-#            "italic":"true",
-#            "obfuscated":"true",
-#            "strikethrough":"true"
-#        }'',
+#        CustomName:'JSON text',
 #
 #        Attributes:[
 #            {Base:20d, Name:"generic.maxHealth"}
@@ -442,7 +468,7 @@ data get entity @e Comp.Tag.mytag[{Slot:1b}]
 #        }
 
 # Функции
-# Для функций сохратить в world\function\myfunc\walk.mcfunction
+# Для функций сохратить в world\datapacks\my_dp\functions\walk.mcfunction
 
 reload
 
@@ -453,6 +479,6 @@ function myfunc:walk
 function myfunc:walk if @a[name=friend]
 function myfunc:walk unless @a[name=friend]
 
-gamerule gameLoopFunction myfunc:walk
 schedule function myfunc:walk
 
+# Добавить в world\datapacks\minecraft\tags\functions\tick для повторения каждую сек
