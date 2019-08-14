@@ -90,23 +90,23 @@
 # Изменить правила игры
     # Сохранить инвентарь при смерти
         gamerule keepInventory true
-
+    # Вечный день
         gamerule doDaylightCycle false
-
+    # Не меняется погода
         gamerule doWeatherCycle false
-
+    # Не спавнятся мобы
         gamerule doMobSpawning false
-
+    # Не выпадает лут из мобов
         gamerule doMobLoot false
-
+    # Нет вывода действий в консоль
         gamerule commandBlockOutput false
-
+    # Огонь не распростроняется
         gamerule doFireTick false
-
+    # Не выпадают блоки
         gamerule doTileDrops false
-
+    # Мобы не ломают блоки
         gamerule mobGriefing false
-
+    # Скорость рандомных событий (Например рост ростений)
         gamerule randomTickSpeed 6
 
 # Установить погоду
@@ -155,25 +155,35 @@
     playsound block.anvil.land master @p ~ ~ ~10
 
 
-team list
+# Коменды
+    # Создать команду
+        team add red
 
-team add red
-team empty red
-team remove red
-team join red
-team leave red
+    # Список игроков в команде
+        team list red
+        team empty red
+        team remove red
+        team join red
+        team leave red
 
-team modify red friendlyFire false
-team modify red color false
+    team modify red friendlyFire false
+    team modify red color false
 
 
 
-tag @p list
-tag @p add pass
-tag @p remove pass
+# Теги
+    # Список тегов у игрока
+        tag @p list
+    # Добавить тег игроку
+        tag @p add pass
+    # Удалить тег у игрока
+        tag @p remove pass
+
+
 
 # Поставить блок на координату
     setblock [x] [y] [z] minecraft:diamond_block
+    setblock ~ ~ ~ minecraft:acacia_stairs[facing=east,half=top,shape=outer_left,waterlogged=true]
 
 # Заполнение
     # Заполнить область блоками
@@ -223,76 +233,108 @@ bossbar set minecraft:bbid visible notched_6
 
 
 # Scorebord
-scoreboard objectives add IQ dummy
-scoreboard objectives add Use minecraft.used:
+    scoreboard objectives add IQ dummy
+    scoreboard objectives add Use minecraft.used:
 
-scoreboard objectives setdisplay sidebar IQ
-scoreboard players set @p IQ 1
-scoreboard players add @p IQ 1
-scoreboard players remove @p IQ 1
-scoreboard players reset @p IQ
-scoreboard players list @p
+    scoreboard objectives setdisplay sidebar IQ
+    scoreboard players set @p IQ 1
+    scoreboard players add @p IQ 1
+    scoreboard players remove @p IQ 1
+    scoreboard players reset @p IQ
+    scoreboard players list @p
 
-scoreboard players test @p IQ 1 80
+    scoreboard players test @p IQ 1 80
 
-scoreboard players operation @p Money -= @p Price
+    scoreboard players operation @p Money -= @p Price
 
-scoreboard objectives add trig trigger
-scoreboard players enable trig
+    scoreboard objectives add trig trigger
+    scoreboard players enable trig
 
-trigger add 10
-trigger set 11
+# Одноразовое задание очков
+    trigger add 10
+    trigger set 11
 
 
 
 # Execute
-execute at @p run setblock ~ ~ ~ minecraft:diamond_block
-execute as @p run clear @s
-execute as @p at @s run say 123
+    # Запустить команду относительно координат сущьности
+        execute at @p run setblock ~ ~ ~ minecraft:diamond_block
+    # Запустить команду от имени сущьности
+        execute as @p run clear @s
+    # Запустить от имени и относительно сущьности
+        execute as @p at @s run say 123
 
-execute if block ~ ~1 ~ minecraft:stone run say OK
-execute if entity @e run say OK
-execute if blocks [x1] [y1] [z1] [x2] [y2] [z2] [x] [y] [z] all run say OK
-execute if blocks [x1] [y1] [z1] [x2] [y2] [z2] [x] [y] [z] masked run say OK
-execute if score @p Name >= @a Name
-execute if score @p Name matches 2..5 run say OK
+    # Изменить отчёт напровления взгляда на глаза
+        execute anchored eyes run setblock ^ ^ ^6 diamond_block
+    # Точное напровление взгляда на блок
+        execute facing 0 0 0 run setblock ^ ^ ^6 diamond_block
+    # Точное напровление взгляда на сущьность
+        execute entity @e eyes run setblock ^ ^ ^6 diamond_block
+    # Повернуть напровление взгляда
+        execute rotated ~90 0 run setblock ^ ^ ^6 diamond_block
 
-# Исполняется если условие не выполнено
-    execute unless block ~ ~1 ~ minecraft:glass
+    # Запустить команду если блок на координатах - камень
+        execute if block ~ ~1 ~ minecraft:stone run say OK
+    # Запустить коменду если существует сущьность
+        execute if entity @e run say OK
+    # Запустить, если блоки облости совпадают
+        execute if blocks [x1] [y1] [z1] [x2] [y2] [z2] [x] [y] [z] all run say OK
+    # Запустить, если все блоки кроме воздуха совпадают
+        execute if blocks [x1] [y1] [z1] [x2] [y2] [z2] [x] [y] [z] masked run say OK
+    # Запустить, если чёт очеов больше или равен
+        execute if score @p Name >= @a Name
+    # Запустить, если счёт входит в диапозон
+        execute if score @p Name matches 2..5 run say OK
 
-# Точные координаты исполнения команды
-    execute positioned ~1 ~ ~ run setblock ~ ~ ~ minecraft:dirt
+    # Выполнить команду в другом измерении (тп игрока на координаты в аду, деже если он в обычном мире)
+        execute in minecraft:overworld run say OK
+        execute in minecraft:the_nether run say OK
+        execute in minecraft:the_end run say OK
 
-# Округлить z
-    execute at @p align z run say OK
-# Округлить x, y и z
-    execute at @p align xyz run say OK
+    # Исполняется если условие не выполнено
+        execute unless block ~ ~1 ~ minecraft:glass
 
-execute store result score @p Name run say OK
-execute store result entity @p Name int 10 run say OK
-execute store success
+    # Точные координаты исполнения команды
+        execute positioned ~1 ~ ~ run setblock ~ ~ ~ minecraft:dirt
+
+    # Округлить z
+        execute at @p align z run say OK
+    # Округлить x, y и z
+        execute at @p align xyz run say OK
+
+    # Положить строку результата выполнения (OK) в скорборд
+        execute store result score @p Name run say OK
+    # Положить успошность выполнения (1\0) в скорборд
+        execute store success score @p Name run say OK
+
+    # Записать в NBT по адресу Name результат выполнения умноженный на 10
+        execute store result entity @p Name short 10 run say 1
+        execute store result block 0 0 0 Name byte 10 run say 1
+    # Записать результат в боссбар
+        execute store result bossbar var value run say 1
+        execute store result bossbar var max run say 1
 
 
 
 # Data
-data get block ~ ~ ~
-data merge block ~ ~1 ~
+    data get block ~ ~ ~
+    data merge block ~ ~1 ~
 
-data get entity @e
-data merge entity @e
+    data get entity @e
+    data merge entity @e
 
-data remove entity @e Item.tag.Enchantments
+    data remove entity @e Item.tag.Enchantments
 
-data modify block entity @e[limit=1b] Item.tag.Enchantments append value {id:"...", lvl:1}
-data modify block entity @e[limit=1b] Item.tag.Enchantments preend value {id:"...", lvl:1}
-data modify block entity @e[limit=1b] Item.tag.Enchantments set value {id:"...", lvl:1}
-data modify block entity @e[limit=1b] Item.tag.Enchantments insert value {id:"...", lvl:1}
+    data modify block entity @e[limit=1b] Item.tag.Enchantments append value {id:"...", lvl:1}
+    data modify block entity @e[limit=1b] Item.tag.Enchantments preend value {id:"...", lvl:1}
+    data modify block entity @e[limit=1b] Item.tag.Enchantments set value {id:"...", lvl:1}
+    data modify block entity @e[limit=1b] Item.tag.Enchantments insert value {id:"...", lvl:1}
 
-data modify block entity @e[limit=1b] Health prepend from @s Health
+    data modify block entity @e[limit=1b] Health prepend from @s Health
 
-data get entity @e Comp.Tag.mytag
-data get entity @e Comp.Tag.mytag[0]
-data get entity @e Comp.Tag.mytag[{Slot:1b}]
+    data get entity @e Comp.Tag.mytag
+    data get entity @e Comp.Tag.mytag[0]
+    data get entity @e Comp.Tag.mytag[{Slot:1b}]
 
 
 tellraw @a [{"text":"ok","color":"red","clickEvent":{"action":"run_command","value":"/kill @s"}}, ...]
@@ -304,7 +346,7 @@ give @p written_book{title:"Book",author:"norm",pages:['JSON text', ...]} 1
 # NBT
 #    JSON text:
 #        {
-#            "text":"ok\nko\\",
+#            "text":"ok\nok\\",
 #            "color":"red",
 #            "bold":"true",
 #            "italic":"false",
@@ -339,15 +381,19 @@ give @p written_book{title:"Book",author:"norm",pages:['JSON text', ...]} 1
 #        CanPlaceOn:["stone"],
 #        BlockEntityTag:{}
 #        
+#        Падающий блок:
+#            Time: 1,
+#            BlockState:{Name:"stone"},
+#            DropItem:1
 #
-#    Табличка:
-#        BlockEntityTag:{
-#            Text1:'{JSON text}'
-#        }
+#        Табличка:
+#            BlockEntityTag:{
+#                Text1:'{JSON text}'
+#            }
 #    
-#    Сундук:
-#        Items:[{Slot:0b, id:"...", Count:1b}]
-#        LootTable:"custom/chests/chest_loot_table"
+#        Сундук:
+#            Items:[{Slot:0b, id:"...", Count:1b}]
+#            LootTable:"custom/chests/chest_loot_table"
 #
 #    Предметы:
 #        Item: {

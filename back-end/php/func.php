@@ -245,10 +245,10 @@ mail('to@mail.ru', 'Robobo', 'Hello');
         $ch = curl_init($url);
     # Установить опции ()
         curl_setopt($ch, CURLOPT_URL, $url);
-            #CURLOPT_HEADER
-            #CURLOPT_USERAGENT
-            #CURLOPT_REFERER
-            #CURLOPT_RETURNTRANSFER
+            # CURLOPT_HEADER
+            # CURLOPT_USERAGENT
+            # CURLOPT_REFERER
+            # CURLOPT_RETURNTRANSFER
             #
             #CURLOPT_SSL_VERIFYHOST
             #CURLOPT_SSL_VERIFYPEER
@@ -265,217 +265,303 @@ mail('to@mail.ru', 'Robobo', 'Hello');
 
 
 
-#Куки
-bool   setcookie("name", "123", time() + 3600);    #Задать куки
-bool   setcookie("name");                        #Удалить куки
-#Сессия
-bool   session_start();        #Подготовить запись сессии
-bool   session_destroy();     #Удалить хранилище сессии
+#(bool) Куки
+    # Задать куки
+        setcookie("name", "123", time() + 3600);
+    # Удалить куки
+        setcookie("name");
 
-string session_name($name);    #Группа сессии или её присвоение
-bool   session_start(['session.name' => 'name']);
-        #Указать имя при создании сессии
-string session_id();        #ID сессии или его присвоение
+# Сессия
+    #(bool) Подготовить запись сессии
+        session_start();
+    #(bool) Удалить хранилище сессии
+        session_destroy();
 
-string session_save_path();    #Путь к каталогу с сессиями или его присвоение
+    #(string) Группа сессии или её присвоение
+        session_name($name);
+    #(bool) Указать имя при создании сессии
+        session_start(['session.name' => 'name']);
+    #(string) ID сессии или его присвоение
+        session_id($id);
+
+    #(string) Путь к каталогу с сессиями или его присвоение
+        session_save_path();
 
     #Собственные обработчики сессий
-    #function name() {}
     #Пример имён:
-bool   handler_open($path, $sessname);    #Вызывается при session_start()
-bool   handler_close();                    #После записи в хранилище
-string handler_read($sid);                #Чтении сессии(имяN=serialize(значениеN);...)
-string handler_write($sid, $data);        #Записи в сессию
-bool   handler_destroy($sid);            #Уничтожении ссессии
-bool   handler_gc($second);                #По прошествию времени от закрытия
+        #(bool) Вызывается при session_start()
+            handler_open($path, $sessname);
+        #(bool) После записи в хранилище
+            handler_close();
+        #(string) Чтении сессии(имяN=serialize(значениеN);...)
+            handler_read($sid);
+        #(string) Записи в сессию
+            handler_write($sid, $data);
+        #(bool) Уничтожении ссессии
+            handler_destroy($sid);
+        #(bool) По прошествию времени от закрытия
+            handler_gc($second);
 
-void   session_set_save_handler(open, close, read, write, destroy, gc);
-        #Зарегистрировать обработчик
-
-
-
-#Математические:
-#Формат (число, точность, разделитель, триад):
-int    number_format(12.5, 2, '.', '\'');
-
-int    base_convert($num, $from, $to);    #Переводит $num из $from в $to С.С.
-int    decoct(10);                        #В 8-чную систему
-int    decbin(10);                        #В 2-чную
-
-int    random_int(1, 100);                #Рандом
-int    abs($x);                            #Модуль
-int    min($arr);                        #Минимальное число
-int    min($a, $b, ...);                #Минимальное число
-int    max($arr);                        #Максимальное число
-int    max($a, $b, ...);                #Максимальное число
-
-int    sin($x);                            #Синус
-int    asin($x);                        #Арксинус
-int    atan2($x, $y);                    #Арктангенс по сторонам
-int    log(4, 2);                        #Логарифм с основанием 2 от 4
-
-int    ceil($x);                        #Округление до большего
-int    floor($x);                        #Округление до меньшего
-
-#Округление к ближайшему:
-int    round($x,  2, $mode);            #Округление до сотых
-int    round($x, -2, $mode);            #Округление до сотен
-        #Модиф:
-        #PHP_ROUND_HALF_DOWN - При 0.5 до нижного (модуль)
-        #PHP_ROUND_HALF_EVEN - При 0.5 до четного
-        #PHP_ROUND_HALF_ODD  - При 0.5 до нечетного
+    # Зарегистрировать обработчик
+        session_set_save_handler(open, close, read, write, destroy, gc);
 
 
 
+#(int) Математические:
+    # Формат (число, точность, разделитель, триад):
+        number_format(12.5, 2, '.', '\'');
 
-#Обработка ошибок:
+    # Системы счисления
+        # Переводит $num из $from в $to С.С.
+            base_convert($num, $from, $to);
+        # В 8-чную систему
+            decoct(10);
+        #В 2-чную
+            decbin(10);
 
-int    error_reporting(E_ALL);                 #Сделать максимальный отчёт
-string ini_set('error_reporting', E_NOTICE); #Изменить конф. файл
-        # error_reporting    - Минимальный отчёт об ошибках
-        # error_log         - Установить файл записи лога
-        # log_errors        - Записывать ошибки в файл
-        # display_errors    - Вывод на экран
+    # Рандом
+        random_int(1, 100);
+    # Модуль
+        abs($x);
+    # Минимальное число
+        min($a, $b);
+        min($arr);
+    # Максимальное число
+        max($a, $b);
+        max($arr);
 
-string ini_get('error_reporting');    #Получить значение  конф.файла
+    # Синус
+        sin($x);
+    # Арксинус
+        asin($x);
+    # Арктангенс по сторонам
+        atan2($x, $y);
+    # Логарифм с основанием 2 от 4
+        log(4, 2);
 
-#Установить свой обработчик некритичных ошибок:
-set_error_handler( 
-    function ($errno, $msg, $file, $line) {
-        #Проверка на знак @:
-        if (!error_reporting()) return 0;
-    }
-);
-bool   restore_error_handler();    #Востановить обработчик по умолчанию
+    # Округление
+        # Округление до большего
+            ceil($x);
+        #Округление до меньшего
+            floor($x);
 
-#Вызвать исключение:
-bool   trigger_error('Ошибка: неверный аргумент!', E_USER_NOTICE);
-bool   error_log('Error!');        #Записать ошибку в лог
+        #Округление к ближайшему:
+            # Округление до сотых
+                round($x,  2, $mode);
+            # Округление до сотен
+                round($x, -2, $mode);
+                    # Модиф:
+                    # PHP_ROUND_HALF_DOWN - При 0.5 до нижного (модуль)
+                    # PHP_ROUND_HALF_EVEN - При 0.5 до четного
+                    # PHP_ROUND_HALF_ODD  - При 0.5 до нечетного
 
-array  debug_backtrace();        #Всё дерево вызова функции
+
+
+# Обработка ошибок:
+    #(int) Сделать максимальный отчёт
+        error_reporting(E_ALL);
+    #(string) Изменить конф. файл
+        ini_set('error_reporting', E_NOTICE);
+            # error_reporting   - Минимальный отчёт об ошибках
+            # error_log         - Установить файл записи лога
+            # log_errors        - Записывать ошибки в файл
+            # display_errors    - Вывод на экран
+
+    #(string) Получить значение  конф.файла
+        ini_get('error_reporting');
+
+    #Установить свой обработчик некритичных ошибок:
+        set_error_handler( 
+            function ($errno, $msg, $file, $line) {
+                #Проверка на знак @:
+                if (!error_reporting()) return 0;
+            }
+        );
+    #(bool) Востановить обработчик по умолчанию
+        restore_error_handler();
+
+#(bool) Вызвать исключение:
+    trigger_error('Ошибка: неверный аргумент!', E_USER_NOTICE);
+    #(bool) Записать ошибку в лог
+        error_log('Error!');
+
+    #(array) Всё дерево вызова функции
+    debug_backtrace();
 
 
 
 
-#Мыссивы:
+# Массивы:
+    # Быстрый вывод массива/объекта
+        print_r($arr);
+        var_dump($arr);
 
-void   print_r($arr);                #Быстрый вывод массива
-void   var_dump($arr);                #
-array  var_export($arr);            #Вывод в виде кода
+        #(array) Вывод в виде кода
+            var_export($arr);
 
-int    count($arr);                    #Количество элементов массива
-bool   shuffle($arr);                #Перемешать значения
-bool   in_array(1, $arr)             #Есть ли элемент 1
+    #(int) Количество элементов массива
+        count($arr);
+    #(bool) Перемешать значения
+        shuffle($arr);
+    #(bool) Есть ли элемент 1
+        in_array(1, $arr);
+        
+    #(array) Массив с числами от 10 до 100
+        range(10, 100);
+    
+    #(array) Разбирает ссылку по состовляющим
+        parse_url($url);
 
-array  array_keys($arr);            #Все ключи массива
-array  array_keys($arr [,$val]);    #Все ключи массива со значениям val
-array  array_values($arr);            #Все значения массива
-array  array_count_values($arr);    #Частота появления каждого значения
+    # Записать аргументы ссылки в массив
+        parse_str($url, $arr);
 
-array  array_merge($arr1, $arr2);    #Объединение массива
-array  array_slice($arr, 3, 4);        #Вырезает 4 значения начиная с 3
-array  array_slice($arr, 3, -3);    #Вырезает кусок массива с 3 значения до 3 с конца
+    #(array) array_
+        # Все ключи массива
+            array_keys($arr);
+        # Все ключи массива [со значениям val]
+            array_keys($arr, $val);
+        # Все значения массива
+            array_values($arr);
+        # Частота появления каждого значения
+            array_count_values($arr);
+        # Объединение массива
+            array_merge($arr1, $arr2);
+        # Вырезает 4 значения начиная с 3
+            array_slice($arr, 3, 4);
+        # Вырезает кусок массива с 3 значения до 3 с конца
+            array_slice($arr, 3, -3);
+        # Значения $arr1 которых нет в других
+            array_diff($arr1, $arr2);
+        # Возвращает пересечения двух массивов (из второго)
+            array_intersect($arr1, $arr2);
+        # Выводятся только уникальные значения (первые)
+            array_unique($arr);
+        # Заменяет подмассив с 3 эл. 3 эл на [1, 2]
+            array_splice($arr, 3, 3,  [1, 2]);
 
-array  range(10, 100);                #Массив с числами от 10 до 100
+        # Добовляет элемент в начало массива
+            array_unshift($arr, 1);
+        # Извлекает первый элемент
+            array_shift($arr);
+        # Извлекает последний элемент
+            array_pop($arr);
+        # Переворачивает массив ($save сохранять ли ключи)
+            array_reverse($arr, $save);
+        # Меняет местами ключи со значениям
+            array_flip($arr);
+            
 
-array  array_diff($arr1, $arr2...);    #Значения $arr1 которых нет в других
-array  array_intersect($arr1, $arr2...);
-        #Возвращает пересечения двух массивов (из второго)
+    #(array) Теперь $arr === [a=>'str1', b=>'str2']
+        compact('var1', 'var2');
+    #(int) Распаковывает массив в переменные, если переменная существует выполняется инструкция
+        extract($arr, $flags, 'pre_'); 
+            #EXTR_OVERWRITE        - Перезаписать
+            #EXTR_SKIP            - Пропустить
+            #EXTR_PREFIX_ALL    - Добавить префикс
 
-array  array_unique($arr);             #Выводятся только уникальные значения (первые)
+#(bool) Сортировка
+    # Cсортирует несколько массивов 
+        array_multisort($arr1, $arr2);
+        array_multisort($arr1, $arr2, SORT_DESC);
+            #SORT_DESC - обратный порядок
+            #SORT_NUMERIC, SORT_STRING - тип
 
-array  array_splice($arr, 3, 3,  [1, 2]);
-        #Заменяет подмассив с 3 эл. 3 эл на [1, 2]
+    # Сортировка по возрастанию
+        sort($arr);
+    # Сортировка по убыванию
+        rsort($arr);
+    # Сортировка по возрастанию + сохранение индексов
+        asort($arr);
+    # Сортировка по убыванию + сохранение индексов
+        arsort($arr);
+    # Сортировка ключа по возрастанию
+        ksort($arr);
+    # Сортировка ключа по убыванию
+        krsort($arr);
+    # Натуральная(и по числу и по лекс (lol2, lol10))
+        natsort($arr);
+    #Натуральная без регистра
+        natcasesort($arr);
 
-array  compact('var1', 'var2');     #Теперь $arr === [a=>'str1', b=>'str2']
-#Распаковывает массив в переменные, если переменная существует выполняется инструкция
-int    extract($arr, , 'pre_'); 
-        #EXTR_OVERWRITE        - Перезаписать
-        #EXTR_SKIP            - Пропустить
-        #EXTR_PREFIX_ALL    - Добавить префикс
-
-array  array_unshift($arr, 1);         #Добовляет элемент в начало массива
-array  array_shift($arr);            #Извлекает первый элемент
-array  array_pop($arr);                #Извлекает последний элемент
-
-array  array_reverse($arr, $save);    #Переворачивает массив ($save сохранять ли ключи)
-array  array_flip($arr);            #Меняет местами ключи со значениям
-
-bool   array_multisort($arr1, $arr2);
-bool   array_multisort($arr1, $arr2, SORT_DESC);
-        #Cсортирует несколько массивов 
-        #SORT_DESC - обратный порядок
-        #SORT_NUMERIC, SORT_STRING - тип
-
-bool   sort($arr);                    #Сортировка по возрастанию
-bool   rsort($arr);                    #Сортировка по убыванию
-bool   asort($arr);                    #Сортировка по возрастанию + сохранение индексов
-bool   arsort($arr);                #Сортировка по убыванию + сохранение индексов
-bool   ksort($arr);                    #Сортировка ключа по возрастанию
-bool   krsort($arr);                #Сортировка ключа по убыванию
-bool   natsort($arr);                 #Натуральная(и по числу и по лекс (lol2, lol10))
-bool   natcasesort($arr);             #Натуральная без регистра
-
-#Сортирует массив при помощи callback функции
-#Сохранение индексов
-bool   usort($arr, function($a, $b){ return -1; return 0; return 1; });
-#Сортировка списка
-bool   uasort($arr, function($a, $b){ return -1; return 0; return 1; });
+    # Сортирует массив при помощи callback функции
+        # Сохранение индексов
+            usort($arr, function($a, $b){ return $a <=> $b; });
+        # Сортировка списка
+            uasort($arr, function($a, $b){ return -1; return 0; return 1; });
+        # Сортировка по ключам  
+            uksort($arr, function($a, $b){ return -1; return 0; return 1; });
 
 
 
 
 #Дата:
 
-#Перевод строки в секунды
-int    strtotime('now');
+#(int) Перевод строки в секунды
+    strtotime('now');
         # 10 September 2015
         # +1 day
         # +1 week 2 days 4 hours
         # next Thursday
         # last Monday
+    
+    #(int) Переводит число в дни от 4714 до н.э. (JD)
+        GregorianToJD($month, $day, $year);
+    #(string) Переводит дни JD в число
+        JDToGregorian($julianday);
+    #(int) Возращает номер дня недели по дню JD
+        JDDayOfWeek($julianday);
+    
+    #(int) Первести дату в секунды
+        mktime(00, 00, 00, 3, 23, 2019);
+    #(string) Показать дату или перевести секудны в дату
+        date('d.m.Y H:i:s', $time);
+    #(string) date по гринвичу
+        getdate('d.m.Y H:i:s', $time);
 
-int    GregorianToJD($month, $day, $year);    #Переводит число в дни от 4714 до н.э. (JD)
-string JDToGregorian($julianday);            #Переводит дни JD в число
-int    JDDayOfWeek($julianday);                #Возращает номер дня недели по дню JD
+    #(bool) Существует ли такая дата
+        checkdate(2,30,2001);
+    #(array) Переводит секунды в ас масив
+        getdate($time);
 
-int    mktime(00, 00, 00, 3, 23, 2019);    #Первести дату в секунды
-string date('d.m.Y H:i:s', $time);         #Показать дату или перевести секудны в дату
-string getdate('d.m.Y H:i:s', $time);    #date по гринвичу
-
-bool   checkdate(2,30,2001);            #Существует ли такая дата
-array  getdate($time);                    #Переводит секунды в ас масив
-
-int    time();                            #Секунды
-float  microtime(true);                    #Более точное время
-
-
+    #(int) Секунды
+        time();
+    #(float) Более точное время
+        microtime(true);
 
 
 
 #Строковые:
-string nl2br($str);                        #Заменить \n на <br />\n
-string md5($str);                        #Кодирование
-string wordwrap($str, 50, '\n', false);    #Разделяет строку по 50 символов 
-        #(false) разрезая слова, разделяя '\n'
+    # Заменить \n на <br />\n
+        nl2br($str);
+    # Кодирование
+        md5($str);
+    # Разделяет строку по 50 символов
+        #(false) разрезая слова, разделяя '\n'  
+            wordwrap($str, 50, '\n', false);
+    # Удаление пробелов до и после строки
+        trim($str);
+    # Удалить все теги
+        strip_tags($str);
+    # Обязательна для работы с введённым пользователем
+        htmlspecialchars($str);
+    # Добавить \ перед ' " и \
+        addslashes($str);
+    # Убрать \
+        stripslashes($str);
+    # Создаёт строку url параметров из массива
+        http_build_query($arr);
+    
+    # URL
+        # Кодирует в url код 
+            urlencode($str);
+        # Кодирует из url код
+            urldecode($url);
 
-string trim($str);                     #Удаление пробелов до и после строки
-string strip_tags($str);             #Удалить все теги
-string htmlspecialchars($str);        #Обязательна для работы с введённым пользователем
-
-string addslashes($str);            #Добавить \ перед ' " и \
-string stripslashes($str);            #Убрать \
-
-string http_build_query($arr);        #Создаёт строку url параметров из массива
-
-void   parse_str($url, $arr);        #Записать аргументы ссылки в массив
-array  parse_url($url)                #Разбирает ссылку по состовляющим
-string urlencode($str);                #Кодирует в url код 
-string urldecode($url);                #Кодирует из url код
-
-array  explode(' ', $str);            #Разбивает строку в массив
-string implode(' ', ['a', 'b']);    #Соединяет массив в строку (синоним - join)
-
+    # Разбивает строку в массив
+        explode(' ', $str);
+    # Соединяет массив в строку (синоним - join)
+        implode(' ', ['a', 'b']);
+     
 #Для работы с кирилицей прибавить mb_[com]:
 string strtolower($str);            #Нижний регистр
 string strtoupper($str);            #Верхний регистр
@@ -516,19 +602,25 @@ string str_repeat('-', 5);                    # строка с 5 ю тере
 
 string gettype($x)                #Тип переменной
 
-#Проверка типа
-bool   is_integer($a);             # Проверка типа
-bool   is_double($a);            #
-bool   is_string($a);            #
-bool   is_bool($a);                #
+#(bool) Проверка типа
+    is_integer($a);
+    is_double($a);
+    is_string($a);
+    is_bool($a);
 
-bool   is_numeric($a);             #Число ли это, даже если String
-bool   is_null($a);                #Переменная есть, но значения нет
-bool   is_scalar($a);            #Не объект и не массив
+    # Число ли это, даже если String
+        is_numeric($a);
+    # Переменная есть, но значения нет
+        is_null($a);
+    # Не объект и не массив
+        is_scalar($a);
 
-bool   is_array($arr);            #Массив
-bool   is_nan($a);                #Не число
-bool   is_infinite($a);            #Бесконечность
+    # Массив
+        is_array($arr);
+    # Не число
+        is_nan($a);
+    # Бесконечность
+        is_infinite($a);
 
 string filetype('file.txt');    #Тип файла
 
