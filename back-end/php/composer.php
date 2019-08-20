@@ -1,5 +1,6 @@
 <?php
-    require_once '/vendor/autoload.php';
+
+require_once '/vendor/autoload.php';
 
 # Lavarel
     /* CMD
@@ -150,29 +151,152 @@
                     return static::where('completed', 0)->get();
                 }
             }
+
+    # Шаблонизатор Blade([name].blade.php)
 ?>
+        <ul>
+            <!-- Использование ключевых слов PHP -->
+                @foreach ($arr as $a)
+                    <!-- Использование переменных -->
+                        <li>{{ $a }}</li>
+                @endforeach
 
-<!-- Шаблонизатор ([name].blade.php) -->
-    <ul>
-        <!-- Использование ключевых слов PHP -->
-            @foreach ($arr as $a)
-                <!-- Использование переменных -->
-                    <li>{{ $a }}</li>
-            @endforeach
+            <!-- Вывод секции Content -->
+                @yield('content')
+            <!-- Наследование файда Layout -->
+                @extends('layout')
+            <!-- Установка секции -->
+                @section('content')
+                @endsection
+            <!-- include путей -->
+                @include('folder.index')
 
-        <!-- Вывод секции Content -->
-            @yield('content')
-        <!-- Наследование файда Layout -->
-            @extends('layout')
-        <!-- Установка секции -->
-            @section('content')
-            @endsection
-        <!-- include путей -->
-            @include('folder.index')
-    </ul>
+            <!-- Условные операторы -->
+                @if (count($records) === 1)
+                    Здесь есть одна запись!
+                @elseif (count($records) > 1)
+                    Здесь есть много записей!
+                @else
+                    Здесь нет записей!
+                @endif
+
+                @unless (Auth::check())
+                    Вы не вошли в систему.
+                @endunless
+
+            <!-- Циклы -->
+                @for ($i = 0; $i < 10; $i++)
+                    Текущее значение: {{ $i }}
+                @endfor
+
+                @foreach ($users as $user)
+                    <p>Это пользователь{{ $user->id }}</p>
+                @endforeach
+
+                @forelse($users as $user)
+                    <li>{{ $user->name }}</li>
+                @empty
+                    <p>No users</p>
+                @endforelse
+
+                @while (true)
+                    <p>Это будет длиться вечно.</p>
+                @endwhile
+        </ul>
+
+
 
 <?php
 
+# Symfony 4
+
+    # Шаблонизатор Twig
+        # composer require twig/twig
+    
+    # Подключение
+        $loader = new \Twig\Loader\FilesystemLoader('/path/to/templates');
+        $twig = new \Twig\Environment($loader, [
+            'cache' => '/path/to/compilation_cache',
+        ]);
+?>
+    <ul>
+        {# Коментарий #}
+        <li>{{ var }}</li>
+        <li>{{ arr.name }}</li>
+
+        <li>{{ arr.name|upper }}</li>
+
+        {% include "nav.html" %}
+
+        {% extands "base.html" %}
+
+        {% block title %}
+        {% endblock %}
+
+        {% if arr.name != '' %}
+            {% else %}
+        {% endif %}
+
+        {% for user in users %}
+        {% endfor %}
+    </ul>
+
+
+<?php
+# Шаблонизатор Smarty
+    # composer require smarty/smarty
+
+# Подключение
+    # Простое
+        $smarty = new Smarty();
+        $smarty->template_dir = getcmd();
+        $smarty->compile_dir = '/tmp';
+
+    # Наследованием
+        class MySmarty extends Smarty {
+            function __construct()
+            {
+                    $this->Smarty();
+
+                    $this->template_dir = 'templates/';
+                    $this->compile_dir  = 'templates_c/';
+                    $this->config_dir   = 'configs/';
+                    $this->cache_dir    = 'cache/';
+
+                    $this->caching = true;
+                    $this->assign('app_name', 'Guest Book');
+            }
+        }
+
+# Использование
+    # Создание переменных
+        $smatry->assign('news', 'hello world');
+
+    # Прогрузка страницы
+        $smarty->display('news.tpl');
+?>
+    <ul>
+        {$var}
+        {$smarty.now}
+        {$arr.title}
+
+        {* Коментарий *}
+
+        {include file="inc/header.tpl" title="Последние новости"}
+
+        {if}
+
+        {else}
+
+        {/if}
+
+        {foreach from=$arr item="n" key="k"}
+        {/foreach}
+    </ul>
+
+
+
+<?php
 # SimpleDOMParser
     # Получить DOM объект из файла\ссылки:
         $dom = file_get_html($url);
@@ -234,6 +358,8 @@
     #  Удалить объект
         $dom->clear();
 
+
+
 # pQuery
     #Преобразовать строку в DOM
         $dom = pQuery::parseStr($html);
@@ -247,7 +373,10 @@
     #Вывести текст
         echo $dom->html();
 
+
+
 # Monolog
+    # composer require monolog/monolog
     # Подключение
         use Monolog\Logger;
         use Monolog\Handler\StreamHandler;
@@ -261,7 +390,7 @@
         $log->info('Lol');
         $log->error('Bar');
 
-# RedBeanPHP
+
 
 # MessagePack
         
@@ -293,6 +422,8 @@
 
         $unpacker->reset($packed);
         $value = $unpacker->unpack();
+
+
 
 # Faker
     $faker = Faker\Factory::create();
