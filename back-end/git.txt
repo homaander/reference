@@ -1,0 +1,21 @@
+:: Git
+git status
+	:: Статус проекта
+
+git add "index.html"
+git add -A
+	:: Подготовка отправки одного или всех файлов
+
+git clone https://github.com/homaander/test.git
+
+git commit -m "New index file"
+	:: Добовление коментария
+
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
+
+git push
+	:: Отправка проекта
+
+git pull
+	:: Обновить файлы с облока

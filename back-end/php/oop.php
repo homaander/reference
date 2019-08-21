@@ -1,58 +1,104 @@
 <?php
+
+# Работа с пространством имён
+    # namespace OOP\Test { Code... }
+    namespace OOP;
+        require_once 'OOP/Test.php';
+
+        # Прямая
+            $obj = new OOP\Test();
+            $obj = new namespace\Test();
+
+        # Относительная ссылка
+            $obj = new Test\Lol();
+        # Стандртная php функция а не namespace
+            \strlen('lol');
+
+        # "Сокращение" ссылки
+        use OOP\Test; #Замена на Test (последний элемент ссылки)
+        use OOP\Test as Tested; #Замена отдельным
+
+    # Автоматическое подключение
+        # $classname должен совпсть с именем файла в папке
+            function __autoload($classname){
+                require_once(__DIR__."$classname.php");
+            }
+        spl_autoload_register();
+
+        #Благодоряы __autoload подключается самостоятельно
+            $page = new OOP\Kek();
+
+
+
+# Простой класс
 class People {
     const MESSAGE = 'lol';
 
     public  $Name;
     private $Age;
     private $Money;
-    private static $Count;
 
-    #Предопределённые функции
-    public function __construct($name)    { $this->Name = $name; }
-    public function __destruct()        { fclose($this->f); }
-    #При сериализации объекта (что сериализировать)
-    public function __sleep()            { return ['Name', 'Age']; }
-    #При унсериализации
-    public function __wakeup()            { $this->Money = 0; }
+    public static $Count;
 
-    #Перехват запроса к несуществующим свыйствам\матадам
-    #Перехват запроса на получение несуществующего свойства:
-    public function __get($undif)         { return $undif.' нет'; }
-    #Перехват запроса на редактирование несуществующего свойства:
-    public function __set($undif, $val) { echo 'Свойства '.$undif.' нет'; }
-    #Перехват запроса на несуществующий метод:
-    public function __call($undif, $arr){ return 'Метода '.$undif.' нет'; }
+    # Предопределённые функции
+        # Конструктор и деструктор
+            public function __construct($name) { $this->Name = $name; }
+            public function __destruct()       { fclose($this->f); }
 
-    public function __toString()        { return "{$this->name}"; } #При выводе как строку
-    public function __clone()            { $this->Name = 'clone'; } #Срабатывает на клон
-    #При private - запрещает клонирование
+        # При сериализации объекта (что сериализировать)
+            public function __sleep()          { return ['Name', 'Age']; }
+        # При унсериализации
+            public function __wakeup()         { $this->Money = 0; }
 
-    #Методы
-    public function Write_Name2($a, $b)    { echo $this->Name; }
-    #final - запрещает переопределять метод
-    protected final function Write_Name() { echo $this->Name; }
+        # Перехват запроса на получение несуществующего свойства:
+            public function __get($undif)        { return $undif.' нет'; }
+        # Перехват запроса на редактирование несуществующего свойства:
+            public function __set($undif, $val)  { echo 'Свойства '.$undif.' нет'; }
+        # Перехват запроса на несуществующий метод:
+            public function __call($undif, $arr) { return 'Метода '.$undif.' нет'; }
 
-    abstract public function Kek(int $a);
+        # При выводе как строку
+            public function __toString()         { return "{$this->name}"; }
+        # Срабатывает на клон (При private - запрещает клонирование)
+            public function __clone()            { $this->Name = 'clone'; }
 
+    #Методы (final - запрещает переопределять метод)
+        public function myWrite($a, $b)      { echo $this->Name; }
+        protected final function writeName() { echo $this->Name; }
 }
 
-$obj = new People;            #Создание объекта
-$obj = new People(16, 2);    #Создание объекта с параметрами в конструктор
-$fake = clone $obj;            #Создаёт копию обекта но ссылающийся на другое пространство
+# Абстрактные методы
+abstract class A {
+    abstract public function Kek(int $a);
+}
 
-$obj->Write_Name2(1, 3);    #Вызываем публичный метод
+# Создание объекта класса
+    $obj = new People;
+
+    # Передать параметры в конструктор
+        $obj = new People(16, 2);
+
+# Создаёт копию обекта но ссылающийся на другое пространство
+    $fake = clone $obj;
+
+# Оброщение к переменной
+    $obj->name;
+
+# Вызываем публичный метод
+    $obj->Write_Name2(1, 3);
 
 
 # Статические:
-# Вызов
-# Можно, но функция не примет $this
-    $obj->Delete_P();
-# Просто выызов функции
-    People::Delete_P($obj);
-# Оброщение к константе
-    People::MESSAGE;
-# Обращение к строке
-    People::$Name;
+    # Вызов
+        # Можно, но функция не примет $this
+            $obj->Delete_P();
+        # Просто выызов функции
+            People::Delete_P($obj);
+
+    # Оброщение к константе
+        People::MESSAGE;
+    # Обращение к строке
+        People::$Name;
 
 class People2 {
     #При обращении к static свойствам используется класс::свойства
@@ -63,7 +109,7 @@ class People2 {
         #Если нет, создаётся новый  
         return self::$loggers[$name] = new self($name);
     }
-    public static function Delete_P(People $obj) { self::$Count++; }
+    public static function delete(People $obj) { self::$Count++; }
 
     public static function write() { echo 'Hello from '.__CLASS__; }
     #static - В отличие от self не привязывается к классу где был определён и при наследовании будет вызыватся метод/свойство наследника
@@ -76,8 +122,8 @@ final class People3 {}
 class Student extends People {
     public function printItem($string) {
         echo 'Student: ' . $string;
-        parent::Write_Name();
-        parent::Kek(); 
+        parent::writeName();
+        parent::kek(); 
     }
 }
 
@@ -111,17 +157,17 @@ $class = 'Test';
 if ($obj instanceof $class) {}
 if ($obj instanceof Test) {}
 
-interface IA { protected function Write(); }
+interface IA { public function write(); }
 
-interface IB { protected function Read(); }
+interface IB { public function read(); }
 
-interface IC extends IA { protected function Info(); }
+interface IC extends IA { public function info(); }
 
 abstract class ID implements IA {} # Наследование интерфейсов
 
-class Child extends Test implements A, B {
-    public function Write() { echo 123; }
-    public function Read()  { echo 321; }
+class Child extends Test implements IA, IB {
+    public function write() { echo 123; }
+    public function read()  { echo 321; }
 }
 
 #Трейды
@@ -137,28 +183,6 @@ class Lol {
         G::Write as Lol;            #Метод G::Write сделать отдельно в Lol
     }
 }
-
-#Работа с пространством имён
-namespace OOP\Test;
-namespace OOP {
-    require_once 'OOP.php';
-    $obj = new OOP\Test();    #Прямая
-    $obj = new namespace\Test();    #Прямая
-    $obj = new Test\Lol();    #Относительная ссылка
-    \strlen('lol');            #Стандртная php функция а не namespace
-
-    # "Сокращение" ссылки
-    use OOP\Test; #Замена на Test (последний элемент ссылки)
-    use OOP\Test as Tested; #Замена отдельным
-}
-
-function __autoload($classname){
-    require_once(__DIR__."$classname.php"); #$classname должен совпсть с именем файла в папке
-}
-
-spl_autoload_register();
-$page = new OOP\Kek(); #Благодоряы __autoload подключается самостоятельно
-
 
 
 

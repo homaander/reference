@@ -1,10 +1,17 @@
+/* 
+Отладочне
+	Показать базу данных
+		SHOW DATABASE shop;
+		SHOW TABLES;
+	Показать структуру таблицы
+		DESCRIBE users;
+/*
+
+
 /* Создать базу данных shop */
 	CREATE DATABASE shop;
 /* Удалить базу данных shop */
 	DROP DATABASE shop;
-/* Показать базу данных */
-	SHOW DATABASE shop;
-	SHOW TABLES;
 
 /* Создать таблицу users */
 	CREATE TABLE users(
@@ -16,9 +23,6 @@
 	);
 /* Удалить таблицу users */
 	DROP TABLE users;
-
-/* Показать структуру таблицы */
-	DESCRIBE users;
 
 /* Добавить новый столбец в таблицу после|до name */
 	ALTER TABLE users ADD pass VARCHAR(32) AFTER name;
@@ -38,18 +42,18 @@
 /* Вернуть всё из `table`s */
 	SELECT * FROM `table`
 	/* где a > 10 и b = text */
-		[WHERE `a` > 10 AND `b` = 'text']
+		WHERE `a` > 10 AND `b` = 'text'
 	/* где id находится между 1 и 10 */
-		[WHERE `id` [NOT] BETWEEN 1 AND 10]
+		WHERE `id` [NOT] BETWEEN 1 AND 10
 	/* где id есть [нет] в заданом списке */
-		[WHERE `id` [NOT] IN (1,3,4,6,10) ]
+		WHERE `id` [NOT] IN (1,3,4,6,10)
 	/* где результат анологичен шаблону _-один сим. %-любое кло симв.*/
-		[WHERE `id` LIKE '%A_' ]
+		WHERE `id` LIKE '%A_'
 
 	/* сортировать по id [наоборот] */
-		[ORDER BY `id` [DESC]]
+		ORDER BY `id` [DESC]
 	/* выбрать первые 10 результатов */
-		[LIMIT 0,10];
+		LIMIT 0,10;
 
 
 /* Выбрать уникальные имена */

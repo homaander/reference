@@ -216,7 +216,7 @@ require_once '/vendor/autoload.php';
     # Подключение
         $loader = new \Twig\Loader\FilesystemLoader('/path/to/templates');
         $twig = new \Twig\Environment($loader, [
-            'cache' => '/path/to/compilation_cache',
+            'cache' => 'cache',
         ]);
 ?>
     <ul>
