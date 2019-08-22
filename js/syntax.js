@@ -29,27 +29,28 @@
     num = Math.random();
 
 // Объекты
-    {x, y} = foo;
-
-    x = foo.x;
-    y = foo.y;
-
     var obj = {
         name: 'Andrew',
         age: 17,
         
         birthday: function () {
             this.age += 1;
-        }
+        },
         
         toString: function () {
             return 'String';
-        }
+        },
         
         valueOf: function () {
             return 10;
         }
     }
+
+    var {x, y} = obj;
+
+    x = foo.x;
+    y = foo.y;
+
 
 // Работа с массивами
     arr.forEach((item, i, arr) => {
@@ -66,7 +67,7 @@
 
 // JSON
     // Перевод переменной в JSON
-        JSON.stringify(var);
+        JSON.stringify(varible);
     // Разбирает JSON в строку
         JSON.parse(json);
 
@@ -138,7 +139,7 @@ function User(name) {
     this.Age;
     this.SayName = function() {return this.Name}
 }
-Obj = new User("Andrew") { Age=10 };
+Obj = new User("Andrew");
 Obj.SayName();
 
 //Короткий вариант + не создаёт контекст this

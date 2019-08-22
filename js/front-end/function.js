@@ -7,8 +7,8 @@ function ajaxGet(){
 		},
 		body: "qwe=1&ewe=2"
 	}).then((response) => {
+		// return response.json();
 		return response.text();
-		return response.json();
 	}).then((result) => {
 		console.log(result);
 	});
@@ -16,8 +16,24 @@ function ajaxGet(){
 
 // Cookie
 function cookieGet(name) {
-	
+	console.log(document.cookie);
 }
+
+// Поиск элементов
+	// Все элементы с классом
+		var obj = document.getElemetnByClass("buttons");
+	// Элемент с ID
+		var obj = document.getElemetnById("go");
+	// Все элементы тега
+		var obj = obj.getElemetnByTagName("p");
+
+	// Поиск по CSS селектору (первый элемент)
+		var obj = document.querySelector('#id');
+	// Все элементы подходящие по условию
+		var obj = document.querySelectorAll('ul > li:last-child');
+
+// Проверка, совподает ли элемент с CSS
+	obj.matches('li{first}');
 
 alert("Привет, мир");					//Диалоговое окно с текстом
 str 	= prompt("Введите число: ");	//Запрос текста
@@ -26,10 +42,6 @@ bool 	= confirm("Да?");				//Логическое диалоговое окн�
 window.resizeTo(400, 400);
 document.documentElement.scrollTop;
 
-var obj = document.getElemetnByClass("buttons");
-var obj = document.getElemetnById("go");
-
-var child = obj.getElemetnByTagName("p");
 
 clipboardData.setData('text', 'lool');
 clipboardData.getData('text');
@@ -47,9 +59,12 @@ obj.onmouseover = function(e){};
 obj.onmouseout = function(e){
 	e.srcElement;
 	e.type;		// mousemove
-	e.client[X\Y];
+	e.clientX;
+	e.clientY;
 
-	e.[alt\ctrl\shift]Key;
+	e.altKey;
+	e.ctrlKey;
+	e.shiftKey;
 	e.button;
 };
 
@@ -61,7 +76,8 @@ obj.onkeypress = function(e) {
 e.preventDefault();							//Обычное поведение
 
 var obj1 = element.parentElement;
-var obj1 = element.[first\last]Child.innerHTML;
+var obj1 = element.firstChild.innerHTML;
+var obj1 = element.lastChild.innerHTML;
 var arr = element.ChildNodes;
 
 //Тег select
@@ -78,7 +94,3 @@ var obj = document.createElement("div");
 	obj.className = "myClass";
 map.appendChild(obj);
 map.appendRemove(obj);
-
-
-
-
