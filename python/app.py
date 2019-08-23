@@ -1,53 +1,130 @@
-import math
-
 # Переменные
-	# str
-var = "hello world"
-	# int
-num = 12
-	# float
-qwe = 1.43
 
-	# bool
+# str
+var = 'hello world'
+
+# Строки
+var = 'hel' + 'lo'
+var = 'double' * 2
+
+# int
+a = 12
+
+# Математика
+var = 10 % 2
+var = 10 // 2
+var = 10 ** 2
+
+
+# float
+b = 1.43
+
+# bool
 flag = True
 flag = False
 
+# Перевод типа переменной
+result = float(a)
+result = int(a)
+result = str(a)
+result = bool(a)
+
+# Определить несколько переменных
+a, b = 0, 1
+a = b = 10
+
+# Размер переменной
+a = var.__sizeof__()
+
+
+
 # Массивы
-arr = ["Andrey", "Vitya", 10]
-cars = ["Mazda", "Toyota"]
+arr = ['Andrey', 'Vitya', 10]
 
-# Вывод на экран
-print(arr[0] + str(len(arr)))
+a, b = [1, 0]
+
+arr = [
+	a + b
+	for a in 'list' if a != 'l'
+	for b in 'vars' if a != 'a'
+]
+
+cars = [
+	'Mazda', 
+	'Toyota'
+]
+
+print(cars[0])
+print(cars[-1])
+
+print(cars[2:3:])
+print(cars[1:-1:1])
+print(cars[::-1])
+print(cars[::2])
+
+# Кортеж
+cort = (1 , 2, 234, 'str')
+
+# Cловарь
+word = {
+	'name': 'Andrey',
+	'age': 17
+}
+
+word = {
+	a: a ** 2
+	for a in range(1, 7)
+}
+
+word = dict ([('name', 'Andrew'),('age', 17)])
+word = dict.fromkeys (['a', 'b'], 1)
+
+print(word['name'])
+
+print(word.values)
+print(word.keys)
 
 
-c = float(a) + float(b)
-c = int(a) + int(b)
+
+# Удаление переменной
+del arr
 
 # Ввод с клавиатуры
-name = input("Ваше имя: ")
-# Вывод на экран
-print("hello, " + name)
+name = input('Ваше имя: ')
+# Вывод на экран без перевода строка
+print('hello, ' + name, end='')
+# Вывод на экран с переводом строки
+print('hello, ' + name)
 
 # Условия
-if name == "Andrew":
-    print("You Andrew")
-elif name == "Vitya":
-    print("You Vitya")
+if name == 'Andrew':
+    print('You Andrew')
+elif name == 'Vitya':
+    print('You Vitya')
 else:
-    print("Invalid name")
+    print('Invalid name')
 
-# Перебор
+# Циклы
 for car in cars:
 	print(car)
+	continue
+
+while a > 1:
+	print(a)
+	a += 1
+	if var == 1:
+		break
+else:
+	print('Цикл не сломан')
 
 # Функция
 def fib(n):
-    a, b = 0, 1
-    while a < n:
-        print(a, end=' ')
-        a, b = b, a+b
-    print()
+	print(n)
 
+def getvar():
+	return 10
+
+# Вызов функции
 fib(1000)
 
 # В конце программы ожидание
