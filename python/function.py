@@ -1,3 +1,7 @@
+# Общие
+var = 10
+type(var)
+
 # Математические
 import math
 
@@ -6,13 +10,9 @@ round(10.5)
 math.ceil(10.01)
 math.floor(10.99)
 
-
 # Массивы
 
-cars = [
-	'Mazda', 
-	'Toyota'
-]
+cars = ['Mazda', 'Toyota']
 
 range(1, 10)
 len(cars)
@@ -35,3 +35,8 @@ count = cars.count('BMW')
 
 cars.sort()
 cars.reverse()
+
+
+# Множества
+cars = set (cars)
+cars.discard(32)

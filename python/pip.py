@@ -9,15 +9,11 @@ print( Back.GREEN )
 print( Fore.RED )
 
 # Телеграм
-# pip install pyTelegramBotAPI
-import telebot
-
-bot = telebot.TeleBot("token")
-
+    # pip install pyTelegramBotAPI
 
 # Метиоцентр
-# pip install pyowm
+    # pip install pyowm
 
 # Компиляця
-# pip install pyinstaller
-# pyinstaller -F app.py
+    # pip install pyinstaller
+        # pyinstaller -F app.py

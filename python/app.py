@@ -41,7 +41,7 @@ a = var.__sizeof__()
 
 
 # Массивы
-arr = [ 'Andrey', 'Vitya', 10 ]
+arr = ['Andrey', 'Vitya', 10]
 
 arr = [
 	a + b
@@ -49,7 +49,7 @@ arr = [
 	for b in 'vars' if a != 'a'
 ]
 
-cars = [ 'Mazda', 'Toyota' ]
+cars = ['Mazda', 'Toyota']
 
 print(cars[0])
 print(cars[-1])
@@ -60,12 +60,12 @@ print(cars[::-1])
 print(cars[::2])
 
 # Кортеж
-cort = ( 1 , 2, 234, 'str' )
+cort = (1 , 2, 234, 'str')
 
 # Cловарь
-word = { 'name': 'Andrey', 'age': 17 }
+word = {'name': 'Andrey', 'age': 17}
 
-word = { a: a ** 2 for a in range(1, 7) }
+word = {a: a ** 2 for a in range(1, 7)}
 
 word = dict ([('name', 'Andrew'),('age', 17)])
 word = dict.fromkeys (['a', 'b'], 1)
@@ -74,6 +74,28 @@ print(word['name'])
 
 print(word.values())
 print(word.keys())
+
+# Множества
+man = {1, 2}
+arr = {a ** 2 for a in range(10)}
+
+man = set('hello')
+man = set(arr)
+
+man = frozenset(arr)
+
+print(10 in man)
+# Не имеют общих элементов
+print(man.isdisjoint(arr))
+
+# Сложение множеств
+arr.update(man)
+# Пересечение множеств
+arr.intersection_update(man)
+# Вычитание множеств
+arr.difference_update(man)
+# Сложение вычитаний :)
+arr.symmetric_difference_update(man)
 
 
 
@@ -95,7 +117,7 @@ elif name == 'Vitya':
 else:
     print('Invalid name')
 
-# Циклы
+# Перебор элементов
 for car in cars:
 	print(car)
 	if var == 1:
@@ -105,6 +127,7 @@ for car in cars:
 else:
 	print('Цикл не сломан')
 
+# Цикл
 while a > 1:
 	print(a)
 	a += 1
@@ -115,16 +138,45 @@ while a > 1:
 else:
 	print('Цикл не сломан')
 
-# Функция
-def fib(n):
-	print(n)
+# Функции
 
-def getvar():
-	print(10)
+# Простая функция
+def foo (n):
+	print(n)
+	pass
+
+foo(1000)
+
+# Функция, возращающая значение
+def getvar ():
+	print (10)
 	return 10
 
-# Вызов функции
-fib(1000)
+print (getvar())
 
-# В конце программы ожидание
-input()
+# Функция, с 1 обязательным и неограничинами параметрами
+# параметр будет картежом
+def write (msg, *args):
+	print (msg + args[0])
+	pass
+
+write ('hello', 1, 2, 3)
+
+# Функция со словорём в параметрах
+def user (**args):
+	print ('Hello ' + args['name'])
+	pass
+
+user (name='Andrey', age=17)
+
+# Функция возращяющая функцию
+def func (a = 10):
+	def add (b):
+		return a + b
+	return add
+
+test = func(10)
+print(test(20))
+
+# Анонимная функция
+add = lambda a, b: a + b
