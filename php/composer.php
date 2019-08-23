@@ -127,17 +127,17 @@ require_once '/vendor/autoload.php';
             );
 
     # БД
-        /* Конфигурация
+        /* КонфигурацияЫ
             (.env)
-                DB_CONNECTION=mysql
-                DB_HOST=127.0.0.1
-                DB_DATABASE=app
-                DB_USERNAME=root
-                DB_PASSWORD=1111
+                DB_CONNECTION =mysql
+                DB_HOST       =127.0.0.1
+                DB_DATABASE   =app
+                DB_USERNAME   =root
+                DB_PASSWORD   =1111
         */
 
         # Миграции
-            Schema::create('tasks', function(Blueprint $table){
+            Schema::create('tasks', function(Blueprint $table) {
                 $table->increments('id');
                 $table->text('body');
                 $table->integer('user_id');
@@ -146,67 +146,68 @@ require_once '/vendor/autoload.php';
                 $table->timestamps();
             });
         # Модели
-            class Model {
-                public static function incimpleted() {
+            class Model
+            {
+                public static function incimpleted()
+                {
                     return static::where('completed', 0)->get();
                 }
             }
 
     # Шаблонизатор Blade([name].blade.php)
-?>
-        <ul>
-            <!-- Использование ключевых слов PHP -->
-                @foreach ($arr as $a)
-                    <!-- Использование переменных -->
-                        <li>{{ $a }}</li>
-                @endforeach
+    ?>
+            <ul>
+                <!-- Использование ключевых слов PHP -->
+                    @foreach ($arr as $a)
+                        <!-- Использование переменных -->
+                            <li>{{ $a }}</li>
+                    @endforeach
 
-            <!-- Вывод секции Content -->
-                @yield('content')
-            <!-- Наследование файда Layout -->
-                @extends('layout')
-            <!-- Установка секции -->
-                @section('content')
-                @endsection
-            <!-- include путей -->
-                @include('folder.index')
+                <!-- Вывод секции Content -->
+                    @yield('content')
+                <!-- Наследование файда Layout -->
+                    @extends('layout')
+                <!-- Установка секции -->
+                    @section('content')
+                    @endsection
+                <!-- include путей -->
+                    @include('folder.index')
 
-            <!-- Условные операторы -->
-                @if (count($records) === 1)
-                    Здесь есть одна запись!
-                @elseif (count($records) > 1)
-                    Здесь есть много записей!
-                @else
-                    Здесь нет записей!
-                @endif
+                <!-- Условные операторы -->
+                    @if (count($records) === 1)
+                        Здесь есть одна запись!
+                    @elseif (count($records) > 1)
+                        Здесь есть много записей!
+                    @else
+                        Здесь нет записей!
+                    @endif
 
-                @unless (Auth::check())
-                    Вы не вошли в систему.
-                @endunless
+                    @unless (Auth::check())
+                        Вы не вошли в систему.
+                    @endunless
 
-            <!-- Циклы -->
-                @for ($i = 0; $i < 10; $i++)
-                    Текущее значение: {{ $i }}
-                @endfor
+                <!-- Циклы -->
+                    @for ($i = 0; $i < 10; $i++)
+                        Текущее значение: {{ $i }}
+                    @endfor
 
-                @foreach ($users as $user)
-                    <p>Это пользователь{{ $user->id }}</p>
-                @endforeach
+                    @foreach ($users as $user)
+                        <p>Это пользователь{{ $user->id }}</p>
+                    @endforeach
 
-                @forelse($users as $user)
-                    <li>{{ $user->name }}</li>
-                @empty
-                    <p>No users</p>
-                @endforelse
+                    @forelse($users as $user)
+                        <li>{{ $user->name }}</li>
+                    @empty
+                        <p>No users</p>
+                    @endforelse
 
-                @while (true)
-                    <p>Это будет длиться вечно.</p>
-                @endwhile
-        </ul>
+                    @while (true)
+                        <p>Это будет длиться вечно.</p>
+                    @endwhile
+            </ul>
+    <?php
 
 
-
-<?php
 
 # Symfony 4
 
@@ -218,85 +219,33 @@ require_once '/vendor/autoload.php';
         $twig = new \Twig\Environment($loader, [
             'cache' => 'cache',
         ]);
-?>
-    <ul>
-        {# Коментарий #}
-        <li>{{ var }}</li>
-        <li>{{ arr.name }}</li>
 
-        <li>{{ arr.name|upper }}</li>
+    ?>
+        <ul>
+            {# Коментарий #}
+            <li>{{ var }}</li>
+            <li>{{ arr.name }}</li>
 
-        {% include "nav.html" %}
+            <li>{{ arr.name|upper }}</li>
 
-        {% extands "base.html" %}
+            {% include "nav.html" %}
 
-        {% block title %}
-        {% endblock %}
+            {% extands "base.html" %}
 
-        {% if arr.name != '' %}
-            {% else %}
-        {% endif %}
+            {% block title %}
+            {% endblock %}
 
-        {% for user in users %}
-        {% endfor %}
-    </ul>
+            {% if arr.name != '' %}
+                {% else %}
+            {% endif %}
 
-
-<?php
-# Шаблонизатор Smarty
-    # composer require smarty/smarty
-
-# Подключение
-    # Простое
-        $smarty = new Smarty();
-        $smarty->template_dir = getcmd();
-        $smarty->compile_dir = '/tmp';
-
-    # Наследованием
-        class MySmarty extends Smarty {
-            function __construct()
-            {
-                    $this->Smarty();
-
-                    $this->template_dir = 'templates/';
-                    $this->compile_dir  = 'templates_c/';
-                    $this->config_dir   = 'configs/';
-                    $this->cache_dir    = 'cache/';
-
-                    $this->caching = true;
-                    $this->assign('app_name', 'Guest Book');
-            }
-        }
-
-# Использование
-    # Создание переменных
-        $smatry->assign('news', 'hello world');
-
-    # Прогрузка страницы
-        $smarty->display('news.tpl');
-?>
-    <ul>
-        {$var}
-        {$smarty.now}
-        {$arr.title}
-
-        {* Коментарий *}
-
-        {include file="inc/header.tpl" title="Последние новости"}
-
-        {if}
-
-        {else}
-
-        {/if}
-
-        {foreach from=$arr item="n" key="k"}
-        {/foreach}
-    </ul>
+            {% for user in users %}
+            {% endfor %}
+        </ul>
+    <?php
 
 
 
-<?php
 # SimpleDOMParser
     # Получить DOM объект из файла\ссылки:
         $dom = file_get_html($url);
@@ -392,8 +341,7 @@ require_once '/vendor/autoload.php';
 
 
 
-# MessagePack
-        
+# MessagePack       
     # Упаковка
         # Подключение
             use MessagePack\Packer;
@@ -431,3 +379,5 @@ require_once '/vendor/autoload.php';
     echo $faker->name;
     echo $faker->address;
     echo $faker->text;
+
+# xDebug

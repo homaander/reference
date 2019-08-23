@@ -31,6 +31,8 @@ result = bool(a)
 
 # Определить несколько переменных
 a, b = 0, 1
+a, b = [0, 1]
+
 a = b = 10
 
 # Размер переменной
@@ -39,9 +41,7 @@ a = var.__sizeof__()
 
 
 # Массивы
-arr = ['Andrey', 'Vitya', 10]
-
-a, b = [1, 0]
+arr = [ 'Andrey', 'Vitya', 10 ]
 
 arr = [
 	a + b
@@ -49,10 +49,7 @@ arr = [
 	for b in 'vars' if a != 'a'
 ]
 
-cars = [
-	'Mazda', 
-	'Toyota'
-]
+cars = [ 'Mazda', 'Toyota' ]
 
 print(cars[0])
 print(cars[-1])
@@ -63,26 +60,20 @@ print(cars[::-1])
 print(cars[::2])
 
 # Кортеж
-cort = (1 , 2, 234, 'str')
+cort = ( 1 , 2, 234, 'str' )
 
 # Cловарь
-word = {
-	'name': 'Andrey',
-	'age': 17
-}
+word = { 'name': 'Andrey', 'age': 17 }
 
-word = {
-	a: a ** 2
-	for a in range(1, 7)
-}
+word = { a: a ** 2 for a in range(1, 7) }
 
 word = dict ([('name', 'Andrew'),('age', 17)])
 word = dict.fromkeys (['a', 'b'], 1)
 
 print(word['name'])
 
-print(word.values)
-print(word.keys)
+print(word.values())
+print(word.keys())
 
 
 
@@ -107,13 +98,20 @@ else:
 # Циклы
 for car in cars:
 	print(car)
-	continue
+	if var == 1:
+		break
+	elif var == 1:
+		continue
+else:
+	print('Цикл не сломан')
 
 while a > 1:
 	print(a)
 	a += 1
 	if var == 1:
 		break
+	elif var == 1:
+		continue
 else:
 	print('Цикл не сломан')
 
@@ -122,6 +120,7 @@ def fib(n):
 	print(n)
 
 def getvar():
+	print(10)
 	return 10
 
 # Вызов функции
