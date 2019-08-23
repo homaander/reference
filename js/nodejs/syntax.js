@@ -3,10 +3,17 @@ var args = process.argv;
 
 var command = args[0];
 
+
+
 // Работа с файлами
+console.log(__dirname);
+console.log(__filename);
+
 const fs = require('fs');
 
 fs.unlink()
+
+
 
 // Эвенты
 const EventEmitter = require('events');
@@ -21,6 +28,8 @@ myEmitter.on('event', () => {
 
 myEmitter.emit('event');
 
+
+
 // Чтение строки
 const readline = require('readline');
 
@@ -34,6 +43,8 @@ rl.question('What do you think of Node.js? ', (answer) => {
 
   rl.close();
 });
+
+
 
 // Свои модули
 var math = require('./math');

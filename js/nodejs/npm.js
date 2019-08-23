@@ -9,13 +9,6 @@
     Использовать вместе с gulp
         npm install -D browser-sync
 
-    Electron
-        npm install -g electron
-
-        npm install -S electron
-
-        electron -v
-
     Gulp
         npm install -g gulp-cli
 
