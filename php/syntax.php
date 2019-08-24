@@ -128,8 +128,6 @@ function fun2(string $a, int $b)	{ global $x; $x++; } #Переменная ст
 $func = function($a, $b) use ($num)	{ return $num++; };	#Использоание внешних функций (Замыкание)
 
 function fun3(&$a)				{ }					#Позволяет изменять входящую переменную
-function fun4()					{ yield 1; yield 2; } #Генератор возвращает все возможные значения с каждым вызовом можно почитат с помощью foreach
-function fun5()					{ yield from func(); } #Генератор возвращает ещё один генератор( возвраты суммируются )
 function fun6(...$args) {} #Сколь угодное количество аргументов записывается в массив
 function &fun7()					{}
 $a = &fun();
@@ -140,6 +138,40 @@ func(...$arg);	#Раскрыть массив в аргументы
 
 $str = 'func';	#Имя функции
 $str();			#Вызов функции по имени
+
+# Генераторы
+	function gener1() {
+		yield 1;
+		yield 2;
+	}
+
+	foreach (gener() as $i) echo $i;
+
+	# Возврат генератора
+		function gener2() {
+			yield 1;
+			yield from gener1();
+		}
+	
+	# Отправка в генератор
+		function gener3() {
+			$ret = yield;
+			echo $ret;
+		}
+
+		$gen = gener3();
+		$gen->send('OK');
+
+	# return в генераторах
+		function gener4() {
+			yield 1;
+			yield 2;
+			return 3;
+		}
+
+		$gen = gener4();
+
+		$result = $gen->getRetutn();
 
 include_once 'lib.php';			#Если файл не найден ошибки нет
 require_once 'lib.php';			#Если файл не найден ошибка сервера

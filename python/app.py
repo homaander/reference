@@ -97,10 +97,10 @@ arr.difference_update(man)
 # Сложение вычитаний :)
 arr.symmetric_difference_update(man)
 
-
-
 # Удаление переменной
 del arr
+
+
 
 # Ввод с клавиатуры
 name = input('Ваше имя: ')
@@ -108,6 +108,8 @@ name = input('Ваше имя: ')
 print('hello, ' + name, end='')
 # Вывод на экран с переводом строки
 print('hello, ' + name)
+
+
 
 # Условия
 if name == 'Andrew':
@@ -127,6 +129,8 @@ for car in cars:
 else:
 	print('Цикл не сломан')
 
+
+
 # Цикл
 while a > 1:
 	print(a)
@@ -138,34 +142,70 @@ while a > 1:
 else:
 	print('Цикл не сломан')
 
-# Функции
 
+
+# Исключения
+try:
+	b = input()
+	a = 1 / b
+except ValueError:
+	b = 1
+except ZeroDivisionError:
+	a = 0
+else:
+	print (a)
+finally:
+	a = 0
+
+
+
+# Менеджеры
+with open('file.txt', 'a+') as inFile:
+	num = int( input() )
+	inFile.write(num)
+
+
+
+# Файлы
+f = open('file.txt', 'w')
+f = open('file.txt', 'a+')
+
+f.read()
+f.read(10)
+
+f.write('Hello')
+
+for line in f:
+	print (line)
+
+f.close()
+
+
+
+# Функции
 # Простая функция
 def foo (n):
 	print(n)
-	pass
 
 foo(1000)
 
 # Функция, возращающая значение
-def getvar ():
-	print (10)
+def getvar():
+	print(10)
 	return 10
 
 print (getvar())
 
 # Функция, с 1 обязательным и неограничинами параметрами
 # параметр будет картежом
-def write (msg, *args):
-	print (msg + args[0])
-	pass
+def write(msg, *args):
+	print(msg + args[0])
 
 write ('hello', 1, 2, 3)
 
 # Функция со словорём в параметрах
-def user (**args):
-	print ('Hello ' + args['name'])
-	pass
+def user(**args):
+	print('Hello ' + args['name'])
 
 user (name='Andrey', age=17)
 
@@ -180,3 +220,73 @@ print(test(20))
 
 # Анонимная функция
 add = lambda a, b: a + b
+
+# Генераторы
+def gener():
+	yield 1
+	yield 2
+	yield 3
+
+gen = gener()
+print (next(gen))
+
+for i in gen:
+	print(i)
+
+# Декораторы
+def decor (func):
+	def wrapper (a, b):
+		print('before')
+		func(a, b)
+		print('after')
+	return wrapper
+
+@decor
+def add(a, b):
+	print(a + b)
+
+
+
+# Классы
+class User:
+	def __init__(self, name, age):
+		self.name = name
+		self.age  = age
+
+	def _kill(self):
+		print ('Нижнее подчёркивание - не желается использовать в глобале')
+
+	def __ok(self):
+		print ('Можно вызвать только как obj._User__ok()')
+
+	def birthday(self):
+		self.age += 1
+
+class Moder(User):
+	def __init__(self, name, age, breed):
+		User.__init__(self, name, age)
+		self.breed = breed
+
+class Admin(User, Moder):
+	def __init__(self, name, age, breed):
+		self.breed = breed
+
+obj = User('Andrew', 17)
+
+print(obj.name)
+print(obj.age)
+
+obj.birthday()
+
+
+
+# Модули
+import math
+import os
+import random as r
+
+from time import time
+
+math.cos(1)
+time()
+os.getcwd()
