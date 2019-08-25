@@ -35,6 +35,31 @@ obj.show();
 
 $('#button').on('click', () => {})
 
+$(() => {
+	$('#button_add').on('click', b_add);
+	$('#button_rem').on('click', b_rem);
+
+	$(document).on('click', 'input[type="button"][value!="+"]');
+
+	//AJAX
+	$('#id').load('test.php');
+
+	$.ajax({
+
+	}).done((data) => {
+		
+	});
+})
+
+function b_add() {
+	$('p:last').clone().insertAfter('p:last');
+}
+
+function b_rem() {
+	$('p:last').remove();
+}
+
+
 // AJAX
 $.ajax({
     url: "/api/getWeather",
