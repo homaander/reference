@@ -1,5 +1,4 @@
 # Переменные
-
 # str
 var = 'hello world'
 
