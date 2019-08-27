@@ -562,45 +562,55 @@ mail('to@mail.ru', 'Robobo', 'Hello');
     # Соединяет массив в строку (синоним - join)
         implode(' ', ['a', 'b']);
      
-#Для работы с кирилицей прибавить mb_[com]:
-string strtolower($str);            #Нижний регистр
-string strtoupper($str);            #Верхний регистр
-string ucfirst($str);                #Праписная для первой буквы
+    #(string) Для работы с кирилицей прибавить mb_[com]:
+        strtolower($str);            #Нижний регистр
+        strtoupper($str);            #Верхний регистр
+        ucfirst($str);                #Праписная для первой буквы
 
-sscanf($str, '%2x%2x', $a, $b) #Разбирает сторку на переменные по формату
-string sprintf('%01.2f', 50.4);        #Возвращает строку, созданную с format.
-int    printf('%04.2f');            #Выводит sprintf()
-        #Формат: %[символ][-][макс. кол. символ].[точность]тип
-        #'-' - Выравнивание по лев краю
-        #Типы:  b-бинарное, d-число, 
-        #        s-строка, f-число с запятой, 
-        #x/X - шеснацеричное представление числа (строч/проп)
+    # Разбирает сторку на переменные по формату
+        sscanf($str, '%2x%2x', $a, $b);
+    # Возвращает строку, созданную с format.
+        sprintf('%01.2f', 50.4);
+    # Выводит sprintf()
+        printf('%04.2f', 50.2);
+            #Формат: %[символ][-][макс. кол. символ].[точность]тип
+            #'-' - Выравнивание по лев краю
+            #Типы:  b-бинарное, d-число, 
+            #        s-строка, f-число с запятой, 
+            #x/X - шеснацеричное представление числа (строч/проп)
 
-int    strlen('LOL');                    #Количество символов в строке
-int    strpos('find fox', 'fox', 2);    #Поиск первой fox в строке начиная со 2 символа
-int    strrpos('find fox', 'fox', 2);    #Поиск последней fox в строке начиная с конца
-string substr('1234567890', 3, 2);        #Вырезает 2 символа начиная с 3 символа
-string substr('1234567890', 3, -2);        #Вырезает кусок строки с 3 символа до 2 с конца
+    #(int) Количество символов в строке
+        strlen('LOL');
+    #(int) Поиск первой fox в строке начиная со 2 символа
+        strpos('find fox', 'fox', 2);
+    #(int) Поиск последней fox в строке начиная с конца
+        strrpos('find fox', 'fox', 2);
 
-string strtr($str, $from, $to);
-        #Заменяет в str соответcвующему в from из to
-string strtr($str, ['lol'=>'kek', 'no'=>'yes']);
-        #Заменяет в str из массива ключ -> число
+#(string) Вырезает 2 символа начиная с 3 символа
+    substr('1234567890', 3, 2);
+#(string) Вырезает кусок строки с 3 символа до 2 с конца
+    substr('1234567890', 3, -2);
 
-int    strcmp($str, $str2)                    #Сравнивает строки по байту
-string str_replace('is', '123', 'This is');    #
-array  str_replace($arr, '123', $arr);        # Замена символов в строке;
-array  str_replace($arr, $arr2, 'This is');    #
-string str_ireplace('is', '123', 'This is');# Без учёта регистра
-string substr_replace('text', 'st', 2, 2);    # Заменяет подстроку
+#(string) Заменяет в str соответcвующему в from из to
+    strtr($str, $from, $to);
+#(string) Заменяет в str из массива ключ -> число
+    strtr($str, ['lol'=>'kek', 'no'=>'yes']);
 
-string str_repeat('-', 5);                    # строка с 5 ю тере
+strcmp($str, $str2);                    #Сравнивает строки по байту
+str_replace('is', '123', 'This is');    #
+str_replace($arr, '123', $arr);        # Замена символов в строке;
+str_replace($arr, $arr2, 'This is');    #
+str_ireplace('is', '123', 'This is');# Без учёта регистра
+substr_replace('text', 'st', 2, 2);    # Заменяет подстроку
+
+str_repeat('-', 5);                    # строка с 5 ю тере
 
 
 
 #Типы переменных:
 
-string gettype($x)                #Тип переменной
+#Узнать тип переменной
+    gettype($x);
 
 #(bool) Проверка типа
     is_integer($a);
@@ -622,58 +632,53 @@ string gettype($x)                #Тип переменной
     # Бесконечность
         is_infinite($a);
 
-string filetype('file.txt');    #Тип файла
+# Тип файла
+    filetype('file.txt');
 
-#Проверка типа файла
-bool   is_file('file.txt');        #Это файл
-bool   is_dir('folder/');        #Это папка
-bool   is_link('file.lnk');        #Это ярлык
+#(bool) Проверка типа файла
+    is_file('file.txt');        #Это файл
+    is_dir('folder/');        #Это папка
+    is_link('file.lnk');        #Это ярлык
 
 
 
 
 #Работа с файлами:
 
-int    fopen('file/1.txt', 'rt') or die('Ошибка!');
+    fopen('file/1.txt', 'rt') or die('Ошибка!');
         # Постфикс t нужнем для кросплатформиности (иначе - b)
         # r - чтение, r+ - запись и чтание курсор в начале
         # a - запись, курсор в конце a+ - доб чтение
-
-int    file('file.txt', $flags);
+    file('file.txt', $flags);
         #Возвращает список с каждой строкой  файла
         # Флаги:
-        # FILE_IGNORE_NEW_LINES - не вписывает \n в конеч элемента
+           # FILE_IGNORE_NEW_LINES - не вписывает \n в конеч элемента
         # FILE_SKIP_EMPTY_LINES - пропусить пустые линии
         # Объединить с помощью "|"
-
-int    tmpfile();                #Временный файл
-
-array  parse_ini_file('file.ini', false, $mode); 
+    tmpfile();                #Временный файл
+    parse_ini_file('file.ini', false, $mode); 
         #Читает ini файл file.ini и возвращает одномерный (false) или
         #многомерный  (true) массив, Преобразуются "yes","true","on" = true
         # и "false","off","no","none" = false
         #Модификаторы: 
-        #INI_SCANNER_RAW   - Не возращать значение опции
-        #INI_SCANNER_TYPED - "yes","true","on" = true и
-        #"none" = none и "false","off","no" = false 
-
-int    fwrite($file, 'New \n');    #Записать (синоним - fputs())
-bool   feof($file)                #Файл не закончился
-string fread($file, 10);        #Чтение очередной строку длин. 1
-string fgets($file);            #Чтение очередной строки
-
-int    ftell($file);            #Текущая позиция курсора
-int    fseek($file, 0, $mode);    #Курсор в позицию относительно начала
+            #INI_SCANNER_RAW   - Не возращать значение опции
+            #INI_SCANNER_TYPED - "yes","true","on" = true и
+         #"none" = none и "false","off","no" = false 
+    fwrite($file, 'New \n');    #Записать (синоним - fputs())
+    feof($file);                #Файл не закончился
+    fread($file, 10);        #Чтение очередной строку длин. 1
+    fgets($file);            #Чтение очередной строки
+    ftell($file);            #Текущая позиция курсора
+    fseek($file, 0, $mode);    #Курсор в позицию относительно начала
         #Add Mode:
         #SEEK_CUR - Текущей позиции 
         #SEEK_END - Конца файла (использовать отр. пизицию)
 
-bool   ftruncate($file, 10);    #Урезает файл до 10 (После это использовать
-        #tseek что бы позиция не превышала размер)
-bool   fclose($file);            #Закрыть файл
-
-bool   fclose(fopen('f.txt', 'a+b'));
-        #Конструкция создаёт пустой файл, а если он есть ничего не делает
+    #Урезает файл до 10 (После это использовать tseek что бы позиция не превышала размер)
+        ftruncate($file, 10);
+    fclose($file);            #Закрыть файл
+    fclose(fopen('f.txt', 'a+b'));
+     #Конструкция создаёт пустой файл, а если он есть ничего не делает
 
 flock($file, LOCK_SH);
         #Ждём, пока наш процесс не станем единственным редактором файла
@@ -686,27 +691,22 @@ flock($file, LOCK_SH);
         # И ИСПОЛЬЗОВАТЬ ftruncate($file, 0); после flock();
         #!!! ПЕРЕД РАЗБЛОКИРОВКОЙ ПРОИЗВОДИТЬ fflush($file);
 
-bool   copy('1.txt', '2.txt');            #Копирование
-bool   rename('f', '2.txt');            #Переименовать
-bool   unlink('2.txt');                    #Удалить
-
-int    filesize($file)                    #Размер файла
-string basename('C:/l/k/f.txt', '.txt');#Имя файла, отбрость '.txt'
-string dirname('C:/l/k/f.txt');            #Путь к файлу  (C:/l/kek/)
-string dirname('C:/l/k/f.txt', 2);        #Путь к файлу уровня 2 (C:/lo/)
-string realpath('file.txt');            #Возращает полный путь к файлу 
-        #взамен относительному
-
-string tempnam('/lol/', 'temp');        #Создаёт и возращает случайное 
+copy('1.txt', '2.txt');            #Копирование
+rename('f', '2.txt');            #Переименовать
+unlink('2.txt');                    #Удалить
+filesize($file);                    #Размер файла
+basename('C:/l/k/f.txt', '.txt');#Имя файла, отбрость '.txt'
+dirname('C:/l/k/f.txt');            #Путь к файлу  (C:/l/kek/)
+dirname('C:/l/k/f.txt', 2);        #Путь к файлу уровня 2 (C:/lo/)
+realpath('file.txt');            #Возращает полный путь к файлу 
+ #взамен относительному
+tempnam('/lol/', 'temp');        #Создаёт и возращает случайное 
 #        имя файла с префикстом так, что бы оно было уникальным в папке
-int    getmygid();    #Добовляет суфикс с номером процесса для уничтожения 
-        #вероятности появления идентичеого файла в другом процессе
-
-int    file_put_contents('f.txt', 'Text Text'); #Записать в файл
-int    file_get_contents('f.txt');                #Прочитать файл
-
-int    file_exists('lol.txt');                    #Существует ли файл?
-
+getmygid();    #Добовляет суфикс с номером процесса для уничтожения 
+ #вероятности появления идентичеого файла в другом процессе
+file_put_contents('f.txt', 'Text Text'); #Записать в файл
+file_get_contents('f.txt');                #Прочитать файл
+file_exists('lol.txt');                    #Существует ли файл?
 
 
 #Работа с каталогами:
@@ -732,44 +732,47 @@ $file = popen('programm', 'rb');
 
 pclose($file);
 
-string readlink('file.lnk');        #Возвращает настоящий файл
-symlink('file.txt', 'file2.txt');    #Символическая ссылка
-link('file.txt', 'file2.tx');        #Жесткая ссылка
+#Возвращает настоящий файл
+    readlink('file.lnk');
+#Символическая ссылка
+    symlink('file.txt', 'file2.txt');
+#Жесткая ссылка
+    link('file.txt', 'file2.tx');
 
 #Потоки:
-echo file_get_contents('http://php.net');
-echo file_get_contents('ftp://ftp.aha.ru');
-echo file_get_contents('http://user:password@php.net');
+    echo file_get_contents('http://php.net');
+    echo file_get_contents('ftp://ftp.aha.ru');
+    echo file_get_contents('http://user:password@php.net');
 
-$body = 'f=1&s=2';
-$opts = [
-    'http' => [
-        'method' => 'POST'
-        'user_agent' => 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:42.0)',
-        'header' => 
-            'Content-Type: application/x-www-form-urlencoded\r\n'.
-            'Content-Length: ' . mb_strlen($body),
-        'content' => $body
-    ]
-];
-$context = stream_context_create($opts);
-echo file_get_contents('http://php.net', false, $context);
+    $body = 'f=1&s=2';
+    $opts = [
+        'http' => [
+            'method' => 'POST',
+            'user_agent' => 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:42.0)',
+            'header' => 
+                'Content-Type: application/x-www-form-urlencoded\r\n' .
+                'Content-Length: ' . mb_strlen($body),
+            'content' => $body
+        ]
+    ];
+    $context = stream_context_create($opts);
+    echo file_get_contents('http://php.net', false, $context);
 
 
 #Права доступа:
-fileowner('file.txt');    #UID пользователя владеющего файлом
-filegroup('file.txt');    #GID группы
-fileperms('file.txt');    #Права доступа к файлу первые 7 - тип, остальные 9 - права доступа
-filesize('file.txt');    #Вес файла в байтах
-filemtime('file.txt');    #Дата последнего редактирования
+    fileowner('file.txt');    #UID пользователя владеющего файлом
+    filegroup('file.txt');    #GID группы
+    fileperms('file.txt');    #Права доступа к файлу первые 7 - тип, остальные 9 - права доступа
+    filesize('file.txt');    #Вес файла в байтах
+    filemtime('file.txt');    #Дата последнего редактирования
 
-is_readable('file.txt');        #Можно прочитать
-is_writable('file.txt');        #Можео недактировать
-is_executable('file.exe');        #Исполняемый файл
+    is_readable('file.txt');        #Можно прочитать
+    is_writable('file.txt');        #Можео недактировать
+    is_executable('file.exe');        #Исполняемый файл
 
-chown('file.txt', '1001');            #Изменить владельца файла (админ)
-chgrp('file.txt', '1001');            #Изменить группу, которой владееш
-chmod('file.ttx', 0775);            #Изменить права доступа
+    chown('file.txt', '1001');            #Изменить владельца файла (админ)
+    chgrp('file.txt', '1001');            #Изменить группу, которой владееш
+    chmod('file.ttx', 0775);            #Изменить права доступа
 
 # JSON
     #(string) Кодирование
@@ -787,15 +790,15 @@ chmod('file.ttx', 0775);            #Изменить права доступа
         $obj = new SimpleXMLElement($url, 0,  true);
 
     # Получение элемента
-        $obj->title
-        $obj->item[0]
+        $obj->title;
+        $obj->item[0];
     
     # Количество элементов
         $obj->item->count();
     # Массив аттрибутов
         $obj->item->arttibutes();
     # XPath регулярные выражения
-        $item = $obj->xpath('//item')
+        $item = $obj->xpath('//item');
         $item['url'];
         
     # Добовление
@@ -853,6 +856,7 @@ function gen() {
     yield  2;
     return 3;
 }
+
 $obj = gen();
     $obj->send('text');    #Послать значение в генератор
     $obj->getReturn();    #Получить значение return
