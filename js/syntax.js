@@ -16,54 +16,76 @@
     // Двойное равенство
         var a = b = 1;
 
+    // Константа
+        const a = 10;
+
+    // Переменная в скобочках (локальная)
+        let a = 10
+
 // Вывод в консоль
     console.log("Hello World");
 
 // Math
-    console.log(Math.PI);
-    console.log(Math.E);
+    // Математические константы
+        console.log(Math.PI);
+        console.log(Math.E);
 
-    num = Math.round(10.3);
-    num = Math.floor(10.3);
-    num = Math.ceil(10.3);
-    num = Math.random();
+    // Округление к ближайшему (0.5 - к большему)
+        num = Math.round(10.3);
+    // Округление к меньшему
+        num = Math.floor(10.3);
+    // Округление к большему
+        num = Math.ceil(10.3);
+
+    // Случайное число от 0 до 1
+        num = Math.random();
 
 // Объекты
     var obj = {
+
+        // Поля
         name: 'Andrew',
         age: 17,
         
+        // Системные методы
+            // Если объект приводят к строке
+                toString: function () {
+                    return 'String';
+                },
+            
+            // Если объект приводят к числу
+                valueOf: function () {
+                    return 10;
+                },
+
+        // Методы
         birthday: function () {
             this.age += 1;
-        },
-        
-        toString: function () {
-            return 'String';
-        },
-        
-        valueOf: function () {
-            return 10;
         }
-    }
+    };
 
-    var {x, y} = obj;
+    // Создание переменных x и y равных obj.x и obj.y соотвецтвенно
+        var {x, y} = obj;
 
-    x = foo.x;
-    y = foo.y;
+    console.log(obj.name);
+    obj.birthday()
 
 
 // Работа с массивами
-    arr.forEach((item, i, arr) => {
-        console.log(item);
-    });
+    // Перебор массива
+        arr.forEach((item, i, arr) => {
+            console.log(item);
+        });
     
-    arr2 = arr.filter((item, i, arr) => {
-        return true;
-    });
-    
-    arr2 = arr.map((item, i , arr) => {
-        return item + "!";
-    })
+    // Собственный фильтр (добовляет, если результат true)
+        arr2 = arr.filter((item, i, arr) => {
+            return true;
+        });
+        
+    // Редактирование элементов массива
+        arr2 = arr.map((item, i, arr) => {
+            return item + "!";
+        });
 
 // JSON
     // Перевод переменной в JSON
@@ -72,11 +94,15 @@
         JSON.parse(json);
 
 // Время
-    var inter = setInterval(func, 1000);
-    clearInterval(inter);
+    // Интервал воспроизведения функции
+        var inter = setInterval(func, 1000);
+    // Завершить интервал
+        clearInterval(inter);
     
-    var timeu = setTimeout(func, 1000);
-    clearTimeout(timeu);
+    // Выполнить функцию через время
+        var timeu = setTimeout(func, 1000);
+    // Отменить выполнение
+        clearTimeout(timeu);
 
 if(str.includes('lol')){}
 
@@ -98,8 +124,10 @@ arr.pop();
 count = str.length;
 
 
-
+// Условия
 if(true && true) {} else if (false) {} else {}
+
+num = (true)? 1 : 2;
 
 switch (key) {
     case 1: break;
@@ -111,10 +139,9 @@ switch (key) {
     default: break;
 }
 
-num = (true)? 1 : 2;
 
 
-
+// Циклы
 for(k=0; k<=arr.length; k++) {}
 for(k=9; k<=12; k++) { continue; break; }
 
@@ -122,15 +149,6 @@ while(k < 10) {}
 do {} while(k < 10);
 
 
-const a = 10;
-
-let obj = {
-    name: 'Andrew',
-    age: 17,
-    birthday: function () {
-        console.log('Birth day!!!');
-    }
-}
 
 function Test(name, age) {}
 function Test(a, b) { return a + b }
@@ -142,10 +160,5 @@ function User(name) {
 Obj = new User("Andrew");
 Obj.SayName();
 
-//Короткий вариант + не создаёт контекст this
-    (name, age) => { console.log(name) }
-
-
-
-
-
+//Анонимная фунукия
+    var a = (name, age) => { console.log(name) };

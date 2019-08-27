@@ -34,14 +34,43 @@ obj.show();
 
 
 $('#button').on('click', () => {})
+$('#button_rem').on('click', b_rem);
+
+$(document).on('click', 'input[type="button"][value!="+"]');
+
+$('#id').load('test.php');
+
+
+function b_add() {
+	$('p:last').clone().insertAfter('p:last');
+}
+
+function b_rem() {
+	$('p:last').remove();
+}
+
 
 // AJAX
 $.ajax({
-    url: "/api/getWeather",
+    url: 'app.php',
+    method: 'post',
     data: {
-      zipcode: 97201
+      	name: 'Andrew',
+      	age: 17
     },
+
     success: function( result ) {
       $( "#weather-temp" ).html( "<strong>" + result + "</strong> degrees" );
     }
+}).done((data) => {
+
 });
+
+$.post(
+    'app.php',
+    {
+        id: $(this).prop('id'),
+        status: $(this).prop('checked')
+    }
+);
+
