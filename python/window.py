@@ -20,7 +20,7 @@ canvas.create_line(6, 6, 6, 506, width=2, fill='#000', arrow=FIRST)
 canvas.create_line(6, 256, 606, 256, width=2, fill='#000', arrow=LAST)
 
 # Текст
-canvas.cteate_text(0, 0, text='hello world', fill='black')
+canvas.create_text(0, 0, text='hello world', fill='black')
 
 # Удаление
 line = canvas.create_line(0, 0, 0, 100, width=1, fill='black')
@@ -47,6 +47,9 @@ name_entry = Entry(root)
 name_entry.place(x=30, y=10)
 
 # Кнопка
+def func(a):
+    pass
+
 but = Button(root, text='Show')
 but.bind('<Button-1>', lambda event: func(name_entry.get()) )
 but.place(x=100, y=100)

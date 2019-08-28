@@ -1,6 +1,7 @@
 // Подключение
 // <script src="scripts/jscript.js"></script>
 
+// 
 $(document).ready(() => {});
 $(() => {});
 
@@ -62,8 +63,6 @@ $.ajax({
     success: function( result ) {
       $( "#weather-temp" ).html( "<strong>" + result + "</strong> degrees" );
     }
-}).done((data) => {
-
 });
 
 $.post(
