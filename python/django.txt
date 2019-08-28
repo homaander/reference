@@ -1,0 +1,26 @@
+# pip install Django
+
+# django-admin startproject myfirst
+# python manage.py runserver
+
+# python manage.py startapp message
+# Переместить в /myfirst/apps/
+	# setting.py
+		# 
+		# import sys
+		#
+		# PROJECT_ROOT = os.path.dirname(__file__)
+		# sys.path.insert(0, os.path.join(PROJECT_ROOT, 'apps'))
+
+# python manage.py makemigration message
+	# setting.py
+		#
+		# INSTALLED_APPS = [
+		# 	'message.apps.MesageConfig'
+		#   ...
+		# ]
+
+# python manage.py sqlmigrate message
+# python manage.py migrate
+
+# python manage.py shell
