@@ -220,3 +220,22 @@ $str();			#Вызов функции по имени
 
 include_once 'lib.php';			# Если файл не найден ошибки нет
 require_once 'lib.php';			# Если файл не найден ошибка сервера
+
+// PHP 7.4
+// FFI
+	$obj = FFI::cdef("
+		int lol() {
+			return 10;
+		}
+	")
+
+	echo $obj->lol();
+
+	$ffi = FFI::cdef("
+		struct user {
+			char* name;
+			int age;
+		};
+	")
+
+	$obj = new $ffi->user;
