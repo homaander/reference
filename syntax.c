@@ -34,6 +34,7 @@ int main() {
 			float  c = 1.5;
 			double d = 1.55;
 
+	// Обнуление
 		a = NULL;
 
 	// Модификаторы
@@ -42,15 +43,27 @@ int main() {
 		// Только положительные
 			unsigned int a = 10;
 
-	char* - ссылка на тип char
-
 	// Char
 		// Символ
 			char sym   = 'A';
 
 		// Строка
-			char* str  = "Hello world";
+			// char* str  = "Hello world";
 			char str[] = "Hello world";
+
+	// Указатели
+		char a = 10;
+
+		// Создать указатель на a
+			char* aPointer = NULL;
+			char* aPointer = &a;
+
+		// Получение знечения из адреса
+			printf("%d", *aPointer);
+			int b = *aPointer;
+
+		// Изменить значение a
+			*aPoint = 5;
 
 	// Массивы
 		int arr[5] = {1, 3, 5, 4, 2};
