@@ -44,6 +44,8 @@ int main() {
 			float  c = 1.5;
 			double d = 1.55;
 
+		const short a = 100;
+
 		// Обнуление
 			a = NULL;
 
@@ -58,8 +60,9 @@ int main() {
 				char sym   = 'A';
 
 			// Строка
-				// char* str  = "Hello world";
+				char* str  = "Hello world";
 				char str[] = "Hello world";
+				const char* const a = "Lol";
 
 		// Указатели
 			char a = 10;
@@ -78,6 +81,7 @@ int main() {
 		// Массивы
 			short arr[5] = {1, 3, 5, 4, 2};
 			short arr[3] = { [2] = 3 };
+			char* arr[] = {"Hello", "world"};
 			int arr[2][2] = {
 				{1, 2},
 				{0, 1}
@@ -150,8 +154,11 @@ void new(*int a, int b) {
 }
 
 // Неограниченное количество аргументов
-int say(int argc, char const *argv[]) {
+int say(int argc, char const* argv[]) {
 	return args[0];
 }
 
-void my_print(char* srt, ...) { /* code */ }
+void my_print(char* str, ...) { /* code */ }
+
+// Массив строк на вход
+void test(char** str) {}
