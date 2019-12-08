@@ -16,7 +16,7 @@ com=$(ls)
 
 # Вывод
 	echo "lol";
-	echo -e "\e[1;45m lol \e[0"
+	echo -e "\e[1;45m lol \e[0m"
 	echo $a
 
 	# Код возврата последней команды
@@ -65,7 +65,7 @@ do
 	echo "$item элемент"
 done
 
-IFS=$"\n"
+IFS="\n"
 for line in $(cat "data.txt")
 do done
 
