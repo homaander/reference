@@ -5,7 +5,7 @@
 
 // Функция - константа (макрос, все переменные - ссылочные)
 #define new_func(a) \
-			a = 10
+	a = 10
 
 //  Проверка существования константы
 #ifndef NAME
@@ -24,83 +24,96 @@ struct user {
 
 int main() {
 	// Вывод
-		printf("Int: %d\n", a);
-		printf("Float: %.2f\n", c);
-		printf("Str: %s\n", str);
+	printf("Int:   %d\n", a);
+	printf("Float: %.2f\n", c);
+	printf("Str:   %s\n", str);
 
 
 	// Ввод
-		scanf("%d", &num);
-		scanf("%s", &name);
+	scanf("%d", &num);
+	scanf("%s", &name);
 
 
 	// Переменные
 		// Целочисленные
-			char   a = 1;		// -128 -> 127
-			short  a = 10;		// -32768 -> 32767
-			int    a = 100;		// -2B -> 2B 
-			long   a = 1000;	//
-		// С плавующей точкой
-			float  c = 1.5;
-			double d = 1.55;
+		char   a = 1;		// -128 -> 127
+		short  a = 10;		// -32768 -> 32767
+		int    a = 100;		// -2B -> 2B 
+		long   a = 1000;	//
 
+		int a, b, c, d = 10, e;
+
+		// С плавующей точкой
+		float  c = 1.5;
+		double d = 1.55;
+
+		// Нельзя менять значение
 		const short a = 100;
 
 		// Обнуление
-			a = NULL;
+		a = NULL;
 
 		// Модификаторы
 			// Со знаком
-				signed int a = 10;
+			signed int a = 10;
+
 			// Только положительные
-				unsigned int a = 10;
+			unsigned int a = 10;
 
 		// Char
 			// Символ
-				char sym   = 'A';
+			char sym   = 'A';
 
 			// Строка
-				char* str  = "Hello world";
 				char str[] = "Hello world";
-				const char* const a = "Lol";
+
+				// Только чтение (нельзя менять, ставить const)
+				const char* str  = "Hello world";
 
 		// Указатели
 			char a = 10;
 
 			// Создать указатель на a
-				char* aPointer = NULL;
-				char* aPointer = &a;
+			char* aPointer = NULL;
+			char* aPointer = &a;
 
 			// Получение знечения из адреса
-				printf("%d", *aPointer);
-				int b = *aPointer;
+			printf("%d", *aPointer);
+			int b = *aPointer;
 
 			// Изменить значение a
-				*aPoint = 5;
+			*aPoint = 5;
+
+			// Нельзя менять значения и ссылку
+			const char* const a = "Lol";
+
+			// Вывести адрес
+			printf("%p", aPointer);
 
 		// Массивы
-			short arr[5] = {1, 3, 5, 4, 2};
-			short arr[3] = { [2] = 3 };
-			char* arr[] = {"Hello", "world"};
-			int arr[2][2] = {
-				{1, 2},
-				{0, 1}
-			}
+		short arr[5] = {1, 3, 5, 4, 2};
+		short arr[3] = { [2] = 3 };
+		short arr[2][2] = {
+			{1, 2},
+			{0, 1}
+		}
+		char* arr[] = {"Hello", "world"};
 
-			// index access
-				short a = arr[0];
-			// pointer access
-				short a = *arr;
-				short b = *(arr + 1);
+		printf("%d\n", arr[1]);
+		printf("%d\n", *(arr + 1));
+
+		// index access
+		short a = arr[0];
+
+		// pointer access
+		short a = *arr;
+		short b = *(arr + 1);
 
 		// Арифметика
-			sum = a + 1;
-			a += 10;
-			a++;
-
-		// Размер типов данных
-			size_t intSize = sizeof(int);
-			printf("%zu\n", intSize);
+		sum = a + 1;
+		a += 10;
+		a++;
+		++a;
 
 	// Реализация структур
 	struct user obj;
@@ -108,24 +121,28 @@ int main() {
 		obj.age   = 17;
 		obj.money = 100;
 
+	// Размер типов данных
+	size_t intSize = sizeof(int);
+	size_t varSize = sizeof(a);
+	printf("%zu\n", intSize);
 
 	// Условия
-		if (a < 11 && a > 9) { /* code */ }
-		else if (b >= 10) { /* code */ }
-		else
+	if (a < 11 && a > 9) { /* code */ }
+	else if (b >= 10) { /* code */ }
+	else
+		/* code */
+
+	a = (a > 10)? a - 10: a;
+
+	switch (a) {
+		case 10:
 			/* code */
+			break;
 
-		a = (a > 10)? a - 10: a;
-
-		switch (a) {
-			case 10:
-				/* code */
-				break;
-
-			default:
-				/* code */
-				break;
-		}
+		default:
+			/* code */
+			break;
+	}
 
 
 	// Циклы
@@ -135,30 +152,24 @@ int main() {
 
 	do { /* code */ } while (sum < 10)
 
-
 	return 0;
 }
 
-void print(char* str) {
-	printf("%s\n", str);
-}
+void print(char* str) { /* code */ }
 
 // Функция с вазращаемым значением
-int sum(int a, int b) {
-	return a + b;
-}
+int sum(int a, int b) { return a + b; }
 
 // Передаётя ссылка
-void new(*int a, int b) {
-	a = b;
-}
+void new(int* a, int b) { /* code */ }
 
-// Неограниченное количество аргументов
-int say(int argc, char const* argv[]) {
-	return args[0];
-}
-
-void my_print(char* str, ...) { /* code */ }
+// Массив на вход
+int sum(int*  a) {}
+int sum(int a[]) {}
 
 // Массив строк на вход
-void test(char** str) {}
+void test(char* str[]) { /* code */ }
+void test(char**  str) { /* code */ }
+
+// Неограниченное количество аргументов
+void my_print(int str, ...) { /* code */ }
