@@ -1,5 +1,3 @@
-#!/bin/sh
-#!/bin/bash
 
 chmod u+x script.sh
 
@@ -72,10 +70,19 @@ do done
 for ((i=0; i <= 10; i++))
 do done
 
-
+# Завершить исполнение
 exit 0
 
-grep
+# Вывод содержимого, поиск по рег. выражениям, количество строк
+
+# -E регулярка
+# -i игнор регистра
+# -c количество строк
+
+
+grep Содержимое: /var/run/dmesg.boot
+grep "linux" /
+grep "linux[1-4]" /
 
 # Создать папку
 mkdir my_dir
@@ -98,6 +105,8 @@ cp ../a b
 cat
 
 # Разбить вывод постранично
-cat | less
+cat file | less
+# Количество строк
+cat file | wc
 
 pwd

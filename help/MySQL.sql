@@ -16,9 +16,10 @@
 /* Создать таблицу users */
 	CREATE TABLE users(
 		id 	INT NOT NULL AUTO_INCREMENT,
-		name VARCHAR(30),
-		bio TEXT,
-		birth DATE,
+		name 	VARCHAR(30),
+		status 	TEXT,
+		birth 	DATE,
+
 		PRIMARY KEY(id)
 	);
 /* Удалить таблицу users */
