@@ -1,4 +1,10 @@
 #include <stdio.h>
+#include "myhead.h"
+
+// Для подкльчения 2 .c файла:
+// 	gcc -c second.c -o second.o
+// 	gcc -c first.c -o first.o
+// 	gcc first.o second.o -o app
 
 // Константа
 #define NAME "Andrew"
@@ -22,6 +28,9 @@ struct user {
 	int   money;
 };
 
+// Прототип функции (можно в .h)
+int number (int a);
+
 int main() {
 	// Вывод
 	printf("Int:   %d\n", a);
@@ -38,7 +47,7 @@ int main() {
 		// Целочисленные
 		char   a = 1;		// -128 -> 127
 		short  a = 10;		// -32768 -> 32767
-		int    a = 100;		// -2B -> 2B 
+		int    a = 100;		// -2000000000 -> 2000000000 
 		long   a = 1000;	//
 
 		int a, b, c, d = 10, e;
