@@ -3,8 +3,12 @@
 	Показать базу данных
 		SHOW DATABASE shop;
 		SHOW TABLES;
+
 	Показать структуру таблицы
 		DESCRIBE users;
+
+	Зайти в базу
+		USE data
 /*
 
 
