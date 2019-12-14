@@ -157,7 +157,6 @@ foreach ( $arr as $key => $value ):
 endforeach;
 
 # Функции
-$x = 10;
 
 /**
 * Описание
@@ -167,24 +166,43 @@ $x = 10;
 * @return
 * @todo
 */
-function fun1()					{ static $x; $x++; } #Статическая переменная - относительно первого x это другая переменная, но со следующим вызовом переменная сохраняет своё значение
-function fun2(string $a, int $b)	{ global $x; $x++; } #Переменная становится глобальной и можно изменять её как первую
 
-$func = function($a, $b) use ($num)	{ return $num++; };	#Использоание внешних функций (Замыкание)
+// Статическая переменная - относительно первого x это другая переменная,
+// но со следующим вызовом переменная сохраняет своё значение
+	function fun()	{ static $x; $x++; }
 
-function fun3(&$a)				{ }					#Позволяет изменять входящую переменную
-function fun6(...$args) {} #Сколь угодное количество аргументов записывается в массив
-function &fun7()					{}
-$a = &fun();
+// Переменная становится глобальной и можно изменять её как первую 
+	function fun(string $a, int $b)	{ global $x; $x++; }
 
-func();			#Вызов
-func(123);		#Вызов с аргументами
-func(...$arg);	#Раскрыть массив в аргументы
+// Использоание внешних функций (Замыкание)
+	$func = function($a, $b) use ($x)	{ return $a + $b + $x; };
+	$func = fn($a, $b) => $a + $b + $x;
+
+	$func();
+
+// Позволяет изменять входящую переменную
+	function fun(&$a) {}
+// Сколь угодное количество аргументов записывается в массив
+	function fun(...$args) {}
+
+// Изменение статической переменной функции
+	function &fun7() {
+		static $num = 10;
+		return $num;
+	}
+
+	$a = &fun();
+	$a = 20;
+	echo fun(); // 20
+
+fun();			#Вызов
+fun(123);		#Вызов с аргументами
+fun(...$arg);	#Раскрыть массив в аргументы
 
 $str = 'func';	#Имя функции
 $str();			#Вызов функции по имени
 
-# Генераторы
+// Генераторы
 	function gener1() {
 		yield 1;
 		yield 2;
@@ -192,13 +210,13 @@ $str();			#Вызов функции по имени
 
 	foreach (gener() as $i) echo $i;
 
-	# Возврат генератора
+	// Возврат генератора
 		function gener2() {
 			yield 1;
 			yield from gener1();
 		}
 	
-	# Отправка в генератор
+	// Отправка в генератор
 		function gener3() {
 			$ret = yield;
 			echo $ret;
@@ -207,7 +225,7 @@ $str();			#Вызов функции по имени
 		$gen = gener3();
 		$gen->send('OK');
 
-	# return в генераторах
+	// return в генераторах
 		function gener4() {
 			yield 1;
 			yield 2;
@@ -218,24 +236,26 @@ $str();			#Вызов функции по имени
 
 		$result = $gen->getRetutn();
 
-include_once 'lib.php';			# Если файл не найден ошибки нет
-require_once 'lib.php';			# Если файл не найден ошибка сервера
+# Если файл не найден ошибки нет
+	include_once 'lib.php';
+# Если файл не найден ошибка сервера
+	require_once 'lib.php';
 
 // PHP 7.4
-// FFI
-	$obj = FFI::cdef("
-		int lol() {
-			return 10;
-		}
-	")
+	// FFI
+		$obj = FFI::cdef("
+			int lol() {
+				return 10;
+			}
+		")
 
-	echo $obj->lol();
+		echo $obj->lol();
 
-	$ffi = FFI::cdef("
-		struct user {
-			char* name;
-			int age;
-		};
-	")
+		$ffi = FFI::cdef("
+			struct user {
+				char* name;
+				int age;
+			};
+		")
 
-	$obj = new $ffi->user;
+		$obj = new $ffi->user;
