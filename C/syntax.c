@@ -31,98 +31,105 @@ struct user {
 // Прототип функции (можно в .h)
 int number (int a);
 
+// Входная точка
 int main() {
-	// Вывод
-	printf("Int:   %d\n", a);
+	/* Вывод------------------- */
+	printf("Int:   %d\n",   a);
 	printf("Float: %.2f\n", c);
 	printf("Str:   %s\n", str);
+	/* ------------------------ */
 
 
-	// Ввод
+	/* Ввод----------- */
+	int name
+	char* name;
+
 	scanf("%d", &num);
-	scanf("%s", &name);
+	scanf("%s", name);
+	/* --------------- */
 
 
-	// Переменные
-		// Целочисленные
+	/* Типы переменных------------------------------ */
+	// Целочисленные
+		/* Модификаторы--------- */
+		// Со знаком
+			signed int a = -10;
+
+		// Только положительные
+			unsigned int a = 10;
+		/* --------------------- */
+
 		char   a = 1;		// -128 -> 127
 		short  a = 10;		// -32768 -> 32767
-		int    a = 100;		// -2000000000 -> 2000000000 
+		int    a = 100;		// -2B -> 2B
 		long   a = 1000;	//
 
 		int a, b, c, d = 10, e;
 
-		// С плавующей точкой
+	// С плавующей точкой
 		float  c = 1.5;
 		double d = 1.55;
 
-		// Нельзя менять значение
-		const short a = 100;
+	// ASCII символ
+		char a = 'A';
 
-		// Обнуление
-		a = NULL;
-
-		// Модификаторы
-			// Со знаком
-			signed int a = 10;
-
-			// Только положительные
-			unsigned int a = 10;
-
-		// Char
-			// Символ
-			char sym   = 'A';
-
-			// Строка
-				char str[] = "Hello world";
-
-				// Только чтение (нельзя менять, ставить const)
-				const char* str  = "Hello world";
-
-		// Указатели
-			char a = 10;
-
-			// Создать указатель на a
-			char* aPointer = NULL;
-			char* aPointer = &a;
-
-			// Получение знечения из адреса
-			printf("%d", *aPointer);
-			int b = *aPointer;
-
-			// Изменить значение a
-			*aPoint = 5;
-
-			// Нельзя менять значения и ссылку
-			const char* const a = "Lol";
-
-			// Вывести адрес
-			printf("%p", aPointer);
-
-		// Массивы
-		short arr[5] = {1, 3, 5, 4, 2};
+	// Массивы
+		int   arr[]  = {1, 2, 3, 4, 5};
 		short arr[3] = { [2] = 3 };
 		short arr[2][2] = {
 			{1, 2},
 			{0, 1}
-		}
-		char* arr[] = {"Hello", "world"};
+		};
+		short a = arr[0]; // Index access
 
-		printf("%d\n", arr[1]);
-		printf("%d\n", *(arr + 1));
+	// Строка
+		char* str = "Hello!";   // Не менять
+		char  str[] = "Hello!";
 
-		// index access
-		short a = arr[0];
+	// Массив строк
+		char* arr = {"hello", "world"}; // Не менять
+		char arr[3][5] = {"hello", "world"};
+
+	// Константа
+		const short a = 100;
+
+	// Обнуление
+		a = NULL;
+	/* --------------------------------------------- */
+
+
+	/* Указатели-------------------------- */
+		char a = 10;
+
+		// Создать указатель на a
+		char* aPointer = NULL;
+		char* aPointer = &a;
+
+		// Получение знечения из адреса
+		printf("%d", *aPointer);
+		int b = *aPointer;
+
+		// Изменить значение a
+		*aPoint = 5;
+
+		// Нельзя менять значения и ссылку
+		const char* const a = "Lol";
+
+		// Вывести адрес
+		printf("%p", aPointer);
 
 		// pointer access
 		short a = *arr;
 		short b = *(arr + 1);
+	/* ----------------------------------- */
 
-		// Арифметика
+
+	/* Арифметика--- */
 		sum = a + 1;
 		a += 10;
 		a++;
 		++a;
+	/* ------------- */
 
 	// Реализация структур
 	struct user obj;
