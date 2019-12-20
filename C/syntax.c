@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <string.h>
+
 #include "myhead.h"
 
 // Для подкльчения 2 .c файла:
@@ -169,6 +171,14 @@ int main() {
 	do { /* code */ } while (sum < 10)
 
 	return 0;
+
+	// String.h
+	char a[32] = "Hello";
+	char b[32] = "Hello";
+
+	// Проверка совпадения стрк
+	if (strcmp(a, b) == 0)
+		/* code */
 }
 
 void print(char* str) { /* code */ }
