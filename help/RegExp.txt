@@ -19,6 +19,7 @@
 
 Потренироватся можно тут: https://ru.infobyip.com/regularexpressioncalculator.php
 
+
 Классы символов:
 	.	- Любой символ
 
