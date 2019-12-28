@@ -38,3 +38,4 @@ git merge dev
 
 
 gitk
+	:: Просмотр истории
