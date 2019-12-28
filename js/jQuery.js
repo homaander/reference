@@ -2,8 +2,8 @@ $(document).ready(() => {});
 $(() => {});
 
 // CSS Селекторы
-let foo = $('.class');
-let foo = $('#id');
+	let foo = $('.class');
+	let foo = $('#id');
 
 
 $(this).html('new html');
@@ -32,15 +32,17 @@ $(this).next('h3');
 $(this).siblings();
 $(this).siblings('.selected');
 
-$(this).hide();
-$(this).show();
+// Скрыть эелменты
+	$(this).hide();
+// Показать элементы
+	$(this).show();
 
 
-//
-	//
+// События
+	// Добавить событие клика
 		$('#button').on('click', function () {})
 
-	//
+	// Добавить события на все элементы блока по селектору
 		$(document).on(
 			'click',
 			'input[type="button"][value!="+"]', 
@@ -48,9 +50,9 @@ $(this).show();
 		);
 
 $('p:last')
-	//
+	// Склонировать
 		.clone()
-	//
+	// Вставить после
 		.insertAfter('p:last');
 
 // Удалить элемент
@@ -76,6 +78,7 @@ $('p:last')
 	$.ajax({
 	    url: 'app.php',
 	    method: 'post',
+
 	    data: {
 	      	name: 'Andrew',
 	      	age: 17
@@ -85,3 +88,8 @@ $('p:last')
 	      $('#weather-temp').html('<strong>' + result + '</strong>');
 	    }
 	});
+
+// FancyBox
+	$.fancybox(
+
+	);
