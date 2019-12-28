@@ -1,6 +1,11 @@
-﻿:: Git
+﻿
 git status
 	:: Статус проекта
+git log
+	:: История изменений
+git diff
+	:: Внесённые изменения
+
 
 git add "index.html"
 git add -A
@@ -19,3 +24,17 @@ git push
 
 git pull
 	:: Обновить файлы с облока
+
+
+git remote show origin
+
+git branch
+
+git branch dev
+git branch -d dev
+git checkout dev
+
+git merge dev
+
+
+gitk
