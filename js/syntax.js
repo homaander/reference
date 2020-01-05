@@ -9,7 +9,6 @@
         let a = 10
 
 
-
     // Целочисленная переменная
         let a = 100;
 
@@ -33,6 +32,9 @@
 
     // Двойное равенство
         var a = b = 1;
+
+    // Удалить переменную
+    	delete a;
 
 
 
@@ -159,8 +161,14 @@
 
 
 // Циклы
-for(k=0; k<=arr.length; k++) {}
-for(k=9; k<=12; k++) { continue; break; }
+for(let k=0; k<=arr.length; k++) {}
+for(let k=9; k<=12; k++) { continue; break; }
+// Пройти свойства объекта
+for(let key in obj) {}
+for(let key in obj) {
+	// Не заходить в прототип
+	if (!obj.hasOwnProperty(key)) continue;
+}
 
 while(k < 10) {}
 
@@ -169,14 +177,20 @@ do {} while(k < 10);
 
 
 // Функции
-	function Test(name, age) {}
+	function Test() {}
 	function Test(a, b) { return a + b }
 
 	//Анонимная фунукия
     	var a = (name, age) => { console.log(name) };
 		a();
 
+
+
 // Объекты
+	obj = new Object();
+	obj.my_prop = 'hello';
+	obj.fun = function() { return 10; };
+
     var obj = {
         // Свойства
         name: 'Andrew',
@@ -193,17 +207,53 @@ do {} while(k < 10);
             valueOf: function () { return 10; }
     };
 
-    // Создание переменных x и y равных obj.x и obj.y соотвецтвенно
-   	var {x, y} = obj;
-
-	obj = new Object();
-	obj.my_prop = 'hello';
-	obj.fun = function() { return 10; };
-
     console.log(obj.name);
-    obj.birthday()
+    console.log(obj['name']);
+    obj.birthday();
 
-// Конструктор объекта
+
+    // Будет доступен у всех объектов
+    Object.prototype.myMethod = function() {};
+    Animal.prototype.NewMethod = function() {};
+
+
+    // Создать объект и назначить ему прототип
+    let child = Object.create(obj);
+
+    const obj = Object.create(
+    	{ 
+    		getInfo() { console.log(this.name) }
+    	},
+
+    	{
+		name: {
+			value: 'Andrew',
+
+			// Показывать в for
+			enumerable: true,
+
+			// Возможность изменять
+			writable: true,
+
+			// Можем удалять (delete obj.name)
+			configurable: true
+		},
+
+		birthday: {
+			value: 2002;
+		},
+
+		age:  {
+			get() {
+				return new Date().getFullYear() - this.birthday;
+			},
+			set(value) {
+				this.birthday = new Date().getFullYear() - this.age;
+			}
+		}
+	});
+
+	// Конструктор объекта
 	function User(name, age) {
 		this.name = name;
 		this.age  = age;
@@ -211,11 +261,53 @@ do {} while(k < 10);
 		this.getInfo = function() {};
 	}
 
+
+	// Класс объекта
+	class Animal
+	{
+		// Вызывается как Animal.count
+		static count = 0;
+
+		// Доступно как свойство ageInfo
+		get ageInfo() { return this.age * 7; }
+		set ageInfo(value) { this.age = value / 7; }
+
+		getInfo() {
+			console.log('ok');
+		}
+
+		constructor(name, age) {
+			this.name = name;
+			this.age = age;
+		}
+	}
+
+	class Cat extends Animal
+	{
+		constructor(name, age, color) {
+			super(name, age);
+			this.color = color;
+		}
+
+		getInfo() {
+			super.getInfo();
+			console.log('mya');
+		}
+	}
+
+
 	// Создание объекта
 		let obj = new User('Andrew', 17);
+		let obj = new Animal();
+
 
 	// Проверка совпадения с конструктором
 		if (obj instanceof User) {}
+
+    // Создание переменных x и y равных obj.x и obj.y соотвецтвенно
+   		var {x, y} = obj;
+
+
 
 // JSON
     // Перевод переменной в JSON
@@ -241,8 +333,8 @@ do {} while(k < 10);
 		});
 
 		// Когда обещание выполнено (вызвана resolve())
-			prom.then(function(data) {
-				return new Promise(function(resolve, reject) {
+		prom.then(data => {
+				return new Promise((resolve, reject) => {
 					setTimeout(function() {
 						data.age = 17;
 						console.log('modified');
@@ -250,36 +342,58 @@ do {} while(k < 10);
 					}, 2000);
 				});
 			})
-			.then(function(data) {
+			.then(data => {
 				console.log('modified 2');
 				data.birthday = 2020 - data.age;
 				return data;			
 			})
-			.then(function(data) {
-				console.log('complited', data);
-			})
-			.catch(function(err) {
-				console.log('Error:', err)
-			})
-			.finaly(function() {
-				console.log('В любом случае');
-			});
-		
-		// Ждёт выполнения всех обещаний
-		Promise.all([prom, prom2])
-		.then()
-		.catch()
-		.finaly();
+			.then(data => console.log('complited', data))
 
-		// Ждём выполнения хотя-бы одного
-		Promise.race([prom, prom2])
-		.then()
-		.catch()
-		.finaly();
+			// Когда обещание не выполнено (вызвана reject())
+			.catch(err => console.log('Error:', err))
+			// В любом случае
+			.finaly(() => console.log('В любом случае'));
+	
+		// Ждёт выполнения всех обещаний из списка
+			Promise.all([prom, prom2])
+			.then()
+			.catch()
+			.finaly();
+
+		// Ждём выполнения хотя-бы одного обещания из списка
+			Promise.race([prom, prom2])
+			.then()
+			.catch()
+			.finaly();
 
 
+		// Examples:
 
-	// Async \ Await
+		const delay = ms => new Promise(r => setTimeout(r, ms));
+		const url = 'http://localhost:8000/jj.php';
+
+		// Promise style:
+			function fetchContent() {
+				return delay(2000)
+					.then(() => fetch(url))
+					.then(res => res.json());
+			}
+
+			fetchContent()
+				.then(data => console.log(data))
+				.catch(e => console.log(e));
+
+		// Async/Await style:
+			async function fetchAsyncContent() {
+				await delay(2000);
+				const res  = await fetch(url);
+				const data = await res.json();
+				console.log(data);
+			}
+
+			fetchAsyncContent();
+
+
 	
 
 

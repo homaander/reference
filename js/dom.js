@@ -1,23 +1,42 @@
 // AJAX
-function ajaxGet(){
-	fetch('test.php', { 
-		method: 'POST',
-		headers: {
-			"Content-Type": 'application/x-www-form-urlencoded'
-		},
-		body: "qwe=1&ewe=2"
-	}).then((response) => {
-		// return response.json();
-		return response.text();
-	}).then((result) => {
+	// Promise style:
+	function ajaxGet() {
+		fetch('test.php', { 
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			body: 'qwe=1&ewe=2'
+		})
+			.then(response => response.text())
+			// .then(response => response.json())
+
+			.then(result => console.log(result));
+	}
+
+	// Async/Await style:
+	async function ajaxGetAsync() {
+		const response = await fetch('test.php', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			body: 'qwe=1&ewe=2'
+		});
+		const result   = await response.text();
 		console.log(result);
-	});
-}
+	}
+
+	ajaxGetAsync();
+
+
 
 // Cookie
-function cookieGet(name) {
-	console.log(document.cookie);
-}
+	function cookieGet(name) {
+		console.log(document.cookie);
+	}
+
+
 
 // Поиск элементов
 	// Все элементы с классом
