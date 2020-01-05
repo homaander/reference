@@ -29,7 +29,8 @@
 
 
 // Простой класс
-class People {
+class People
+{
     // Свойства класса
         // Доступно так-же в классах-наследниках и у объекта
             public     $name  = null;
@@ -69,74 +70,81 @@ class People {
 
     // Методы
         // Метод
-            public function myWrite($a, $b)      { echo $this->Name; }
+            public function myWrite($a, $b) { echo $this->Name; }
         // Метод с возвратом
-             public function math(int $a, int $b, People $res) : int { return $a + $b; }
+            public function math(int $a, int $b, People $res) : int { return $a + $b; }
         // final - запрещает переопределять метод
             protected final function writeName() { echo $this->Name; }
 }
 
-// Абстрактный класс - должен быть реализован в наследниках
-    abstract class A {
+// Объект класса
+	// Создфние объекта
+		$obj = new People;
+		$obj = new People('Vitya', 17); // Передача двнных в конструктор
+
+	// Клонирование объекта (другое ячейка памяти)
+		$clone = clone $obj;
+
+	// Обращение к параметру
+		echo $obj->name;
+
+	// Вызов метода
+		$obj->printName();
+
+
+
+// Абстрактный класс (должен быть реализован в наследниках)
+    abstract class A
+	{
         abstract public function Kek(int $a);
     }
 
-// Создание объекта класса
-    $obj = new People;
-
-    // Передать параметры в конструктор
-        $obj = new People(16, 2);
-
-// Создаёт копию обекта но ссылающийся на другое пространство
-    $fake = clone $obj;
-// Оброщение к параметру
-    $obj->name;
-// Вызываем публичный метод
-    $obj->writeName(1, 3);
 
 
-// Статические:
-// При обращении к static свойствам используется класс::свойства
-// В статических методах нет $this (т.к. нет объекта) но есть класс self
-    class S {
-        public static $count;
+/**
+ * Статические:
+ * При обращении к static свойствам используется класс::свойства
+ * В статических методах нет $this (т.к. нет объекта) но есть класс self
+*/
+class S
+{
+	public static $count;
 
-        /**
-         * Проверка существования объектов
-         * Если нет, создаётся новый  
-         */
-        public static function сreate($name) {
-            self::$count++; 
-            return self::$loggers[$name] ?: self::$loggers[$name] = new self($name);
-        }
-
-        public static function delete($name) {
-            self::$count--;
-            unset($loggers[$name]);
-        }
-
-        public static function write() { echo 'Hello from '.__CLASS__; }
-
-        // static - В отличие от self не привязывается к классу где был определён 
-        // и при наследовании будет вызыватся метод/свойство наследника
-        public static function test() { static::write(); }
+    /**
+     * Проверка существования объектов
+     * Если нет, создаётся новый  
+    */
+    public static function сreate($name) {
+       	self::$count++; 
+        return self::$loggers[$name] ?: self::$loggers[$name] = new self($name);
     }
 
-    // Вызов
-        S::delete($obj);
-    // Оброщение к константе
-        S::MESSAGE;
-    // Обращение к строке
-        S::$name;
-
-
-// final - запрещает наследовать класс
-    final class End {
-
+   	public static function delete($name) {
+    	self::$count--;
+        unset($loggers[$name]);
     }
+
+    public static function where() { echo 'Hello from '.__CLASS__; }
+    
+	/**
+	 * static - В отличие от self не привязывается к классу где был определён 
+   	 * и при наследовании будет вызыватся метод/свойство наследника
+   	*/
+	public static function test() { static::write(); }
+}
+
+// Вызов
+    S::delete($obj);
+// Оброщение к константе
+    S::MESSAGE;
+// Обращение к свойству
+    S::$name;
+
+
 
 // Наследование
-class Student extends People {
+class Student extends People
+{
     public function __construct() {
         parent::__construct();
     }
@@ -147,27 +155,39 @@ class Student extends People {
     }
 }
 
-// Создание объекта каторый наследуется от People
-    $obj = new Student;
+$obj = new Student;
+
+// Проверка совместимости объектов
+$className = 'People';
+if ($obj instanceof People) echo 'OK';
+if ($obj instanceof $className) echo 'OK';
 
 // Вызов метода который наследуется от People
     $obj->writeName();
 // Вызов своего метода
     $obj->printItem('lol');
 
+// final - запрещает наследовать класс
+final class End
+{
+	public function p(string $msg) {
+		echo $msg;
+	}
+}
+
+
 
 // Анонимный класс
-class Test {
+class Test
+{
     private $Name;
+    
+	public function __construct($name) {
+    	$this->Name = $name;
+    }
 
     public function anonym() {
          return new class($this->Name) extends Test {
-             private $Name;
-
-             public function __construct($name) {
-                 $this->Name = $name;
-             }
-
              public function write() {
                  echo $this->Name;
              }
@@ -178,70 +198,91 @@ class Test {
 (new Test)->anonym()->write();
 
 
+
 // Интерфейсы
-$class = 'Test';
-// Проверка совместимости
-if ($obj instanceof $class) {}
-if ($obj instanceof Test) {}
 
 interface IA { public function write(); }
 interface IB { public function read(); }
-interface IC extends IA { public function info(); }
+interface IC extends IA, IB { public function info(); }
 
 // Наследование(Реализация) интерфейсов
 abstract class ID implements IA {}
 
-class Child extends Test implements IA, IB {
+class Child extends Test implements IA, IB
+{
     public function write() { echo 123; }
     public function read()  { echo 321; }
 }
 
 
+
 // Трейды
-    trait F { protected function write() { echo 'lol'; } }
+trait F
+{ 
+protected function write() { echo 'Lol F'; }
+protected function read()  { echo 'Kek F'; }
+}
 
-    trait G { protected function read()  { echo 'lol'; } }
+trait G 
+{
+	protected function write() { echo 'Lol G'; }
+	protected function read()  { echo 'Kek G'; }
+}
 
-    class T { use F, G; }
+class T 
+{ 
+	use F, G; 
+}
 
-    class T { 
-        use F, G {
-            // Использовать именно F::write и G::read привызове
-                F::write insteadof G;
-                G::read  insteadof F;
-            // Метод G::Write сделать отдельно в Lol
-                G::write as my_write;
-        }
+class T 
+{ 
+	use F, G {
+    	// Использовать именно F::write и G::read при вызове
+            F::write insteadof G;
+            G::read  insteadof F;
+
+        // Метод G::Write сделать отдельно в Lol
+            G::write as my_write;
     }
+}
+
 
 
 // Исключения
-    class FileExcepton extends Exception {}
+class MyExcepton extends Exception {}
 
-    try {
-        throw new Exception('Hello!');
-        throw new FileException('Hello!');
-        $a = 1 / 0;
-    } catch (FileException $e) {
-        echo $e->GetMessage();
-    } catch (Exception $e) {
-        echo $e->GetMessage();
-        // Идём дальше в следующий try catch
-        throw $e;
-    } catch (Error $e) {
-        // Базовый класс для всех внутр. ошибок
-        echo 'Ошибка!';
-    } finally {
+try {
+	// Сгенерировать исключения
+       	throw new Exception('Hello!');
+       	throw new MyException('Hello!');
+    $a = 1 / 0;
+}
+catch (MyException $e) {
+    echo $e->GetMessage();
+}
+catch (Exception $e) {
+    echo $e->GetMessage();
+
+    // Идём дальше в следующий catch
+       	throw $e;
+}
+catch (Error $e) {
+    // Базовый класс для всех внутр. ошибок
+       	echo 'Ошибка!';
+}
+finally {
         echo 'Всё ровны выполнится!';
-    }
+}
 
 
 // Итереторы:
 class Dirik implements IteratorAggregate {
     public $path;
+
     public function __construct($path) {
         $this->path = $path;
     }
+
     public function getIterator() {
         return new DirikIterator($this);
     }
@@ -277,6 +318,7 @@ $obj = new Dirik('.');
 foreach ($obj as $k => $v) {}
 // Так же можно явно указывать метод, возращающий итератор
     foreach ($obj->SecondIrer() as $k => $v) {}
+
 
 
 // Виртуальные массивы:
