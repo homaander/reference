@@ -157,6 +157,8 @@
         $str = $obj->asXML();
         $obj->asXML('file.xml');
 
+
+
 # Directory:
 $obj = dir('.');
     $obj->path;          #Путь к каталогу
@@ -167,7 +169,20 @@ $obj = dir('.');
     $obj->rewind();     #Сбросить в изначальное положение
     $obj->close();      #Закрыть каталог
 
-# База данных:
+
+
+// Mysqli
+    $mysql = mysqli('localhost', 'user', 'pass', 'db_name');
+
+    $mysql->query();
+
+    $mysql->escape_string($str);
+
+    $mysql->insert_id;
+
+
+
+# PDO:
     # Соединится с БД
     $pdo = new PDO(
             'mysql:host=...;dbname=...',
@@ -176,28 +191,30 @@ $obj = dir('.');
             [ PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION ]
         );
 
-    #Последнее значение primary_key с auto_increment
+    # Последнее значение primary_key с auto_increment
     $pdo -> lastInsertId();
 
-    #Выполнить запрос без получения данных
+    # Выполнить запрос без получения данных
     $count = $pdo->exec($query);
 
-    #Запрос с получением данных
+    # Запрос с получением данных
     $res = $pdo->query($query);
-    #Извлеч очередную строку запроса
+    # Извлеч очередную строку запроса
     $result = $res->fetch();
-    #Вернуть только асоц массив
+    # Вернуть только асоц массив
     $result = $res->fetch(PDO::FETCH_ASSOC);
 
-    #Преобразовать все резулбтаты в большой массив
+    # Преобразовать все резулбтаты в большой массив
     $all_result = $res->fetchAll();
 
-    #Параметры SQL (Переменные в запросе)
+    # Параметры SQL (Переменные в запросе)
     $query = 'SELECT * FROM table WHERE id = :id';
-    #Установить, что в запросе есть параметры
+    # Установить, что в запросе есть параметры
     $cat = $pdo->prepare($query);
-    #Изменить параметр
+    # Изменить параметр
     $cat->execute(['id' => 1]);
+
+
 
 # Generator:
 function gen() {
@@ -213,6 +230,8 @@ $obj = gen();
     $obj->currect();    #Текущее значение генератора
     $obj->next();        #Следующее значение
 
+
+
 # Closure:
 class View {
     protected $Page;
@@ -225,69 +244,72 @@ $obj ->addPage('Test');
 $clos = $clos->bindTo($obj, 'View');    #Назначить замыкание функции
 $clos();
 
+
+
 # Дата:
-$date  = new DateTime();
-$date2 = new DateTime("2016-01-01 00:00:00");
-$date  = new DateTime("now", new DateTimeZone("Europe/Moscow"));
-    $date->format('d.m.Y'); # Эквивалент date
+	$date  = new DateTime();
+	$date2 = new DateTime("2016-01-01 00:00:00");
+	$date  = new DateTime("now", new DateTimeZone("Europe/Moscow"));
+	    $date->format('d.m.Y'); # Эквивалент date
 
-$result = $date->diff($diff2);     # Интервал между текущей датой и данной в $date
+	$result = $date->diff($diff2);     # Интервал между текущей датой и данной в $date
 
-# DateInterval:
-$intval = new DateInterval("P3Y1M1D10H12M59S"); #Формат даты: P(число)(чего)
-$result = $date->add($intval);     # Добавить к дате интервал
-$result = $date->sub($intval);     # Вычесть из даты интервал
-    $date->format('d.m.Y'); # Эквивалент date
 
-# DatePeriod:
-$period = new DatePeriod($date, $intval, 5); #Генерирует 5 дат от $date с шагом $intval
-foreach ($period as $v) {}
-?>
+	# DateInterval:
+	$intval = new DateInterval("P3Y1M1D10H12M59S"); #Формат даты: P(число)(чего)
+	$result = $date->add($intval);     # Добавить к дате интервал
+	$result = $date->sub($intval);     # Вычесть из даты интервал
+	    $date->format('d.m.Y'); # Эквивалент date
+
+
+	# DatePeriod:
+	$period = new DatePeriod($date, $intval, 5); #Генерирует 5 дат от $date с шагом $intval
+	foreach ($period as $v) {}
 
 
 
 // Отражение
-$obj = new ReflectionFunction('MyArray');
-    // (bool) Функция встроена
-        $obj->isIntergal();
-    // (bool) Функция определена пользователем
-        $obj->isUserDifined();
+	$obj = new ReflectionFunction('MyArray');
+	    // (bool) Функция встроена
+	        $obj->isIntergal();
+	    // (bool) Функция определена пользователем
+	        $obj->isUserDifined();
 
-    // (string) Имя файла где определена
-        $obj->getFileName();
-    // (string) Строка начала определения
-        $obj->getStartLine();
-    // (string) Строка конца определения
-        $obj->getEndLine();
+	    // (string) Имя файла где определена
+	        $obj->getFileName();
+	    // (string) Строка начала определения
+	        $obj->getStartLine();
+	    // (string) Строка конца определения
+	        $obj->getEndLine();
 
-    // (string) Коментарий перед функцией
-        $obj->getDocComent();
-
-
-// Функции
-    // Вызвать функцию
-        $obj->invoke();
-    // (array) Вернёт список ReflectionParameters:
-        $obj->getParameters();
-
-// ReflectionParameters:
-	// Имя параметра
-		$par->getName();
-	// Тип параметра
-		$par->getClass();
-	// Может быть null или не обязателный
-		$par->allowsNull();
-	// Параметр - ссылка
-    	$par->isPassedByReference();
+	    // (string) Коментарий перед функцией
+	        $obj->getDocComent();
 
 
-// Классы
-    // Создать экземпляр класса
-        $obj->newInstance($a, $b);
-    // Получить свойства
-        $obj->getProperties();
-    // Молучить методы
-        $obj->getMethods();
+	// Функции
+	    // Вызвать функцию
+	        $obj->invoke();
+	    // (array) Вернёт список ReflectionParameters:
+	        $obj->getParameters();
+
+	// ReflectionParameters:
+		// Имя параметра
+			$par->getName();
+		// Тип параметра
+			$par->getClass();
+		// Может быть null или не обязателный
+			$par->allowsNull();
+		// Параметр - ссылка
+	    	$par->isPassedByReference();
+
+
+	// Классы
+	    // Создать экземпляр класса
+	        $obj->newInstance($a, $b);
+	    // Получить свойства
+	        $obj->getProperties();
+	    // Молучить методы
+	        $obj->getMethods();
 
 
 
