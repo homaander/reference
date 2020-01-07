@@ -39,12 +39,6 @@ class People
         // Доступно только из данного класса класса
             private    string $passw = null;
 
-    // Статическое свойство - не привязывается к объекту
-        public static $Count;
-
-    // Константа класса - статическая
-        const MESSAGE = 'lol';
-
     // Предопределённые методы
         // Конструктор - вызывается при создании и получает параметры в new People(пааметры)
             public function __construct($name) { $this->Name = $name; }
@@ -93,11 +87,17 @@ class People
 
 
 
-// Абстрактный класс (должен быть реализован в наследниках)
-    abstract class A
-	{
-        abstract public function Kek(int $a);
+/**
+ * Абстрактный класс (должен быть реализован в наследниках)
+ */
+abstract class A
+{
+    abstract public function Kek(int $a);
+
+    public function ok($msg) {
+        echo $msg . PHP_EOL;
     }
+}
 
 
 
@@ -105,15 +105,19 @@ class People
  * Статические:
  * При обращении к static свойствам используется класс::свойства
  * В статических методах нет $this (т.к. нет объекта) но есть класс self
-*/
+ */
 class S
 {
+    // Статическое свойство - не привязывается к объекту
 	public static $count;
+
+    // Константа класса - статическая
+    public const NAME = 'ok';
 
     /**
      * Проверка существования объектов
      * Если нет, создаётся новый  
-    */
+     */
     public static function сreate($name) {
        	self::$count++; 
         return self::$loggers[$name] ?: self::$loggers[$name] = new self($name);
@@ -129,7 +133,7 @@ class S
 	/**
 	 * static - В отличие от self не привязывается к классу где был определён 
    	 * и при наследовании будет вызыватся метод/свойство наследника
-   	*/
+   	 */
 	public static function test() { static::write(); }
 }
 
@@ -200,7 +204,6 @@ class Test
 
 
 // Интерфейсы
-
 interface IA { public function write(); }
 interface IB { public function read(); }
 interface IC extends IA, IB { public function info(); }
@@ -219,8 +222,8 @@ class Child extends Test implements IA, IB
 // Трейды
 trait F
 { 
-protected function write() { echo 'Lol F'; }
-protected function read()  { echo 'Kek F'; }
+    protected function write() { echo 'Lol F'; }
+    protected function read()  { echo 'Kek F'; }
 }
 
 trait G 
@@ -272,136 +275,4 @@ catch (Error $e) {
 }
 finally {
         echo 'Всё ровны выполнится!';
-}
-
-
-// Итереторы:
-class Dirik implements IteratorAggregate {
-    public $path;
-
-    public function __construct($path) {
-        $this->path = $path;
-    }
-
-    public function getIterator() {
-        return new DirikIterator($this);
-    }
-}
-
-class DirikIterator implements Iterator {
-    private $owner;
-    private $d;
-    private $cur;
-
-    public function __construct($owner) {
-        $this->owner = $owner;
-        $this->d     = opendir($owner->path);
-        $this->rewind();
-    }
-
-    public function key()   { return $this->cur; }
-    public function next()  { $this->cur = readdir($this->d); }
-    public function valid() { return $this->cur !== false; }
-
-    public function current() {
-        $path = $this->owner->path . '/' . $this->сur;
-        return is_dir($path)? new Dirik($path) : $this->сur;
-    }
-
-    public function rewind() {
-        rewinddir($this->d);
-        $this->cur = readdir($this->d);
-    }
-}
-
-$obj = new Dirik('.');
-foreach ($obj as $k => $v) {}
-// Так же можно явно указывать метод, возращающий итератор
-    foreach ($obj->SecondIrer() as $k => $v) {}
-
-
-
-// Виртуальные массивы:
-class MyArray implements ArrayAccess{
-    private $a =[];
-
-    public function offsetSet($offset, $value) { $this->a[$offset] = $value; }
-    public function offsetGet($offset) { return $this->a[$offset]; }
-    public function offsetExists($offset) { return isset($this->a[$offset]); }
-    public function offsetUnset($offset) { unset($this->a[$offset]); }
-}
-
-$obj = new MyArray();
-$obj['name'] = 'Andrew';
-
-
-// Встроеные наследники итераторов:
-$dir = new DirectoryIterator('.'); #Перебор объектов файлов
-
-#Фильтр итератора (возращает значение, где accept() == true)
-class MyFilter extends FilterIterator {
-    
-    public function __construct(DirikIterator $it, $ext) {
-        parent::__construct($it);
-    }
-
-    public function accept() { return true; }
-}
-
-#LimitIterator
-	# Первые 5 итераторов
-		$limit = new LimitIterator($iterator, 0, 5);
-
-#Рекурсия
-$dir = new RecursiveIteratorIterator(
-    new RecursiveDirectoryIterator('1')
-);
-
-foreach ($dir as $file) {
-    $dir->getDepth();
-}
-
-#Отражение
-$obj = new ReflectionFunction('none');
-    #(bool) Функция встроена
-        $obj->isIntergal();
-    #(bool) Функция определена пользователем
-        $obj->isUserDifined();
-
-    #(string) Имя файла где определена
-        $obj->getFileName();
-    #(string) Строка начала определения
-        $obj->getStartLine();
-    #(string) Строка конца определения
-        $obj->getEndLine();
-
-    #(string) Коментарий перед функцией
-        $obj->getDocComent();
-
-
-# Функции
-    # Вызвать функцию
-        $obj->invoke();
-    #(array) Вернёт список ReflectionParameters:
-        $obj->getParameters();
-
-# ReflectionParameters:
-	# Имя параметра
-		$par->getName();
-	# Тип параметра
-		$par->getClass();
-	# Может быть null или не обязателный
-		$par->allowsNull();
-	# Параметр - ссылка
-    	$par->isPassedByReference();
-
-
-# Классы
-    # Создать экземпляр класса
-        $obj->newInstance($a, $b);
-    # Получить свойства
-        $obj->getProperties();
-    # Молучить методы
-        $obj->getMethods();
-
-?>    
+}  

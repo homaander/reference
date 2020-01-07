@@ -39,7 +39,17 @@
 
 
 // Вывод в консоль
-    console.log("Hello World");
+    console.log('Hello World');
+    console.error('Errorr')
+    console.warn('Warning')
+
+    console.log('Arr:', arr);
+
+
+    console.group('Statuses:');
+    	console.log('First:  ok');
+    	console.log('Second: ok');
+    console.groupEnd();
 
 
 
@@ -127,6 +137,8 @@
 		// Поиск в строке
 			str = str.search(/\D/);
 
+			str = str.match(/s/, )
+
 	// Перевод из 10 в 2 СС
 		str = num.toString(2);
 
@@ -178,7 +190,10 @@ do {} while(k < 10);
 
 // Функции
 	function Test() {}
-	function Test(a, b) { return a + b }
+	function Test(a, b) { return a + b; }
+
+	// Изменить прототип функции
+	Test.bind(obj)();
 
 	//Анонимная фунукия
     	var a = (name, age) => { console.log(name) };
@@ -319,12 +334,13 @@ do {} while(k < 10);
 
 // Асинхронность
 	// Promises (Обещания)
-		const prom = new Promise(function(resolve, reject) {
-			setTimeout(function() {
+		const prom = new Promise((resolve, reject) => {
+			setTimeout(() => {
 				console.log('work');
 
 				let user = { name: 'Andrew' };
 
+				// Обещание не выполнено
 				if (user.name = 'Vitya') reject(user);
 
 				// Означает, что обещание выполнено, передаём 'a' дальше
@@ -356,15 +372,15 @@ do {} while(k < 10);
 	
 		// Ждёт выполнения всех обещаний из списка
 			Promise.all([prom, prom2])
-			.then()
-			.catch()
-			.finaly();
+				.then()
+				.catch()
+				.finaly();
 
 		// Ждём выполнения хотя-бы одного обещания из списка
 			Promise.race([prom, prom2])
-			.then()
-			.catch()
-			.finaly();
+				.then()
+				.catch()
+				.finaly();
 
 
 		// Examples:
@@ -392,9 +408,3 @@ do {} while(k < 10);
 			}
 
 			fetchAsyncContent();
-
-
-	
-
-
-

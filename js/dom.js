@@ -1,6 +1,6 @@
 // AJAX
 	// Promise style:
-	function ajaxGet() {
+	function getAJAX() {
 		fetch('test.php', { 
 			method: 'POST',
 			headers: {
@@ -15,67 +15,78 @@
 	}
 
 	// Async/Await style:
-	async function ajaxGetAsync() {
+	async function getAJAXAsync() {
 		const response = await fetch('test.php', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			},
-			body: 'qwe=1&ewe=2'
+			body: 'data=' + JSON.stringify(data)
 		});
+
+		if (!response.ok) return false;
+
 		const result   = await response.text();
 		console.log(result);
 	}
 
-	ajaxGetAsync();
-
-
 
 // Cookie
-	function cookieGet(name) {
+	function getCookie(name) {
 		console.log(document.cookie);
+
+		document.cookie.replace(/.*?=(.*?)(;|$).*/g, '$1')
+
+		return document.cookie;
+	}
+
+	function setCookie(name, value) {
+
 	}
 
 
 
 // Поиск элементов
-	// Все элементы с классом
-		var obj = document.getElemetnByClass("buttons");
-	// Элемент с ID
-		var obj = document.getElemetnById("go");
-	// Все элементы тега
-		var obj = obj.getElemetnByTagName("p");
+	// По id
+		let obj = document.getElemetnById("go");
+	// По классу
+		let child_obj = obj.getElemetnByClass("buttons");
+	// По тегу
+		let child_obj = obj.getElemetnByTagName("p");
 
-	// Поиск по CSS селектору (первый элемент)
-		var obj = document.querySelector('#id');
-	// Все элементы подходящие по условию
-		var obj = document.querySelectorAll('ul > li:last-child');
+	// По CSS селектору (первый элемент)
+		let child_obj = document.querySelector('#id');
+	// По CSS селектору (все)
+		let child_obj = document.querySelectorAll('ul > li:last-child');
 
 // Проверка, совподает ли элемент с CSS
 	obj.matches('li{first}');
 
-alert("Привет, мир");					//Диалоговое окно с текстом
-str 	= prompt("Введите число: ");	//Запрос текста
-bool 	= confirm("Да?");				//Логическое диалоговое окно
+alert("Привет, мир");				// Диалоговое окно с текстом
+str  = prompt("Введите число: ");	// Запрос текста
+bool = confirm("Вы уверянны?");		// Логическое диалоговое окно
 
 window.resizeTo(400, 400);
 document.documentElement.scrollTop;
-
 
 clipboardData.setData('text', 'lool');
 clipboardData.getData('text');
 
 
-window.onload = function(){};
+window.onload     = () => {};
 
-obj.onclick = function(e){};
-obj.oncontextmenu = function(e){};
+// Левый клик
+obj.onclick 	  = e => {};
 
-obj.onmousemove = function(e){};
-obj.onmousedown = function(e){};
-obj.onmouseup = function(e){};
-obj.onmouseover = function(e){};
-obj.onmouseout = function(e){
+// Правый клик
+obj.oncontextmenu = e => {};
+
+
+obj.onmousemove = e => {};
+obj.onmousedown	= e => {};
+obj.onmouseup	= e => {};
+obj.onmouseover = e => {};
+obj.onmouseout 	= e => {
 	e.srcElement;
 	e.type;		// mousemove
 	e.clientX;
@@ -84,22 +95,24 @@ obj.onmouseout = function(e){
 	e.altKey;
 	e.ctrlKey;
 	e.shiftKey;
-	e.button;
 };
 
-obj.onkeyup = function(e){};
-obj.onkeydown = function(e){};
-obj.onkeypress = function(e) {
-	e.key == "W";
+obj.onkeyup    = e=> {};
+obj.onkeydown  = e=> {};
+obj.onkeypress = e=> {
+	if (e.key == "W") {};
 };
-e.preventDefault();							//Обычное поведение
 
-var obj1 = element.parentElement;
-var obj1 = element.firstChild.innerHTML;
-var obj1 = element.lastChild.innerHTML;
-var arr = element.ChildNodes;
+// Обычное поведение
+	e.preventDefault();
 
-//Тег select
+var obj  = element.parentElement;
+var data = element.firstChild.innerHTML;
+var data = element.lastChild.innerHTML;
+
+var arr  = element.ChildNodes;
+
+// Тег select
 selectObj.selectIndex;
 selectObj.value;
 var arr = selectObj.options;
