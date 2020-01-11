@@ -29,12 +29,17 @@ git pull
 git remote show origin
 
 git branch
+	:: Все ветки проекта
 
 git branch dev
+	:: Создать ветку
 git branch -d dev
+	:: Удалить ветку
 git checkout dev
+	:: Изменить ветку
 
 git merge dev
+	:: Присоединение ветки 
 
 
 gitk
