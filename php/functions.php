@@ -162,6 +162,8 @@ mail('to@mail.ru', 'Robobo', 'Hello');
             imageCreate($x, $y);
         #(int) Создать картинку с полноцветной палитрой
             imageCreateTrueColor($x, $y);
+        #()
+            imageCreateFromPNG($filename);
             
         #(int) Вывести в браузер
             imagePNG($image);
@@ -173,6 +175,16 @@ mail('to@mail.ru', 'Robobo', 'Hello');
             imageColorsTotal($image);
         #(bool) Это truecolor изображение
             imageIsTrueColor($im);
+
+		#(bool) Копировать участок src (x,y,w,h) в участок изображения dst (x,y,w,h)
+        	imageCopyResized($dst, $src, $dx, $dy, $sx, $sy, $dw, $dh, $sw, $sh);
+
+        #(bool) Копировать участок src (x,y,w,h) в участок изображения dst (x,y,w,h) и растянуть
+        	imageCopyResampled($dst, $src, $dx, $dy, $sx, $sy, $dw, $dh, $sw, $sh);
+
+        #(bool) Удалить изображение
+        	imageDestroy($im);
+
 
         # Цвета
             # Задать ргб цвет
@@ -190,8 +202,7 @@ mail('to@mail.ru', 'Robobo', 'Hello');
                 imageColorAt($im, $x, $y);
             #(int) Задаёт ID как прозрачный цвет
                 imageColorTransparent($im, $id);
-            #(int) Копировать участок src (x,y,w,h) в участок изображения dst (x,y,w,h)
-                imageCopyResized($dst, $src, $dx, $dy, $sx, $sy, $dw, $dh, $sw, $sh);
+
 
         # Перо
             #(bool) Толщина Пера
