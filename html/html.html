@@ -1,82 +1,171 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>HTML</title>
+    <head>
+        <!-- Charset -->
+        <meta charset="utf-8">
+        <!--  Title -->
+        <title>HTML</title>
 
-		<link rel="stylesheet" type="text/css" href="">
-		<script type="text/javascript"></script>
-		<style></style>
-	</head>
+        <!-- Style -->
+        <link rel="stylesheet" type="text/css" href="">
+        <style>
+            /* CSS */
+        </style>
 
-	<body>
-		<header></header>
-		<nav></nav>
-		<main></main>
-		<aside></aside>
-		<section></section>
-		<article></article>
-		<footer></footer>
+        <!-- Script -->
+        <script type="text/javascript"></script>
+    </head>
+
+    <body>
+        <!-- Blocks -->
+        <div></div>
+        <header></header>
+        <nav></nav>
+        <main></main>
+        <aside></aside>
+        <section></section>
+        <article></article>
+        <footer></footer>
 
 
-       <form action="index.php" method="post" enctype="mulipart/from-data">
+        <form action="index.php" method="post" enctype="mulipart/from-data">
+        </form>
 
-		<h1></h1>
-		
-		<pre></pre>
+        <h1></h1>
+        
+        <!-- Text -->
+            <!-- Без формата -->
+            <pre></pre>
+            <span></span>
+            <p></p>
 
-		<span></span>
+            <!-- Жирный -->
+            <b>Текст</b>
+            <!-- Наклоннй -->
+            <i>Текст</i>
+            <!-- Подчёркнутый -->
+            <u></u>
+            <!-- Зачёркнутый -->
+            <s></s>
+        <!-- /Text -->
 
-		<p>
-			<b>
-				<u>
-					<s>
-						<i>
-							
-						</i>
-					</s>
-				</u>
-			</b>
-		</p>
+        <a href="/"></a>
 
-		<a></a>
+        <br>
+        <hr>
 
-		<br />
+        <!-- Таблица -->
+        <table>
+            <thead>
+                <tr>
+                    <th>f</th>
+                    <th>s</th>
+                </tr>
+            </thead>
 
-		<div></div>
+            <tbody>
+                <tr>
+                    <td>123</td>
+                    <td>321</td>
+                </tr>
+            </tbody>
 
-		<table>
-			<tr>
-				<th></th>
-				<th></th>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-			</tr>
-		</table>
+            <tfoot>
+                <tr>
+                    <td>...</td>
+                    <td>...</td>
+                </tr>
+            </tfoot>
+        </table>
 
-		<ul>
-			<li></li>
-			<li></li>
-		</ul>
+        <!-- Список -->
+        <ul>
+            <li></li>
+            <li></li>
+        </ul>
 
-		<ol>
-			<li></li>
-			<li></li>
-		</ol>
+        <!-- Нумерованный список -->
+        <ol>
+            <li></li>
+            <li></li>
+        </ol>
 
-		<svg></svg>
-		<img src="" />
+        <!-- Images -->
+            <svg width="100" height="100" viewBox="0 0 400 400">
+                <!-- Сгрупперовать не отресовывать -->
+                <defs>
+                    <!-- Круг -->
+                    <circle cx="50" cy="50" r="40" />
 
-		<form></form>
+                    <!-- Овал -->
+                    <ellipse cx="50" cy="50" rx="40" ry="60" />
 
-		<input type="" name="">
-		<select>
-			<option></option>
-			<option></option>
-		</select>
-		<textarea></textarea>
+                    <!-- Прямоугольник -->
+                    <rect x="1" y="2" rx="10" ry="10" width="400" height="100" class="el" />
+                </defs>
 
-	</body>
+                <symbol></symbol>
+
+                <!-- Сгрупперовать и отресовать -->
+                <g id="lines">
+                    <!-- Линии -->
+                    <line x1="0" y1="0" x2="50" y2="75" />
+
+                    <polyline points="0,0 10,30 45,2" />
+
+                    <polygon points="0,0 10,30 45,2" />
+                </g>
+
+                <!-- Использование элемента -->
+                <use x="0" y="0" xlink:href="#lines" />
+
+                <!-- Текст -->
+                <text x="10" y="10">Текст</text>
+
+                <!-- Построение (маленькая буква = относительная координата) -->
+                <path d="
+                    M 10 10 - Переместится в точку
+                    m 10 10
+
+                    L 20 20 - Линия до точки
+                    l 5 5
+
+                    V 5     - Вертикальная линия до 5
+                    v 10
+
+                    H 15    - Горизонтальная линия до 10
+                    h 66
+
+                    Z       - Замкнуть фигуру
+                " />
+
+            </svg>
+
+            <style>
+                .el {
+                    opacity:        0.9;
+
+                    fill:           rgb(0,0,255);
+                    fill-opacity:   0.6;
+
+                    stroke:         rgb(0,0,0)
+                    stroke-width:   10;
+                    fill-opacity:   0.6;
+                }
+            </style>
+
+            <img alt="image" src=""/>
+        <!-- /Images -->
+
+        <!-- Input -->
+            <input type="" name="">
+
+            <select>
+                <option></option>
+                <option selected></option>
+            </select>
+
+            <textarea></textarea>
+        <!-- /Input -->
+    </body>
 </html>
