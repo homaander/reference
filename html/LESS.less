@@ -1,0 +1,50 @@
+// Настройки
+  // Сжатие
+  // compress: true
+
+  // Не компилировать файл
+  // main: style.css;
+
+// Подключение
+@import "vars";
+
+// Переменные
+@color_a: #FFF;
+@img_p: '/img';
+
+// Без ковычек
+@media_1: ~"(min-width: 0px)";
+
+// Миксины
+.btn(@color) {
+	// Условие
+	& when (lightness(@color) > 50) {
+		background-image: url('@{img_p}/1.png');
+	}
+
+	background-color: @color;
+	font-family: 'Counter New';
+}
+
+header {
+  color: @color_a;
+  // Затемнить цвет
+  color: darken(@color_a, 10%);
+  // Осветлить цвет
+  color: lighten(@color_a, 10%);
+
+  a {
+  	// & - родитель
+    &:hover, &:focus {}
+
+    .link {
+      &--btn {.btn(@color_a) }
+    }
+  }
+
+  // Использование стилей других селекторов
+  .b {
+  	background-color: red;
+  	.a;
+  }
+}

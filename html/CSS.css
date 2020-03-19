@@ -15,8 +15,11 @@ div{}                /* для html тег */
 
 #id1, #id2{}        /* для двух объектов */
 #id .class{}        /* для всех объектов класса содерж в #id */
-#id>.class{}        /* для всех первых дочерних объектов класса содерж в id */
+
+#id > .class{}      /* для всех первых дочерних объектов класса содерж в id */
 #id1 + div{}        /* для первого div стоящий после id1 у одного родителя */
+.btn + .btn{}       /* Рядом стоящие элементы */
+
 #id1 ~ div{}        /* для всех div стоящий после id1 у одного родителя */
 
 /* Функции */
@@ -25,7 +28,6 @@ body {
 }
 
 /* Псевдоклассы */
-
 div:hover {}        /* при наведении */
 div:befor { content: '1'; }        /* Перед контентом написать */
 div:after { content: '1' }        /* После контента написать */
@@ -40,21 +42,19 @@ div:nth-of-type(2) {}
 div:nth-last-of-type(2) {}
 
 /* Псевдоэлементы */
-
 div:after {}
 div:before {}
 
 /* Шрифт */
-
 @font-face {
     font-family: Pompadur; /* Имя шрифта */
     src: url(fonts/pompadur.ttf); /* Путь к файлу со шрифтом */
 }
 
-@media(min-width: 0px) and (max-width: 300px) {}
+/* media запросы */
+@media and (max-width: 300px) {}
 
 /* Свойства */
-
 * {
     font:            [bold italic] 16pt "Arial";    
      font-family:    "Courier New", serif;
