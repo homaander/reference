@@ -17,14 +17,16 @@
 
 //  Проверка существования константы
 #ifndef NAME
+
 #endif
 
 // Усовие
 #if (NAME == "Andrew")
+
 #endif
 
 // Структура
-struct user {
+struct User {
 	char*  name;
 	int     age;
 	int   money;
@@ -39,6 +41,7 @@ int main() {
 	printf("Int:   %d\n",   a);
 	printf("Float: %.2f\n", c);
 	printf("Str:   %s\n", str);
+	printf("Point: %p\n", &a);
 	/* ------------------------ */
 
 
@@ -85,7 +88,7 @@ int main() {
 		short a = arr[0]; // Index access
 
 	// Строка
-		char* str = "Hello!";   // Не менять
+		char  *str = "Hello!";   // Не менять
 		char  str[] = "Hello!";
 
 	// Массив строк
@@ -102,6 +105,10 @@ int main() {
 
 	/* Указатели-------------------------- */
 		char a = 10;
+
+		// тип данных и * = адрес переменной этого типа
+		// &var = получить адрес переменной
+		// *pVar = получить значение по адресу
 
 		// Создать указатель на a
 		char* aPointer = NULL;
@@ -134,7 +141,7 @@ int main() {
 	/* ------------- */
 
 	// Реализация структур
-	struct user obj;
+	struct User obj;
 		obj.name  = "Andrew";
 		obj.age   = 17;
 		obj.money = 100;
@@ -181,7 +188,13 @@ int main() {
 		/* code */
 }
 
-void print(char* str) { /* code */ }
+// Передать структуру
+void get(struct User user) { /* code */ }
+// Передать ссылку на структуру
+void get(struct User* user) {
+	// Получить значение свойства из ссылки на объект
+	user->name;
+}
 
 // Функция с вазращаемым значением
 int sum(int a, int b) { return a + b; }
@@ -190,12 +203,15 @@ int sum(int a, int b) { return a + b; }
 void new(int* a, int b) { /* code */ }
 
 // Массив на вход
-int sum(int*  a) {}
+int sum(int* a) {}
 int sum(int a[]) {}
+
+
+void print(char* str) { /* code */ }
 
 // Массив строк на вход
 void test(char* str[]) { /* code */ }
-void test(char**  str) { /* code */ }
+void test(char** str) { /* code */ }
 
 // Неограниченное количество аргументов
 void my_print(int str, ...) { /* code */ }

@@ -26,7 +26,7 @@
 
 		if (!response.ok) return false;
 
-		const result   = await response.text();
+		const result = await response.text();
 		console.log(result);
 	}
 
@@ -40,9 +40,7 @@
 		return document.cookie;
 	}
 
-	function setCookie(name, value) {
-
-	}
+	function setCookie(name, value) {}
 
 
 

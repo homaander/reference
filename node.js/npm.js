@@ -9,6 +9,9 @@
     Использовать вместе с gulp
         npm install -D browser-sync
 
+    Fetch
+        npm install node-fetch --save
+
     Gulp
         npm install -g gulp-cli
 
@@ -31,6 +34,12 @@
         npm i colors
 */
 
+// Fetch
+    const fetch = require('node-fetch');
+
+// Get
+    const https = require('https');
+
 // Colors
     // Examples
         var colors = require('colors');
@@ -40,7 +49,8 @@
         console.log('inverse the color'.inverse); // inverses the color
         console.log('OMG Rainbows!'.rainbow); // rainbow
         console.log('Run the trap'.trap); // Drops the bass
-    
+
+
 // Gulp
     var gulp      = require('gulp'); 
     var rename    = require('gulp-rename');

@@ -5,26 +5,26 @@
 
     namespace OOP;
         // Подключить файл, что бы использовать пространство
-            require_once 'OOP/Test.php';
+        require_once 'OOP/Test.php';
 
         // Автоматическое подключение , Стандартный метод:
-            function __autoload($classname) { require_once __DIR__."$classname.php"; }
+        //  function __autoload($classname) { require_once __DIR__."$classname.php"; }
 
-            spl_autoload_register();
+        spl_autoload_register();
 
         // Использование пространства имён
-            use OOP\Test;           // Замена на Test (последний элемент ссылки)
-            use OOP\Test as Tested; // Замена отдельным
+        use OOP\Test;           // Замена на Test (последний элемент ссылки)
+        use OOP\Test as Tested; // Замена отдельным
 
         // Прямая (без подключения use)
-            $obj = new OOP\Test();
+        $obj = new OOP\Test();
 
         // Относительная ссылка
-            $obj = new namespace\Test\Lol();
+        $obj = new namespace\Test\Lol();
 
 
         // Глобальная php функция а не из пространства имён
-            \strlen('lol');
+        \strlen('lol');
 
 
 
@@ -33,63 +33,61 @@ class People
 {
     // Свойства класса
         // Доступно так-же в классах-наследниках и у объекта
-            public     $name  = null;
+        public     $name  = null;
         // Доступно так-же в классах-наследниках
-            protected  string $login = null;
+        protected  string $login = null;
         // Доступно только из данного класса класса
-            private    string $passw = null;
+        private    string $passw = null;
 
     // Предопределённые методы
         // Конструктор - вызывается при создании и получает параметры в new People(пааметры)
-            public function __construct($name) { $this->Name = $name; }
+        public function __construct($name) { $this->Name = $name; }
         // Деструктор - вызывается при потере всех ссылок на объект
-            public function __destruct()       { fclose($this->f); }
+        public function __destruct()       { fclose($this->f); }
 
         // При сериализации объекта (имена параметров, которые надо сериализировать)
-            public function __sleep()          { return ['name', 'age']; }
+        public function __sleep()          { return ['name', 'age']; }
         // При унсериализации
-            public function __wakeup()         { $this->Money = 0; }
+        public function __wakeup()         { $this->Money = 0; }
 
         // Перехват запроса на получение несуществующего или недоступного свойства:
-            public function __get($undif)        { return $undif.' нет'; }
+        public function __get($undif)        { return $undif.' нет'; }
         // Перехват запроса на редактирование несуществующего или недоступного свойства:
-            public function __set($undif, $val)  { echo 'Свойства '.$undif.' нет'; }
+        public function __set($undif, $val)  { echo 'Свойства '.$undif.' нет'; }
         // Перехват запроса на несуществующий или недоступный метод:
-            public function __call($undif, $arr) { return 'Метода '.$undif.' нет'; }
+        public function __call($undif, $arr) { return 'Метода '.$undif.' нет'; }
 
         // При выводе как строку
-            public function __toString()         { return "{$this->name}"; }
+        public function __toString()         { return "{$this->name}"; }
         // Срабатывает на клон (При private - запрещает клонирование)
-            public function __clone()            { $this->Name = 'clone'; }
+        public function __clone()            { $this->Name = 'clone'; }
 
     // Методы
         // Метод
-            public function myWrite($a, $b) { echo $this->Name; }
+        public function myWrite($a, $b) { echo $this->Name; }
         // Метод с возвратом
-            public function math(int $a, int $b, People $res) : int { return $a + $b; }
+        public function math(int $a, int $b, People $res) : int { return $a + $b; }
         // final - запрещает переопределять метод
-            protected final function writeName() { echo $this->Name; }
+        protected final function writeName() { echo $this->Name; }
 }
 
 // Объект класса
-	// Создфние объекта
-		$obj = new People;
-		$obj = new People('Vitya', 17); // Передача двнных в конструктор
+	// Создание объекта
+	$obj = new People;
+	$obj = new People('Vitya', 17); // Передача двнных в конструктор
 
 	// Клонирование объекта (другое ячейка памяти)
-		$clone = clone $obj;
+	$clone = clone $obj;
 
 	// Обращение к параметру
-		echo $obj->name;
+	echo $obj->name;
 
 	// Вызов метода
-		$obj->printName();
+	$obj->printName();
 
 
 
-/**
- * Абстрактный класс (должен быть реализован в наследниках)
- */
+// Абстрактный класс (должен быть реализован в наследниках)
 abstract class A
 {
     abstract public function Kek(int $a);
@@ -138,11 +136,11 @@ class S
 }
 
 // Вызов
-    S::delete($obj);
+S::delete($obj);
 // Оброщение к константе
-    S::MESSAGE;
+S::MESSAGE;
 // Обращение к свойству
-    S::$name;
+S::$name;
 
 
 

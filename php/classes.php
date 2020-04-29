@@ -17,31 +17,31 @@
 	    }
 
 	    // Сбрасывает значение на первое
-	    	public function rewind() {
-	        	rewinddir($this->dir);
-	        	$this->current = readdir($this->dir);
-	    	}
+    	public function rewind() {
+        	rewinddir($this->dir);
+        	$this->current = readdir($this->dir);
+    	}
 
 	    // Должени вернуть ключ
-	    	public function key() {
-				return $this->current;
-			}
+    	public function key() {
+			return $this->current;
+		}
 
 	    // Должен вернуть значение
-	    	public function current() {
-	        	$path = $this->owner->path . '/' . $this->current;
-	        	return is_dir($path)? new FileIterator($path) : $this->current;
-	    	}
+    	public function current() {
+        	$path = $this->owner->path . '/' . $this->current;
+        	return is_dir($path)? new FileIterator($path) : $this->current;
+    	}
 
 	    // Меняет значение на следующее
-	    	public function next() { 
-				$this->current = readdir($this->dir);
-			}
+    	public function next() { 
+			$this->current = readdir($this->dir);
+		}
 
 	    // Проверка коректности значения
-	    	public function valid() {
-				return $this->current !== false;
-			}
+    	public function valid() {
+			return $this->current !== false;
+		}
 	}
 
 	// Упрощенное создание итератора
