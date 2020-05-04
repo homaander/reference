@@ -8,7 +8,7 @@
 // 	gcc -c first.c -o first.o
 // 	gcc first.o second.o -o app
 
-// Константа
+// Константа, котороя при компиляции заменится на значение
 #define NAME "Andrew"
 
 // Функция - константа (макрос, все переменные - ссылочные)
@@ -88,7 +88,7 @@ int main() {
 		short a = arr[0]; // Index access
 
 	// Строка
-		char  *str = "Hello!";   // Не менять
+		char* str = "Hello!";   // Не менять
 		char  str[] = "Hello!";
 
 	// Массив строк
@@ -128,8 +128,12 @@ int main() {
 		printf("%p", aPointer);
 
 		// pointer access
-		short a = *arr;
+		short a = *(arr + 0);
 		short b = *(arr + 1);
+
+		// array access
+		short a = arr[0];
+		short a = arr[1];
 	/* ----------------------------------- */
 
 
@@ -142,7 +146,8 @@ int main() {
 
 	// Реализация структур
 	struct User obj;
-		obj.name  = "Andrew";
+		// obj.name  = "Andrew"; - Не работает
+		obj.name  = strdup("Andrew");
 		obj.age   = 17;
 		obj.money = 100;
 

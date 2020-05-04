@@ -1,47 +1,65 @@
 <!doctype html>
 <html>
-
     <head>
         <meta charset="utf-8">
+
         <title>Canvas</title>
+
+        <style>
+            #map {
+                display: block;
+            }
+        </style>
     </head>
     
     <body style="margin: 0;">
-        <canvas id="map" style="display: block;">This browser is not supported</canvas>
+        <canvas id="map" width="200" height="200">This browser is not supported</canvas>
         
         <script>
-            // Connect
+            // Создать объект
+            const stx = map.getContext('2d');
+
+            // Размер блока
             map.width  = window.innerWidth;
             map.height = window.innerHeight;
 
-            const stx = map.getContext('2d');
-                
-            // Code
+            // Разрешение блока
+            ctx.canvas.width  = window.innerWidth;
+            ctx.canvas.height = window.innerHeight;
 
-            stx.fillStyle = 'blue';   // Цвет заливки
-            stx.strokeStyle = 'red';  // Цвет оконтовки
-            stx.lineWidth = 1;        // Толщина оконтовки
-
-            // Градиент (x1, y1, x2, y2)
+            // Создать градиент (x1, y1, x2, y2)
             const grad = stx.createLinearGradient(100,100,200,200);
                 grad.addColorStop(0,'green');
                 grad.addColorStop(0.6,'red');
                 grad.addColorStop(1,'blue');
-            
-            stx.fillStyle = grad;
+
+                
+            // Стили
+            stx.fillStyle   = 'blue';   // Цвет заливки
+            stx.fillStyle = grad;       // Исспользовать градиент
+
+            stx.strokeStyle = 'red';    // Цвет оконтовки
+            stx.lineWidth   = 1;        // Толщина оконтовки
+
             
             stx.fillRect(10, 10, 100, 100); // Заполненый прямоугольник ( x, y, w ,h )
-            stx.strokeRect(120,10,100,100); // Пустой прямоугольник ( x, y, w ,h )
-            
-
+            stx.strokeRect(120,10,100,100); // Пустой прямоугольник     ( x, y, w ,h )
+        
             stx.arc(280, 60, 50, 0, Math.PI, false); // Дуга (cx, cy, r, start, end, mirror)
-            stx.fill();                              // Залить фигуру
-            
+
+
             stx.beginPath();            // Начать путь
                 stx.moveTo(340, 110);   // Переместится в точку
                 stx.lineTo(340, 110);   // Линия до координаты
+
+                // Кривая
+                stx.quadraticCurveTo(10, 100, 100, 0); // (cpx, cpy, x, y), (cpx, cpy) - точка угла. (x, y) - конечная точка
             stx.closePath();            // Замкнуть фигуру
+
+
             stx.stroke();               // Отрисовать оконтовку фигуры
+            stx.fill();                 // Залить фигуру
+
             
             stx.scale(1, 1);             // Множитель размера (x, y)
             stx.rotate(0 * Math.PI/180); // Повернуть на 0 гр.
@@ -52,5 +70,4 @@
             stx.fillText('Hello world!', 150, 150);
         </script>
     </body>
-
 </html>

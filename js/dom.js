@@ -43,6 +43,21 @@
 	function setCookie(name, value) {}
 
 
+// WebSocket
+	// Подключение
+	const ws = new WebSocket('ws://localhost:3000');
+
+	// При успешном подключении
+	ws.onopen = () => console.log('hello');
+	// При закрытии подключения
+	ws.onclose = () => console.log('good bye');
+
+	// При получении сообщения 
+	ws.onmessage = response => console.log(response.data);
+
+	// Отправить сообщение
+	ws.send('from browser');
+
 
 // Поиск элементов
 	// По id

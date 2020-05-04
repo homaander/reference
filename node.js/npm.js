@@ -1,4 +1,5 @@
-/* CMD
+/* 
+    CMD
     Инициализоровать
         npm init
 
@@ -8,10 +9,61 @@
 
     Использовать вместе с gulp
         npm install -D browser-sync
+*/
 
-    Fetch
-        npm install node-fetch --save
 
+
+// Fetch
+// npm install node-fetch --save
+    const fetch = require('node-fetch');
+
+
+
+// WebSocket
+// npm install --save ws
+    const WebSocket = require('ws');
+    const server = new WebSocket.Server({ port: 3000 });
+
+    // Прослушка подключения
+    server.on('connection', ws => {
+
+        // При получении сообщения из браузера
+        ws.on('message', message => {
+
+            if (message == 'exit')
+                // Закрыть соединение с данным пользователем
+                ws.close();
+
+
+            // Перебрать всех подключённых пользователей
+            server.clients.forEach(client => {
+                console.log(message);
+
+                // Если подключение с этим пользователем открыто
+                if (client.readyState === WebSocket.OPEN)
+                    // Послать ему сообщение
+                    client.send('message');
+            })
+        });
+
+        // Отправить сообщение в браузер
+        ws.send('hello world');
+    });
+
+
+
+// Colors
+// npm i colors     
+    var colors = require('colors');
+
+    console.log('hello'.green);                         // outputs green text
+    console.log('i like cake and pies'.underline.red)   // outputs red underlined text
+    console.log('inverse the color'.inverse);           // inverses the color
+    console.log('OMG Rainbows!'.rainbow);               // rainbow
+    console.log('Run the trap'.trap);                   // Drops the bass
+
+
+/*
     Gulp
         npm install -g gulp-cli
 
@@ -29,29 +81,7 @@
 
         Запустить другой процесс
             gulp print
-
-    Colors
-        npm i colors
 */
-
-// Fetch
-    const fetch = require('node-fetch');
-
-// Get
-    const https = require('https');
-
-// Colors
-    // Examples
-        var colors = require('colors');
-
-        console.log('hello'.green); // outputs green text
-        console.log('i like cake and pies'.underline.red) // outputs red underlined text
-        console.log('inverse the color'.inverse); // inverses the color
-        console.log('OMG Rainbows!'.rainbow); // rainbow
-        console.log('Run the trap'.trap); // Drops the bass
-
-
-// Gulp
     var gulp      = require('gulp'); 
     var rename    = require('gulp-rename');
 

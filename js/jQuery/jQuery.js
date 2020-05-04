@@ -90,6 +90,4 @@ $('p:last')
 	});
 
 // FancyBox
-	$.fancybox(
-
-	);
+	$.fancybox.open(html);
