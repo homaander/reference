@@ -28,10 +28,6 @@ body {
 }
 
 /* Псевдоклассы */
-div:hover {}        /* при наведении */
-div:befor { content: '1'; }        /* Перед контентом написать */
-div:after { content: '1' }        /* После контента написать */
-
 div:first-child {}
 div:last-child {}
 
@@ -42,8 +38,15 @@ div:nth-of-type(2) {}
 div:nth-last-of-type(2) {}
 
 /* Псевдоэлементы */
-div:after {}
-div:before {}
+div::selection {                /* Выделение текста */
+  color: #222;
+  background: rgba(#F00, 0.25);
+}
+
+div:hover {}                    /* При наведении */
+div:befor { content: '1'; }     /* Перед контентом написать */
+div:after { content: '1' }      /* После контента написать */
+
 
 /* Шрифт */
 @font-face {
