@@ -1,0 +1,233 @@
+/* Селекторы */
+ 
+*{}                   /* для всех элементов */
+div{}                 /* для html тег */
+#id{}                 /* для элемента с id */
+.class{}              /* для класса */
+
+[name="Lol"]{}        /* для элементов с атрибутом равным */
+[name*="ol"]{}        /* для элементов с атрибутом содержащим */
+[name^="ol"]{}        /* для элементов с атрибутом начинающимся */
+[name$="ol"]{}        /* для элементов с атрибутом заканчивающимся */
+[name~="ol"]{}        /* для элементов с атрибутом равным или разд. пробелами */
+[name|="ol"]{}        /* для элементов с атрибутом начинающимся или после тире */
+
+
+#id1, #id2{}        /* для двух объектов */
+#id .class{}        /* для всех объектов класса содерж в #id */
+
+#id  > .class{}     /* для всех первых дочерних объектов класса содерж в id */
+#id1 + div{}        /* для первого div стоящий после id1 у одного родителя */
+.btn + .btn{}       /* Рядом стоящие элементы */
+
+#id1 ~ div{}        /* для всех div стоящий после id1 у одного родителя */
+
+/* Переменные */
+    :root {
+        --var-color: black;
+    }
+
+/* Функции */
+    body {
+        padding: calc(1rem - 10px);
+        color: var(--var-color);
+    }
+
+/* Псевдоэлементы */
+    div::after { content: '1' }      /* После контента написать */
+    div::befor { content: '1' }     /* Перед контентом написать */
+
+    div::first-letter { color: red; }
+    div::first-line { color: red; }
+
+    div::selection {                /* Выделение текста */
+      color: #222;
+      background: rgba(#F00, 0.25);
+    }
+
+/* Псевдоклассы */
+    div:first-child {}              /* Первый элемент */
+    div:last-child {}               /* Последний элемент */
+
+    div:hover {}                    /* При наведении */
+
+    div:nth-child(2) {}
+    div:nth-child(odd) {}
+    div:nth-child(even) {}
+    div:nth-child(3n + 1) {}
+
+    div:nth-of-type(2) {}
+    div:nth-last-of-type(2) {}
+
+
+/* Шрифт */
+@font-face {
+    font-family: Pompadur; /* Имя шрифта */
+    src: url(fonts/pompadur.ttf); /* Путь к файлу со шрифтом */
+}
+
+/* media запросы */
+@media screen and (max-width: 300px) {
+    /* CSS */
+}
+
+/* Анимация */
+@keyframes my_id {
+    0% {
+
+    }
+
+    100% {
+
+    }
+}
+
+/* Свойства */
+* {
+    font:           bold 16pt "Arial";    
+     font-family:   "Courier New", serif;
+     font-weight:   bold;
+     font-style:    [italic\none];
+     font-size:     16;
+
+    border:         4px solid black;
+     border-style:  [solid\double\dotted\dashed\none];
+     border-width:  1px;
+     border-radius: 10px;
+    
+    text-decoration:    [line-through\overline\underline\none];
+    text-transform:     uppercase;
+    text-align:         center;
+
+    color:      blue;
+
+    opacity:    2.5;
+    z-index:    1;
+
+    position:   [absolute\relative]; 
+    display:    [none\block\inline\lnline-block];    
+
+    height:     50px;
+    width:      100%;
+
+    /* Минимальная высота */
+    min-height:     100vh;
+
+    /* Максимальная высота если она изменяется */
+    max-height:     100vw;
+
+
+    left:           10px;
+    top:            20px;
+
+    transition:     5.0s /* Имя свойства или "all" */; /* Время изменения свойства */
+
+
+    transform: rotate(50deq);
+        /* rotate(ang)       */
+        /* scale(mx, my)     */
+        /* scaleX(mx)        */
+        /* scaleY(my)        */
+        /* translate(mx, my) */
+        /* translateX(mx)    */
+        /* translateY(my)    */
+
+    cursor: default /* crosshair | auto | pointer | url("cur.png") */;
+
+    padding:    20px 40% 5px 1%;
+    margin:     10px 10px 10px 20px;
+    /* margin и padding устанавливаются по 
+    часовой стрелки начиная с верху */
+
+    /* Цвет фона */
+    background-color: red;
+     background-color: #070707;
+     background-color: transparent;
+     background-color: rgba(0,0,255,50);
+
+    /* Изображение на фоне */
+    background-image: url(img/lol.png);
+    background-size:  cover;
+
+    overflow-x: [scroll\auto\none];
+    overflow-y: [scroll\auto\none];
+
+    /* Ширина и высота включает в себя padding и boreder */
+    box-sizing: border-box;
+
+    /* Запретить обтикание со стороны (обеих) */
+    clear: both;
+
+    /* Анимация для @keyframes */
+    animation: my_id 15s
+}
+
+/* FlexBox */
+    #parent {
+        /* Установить, что объект-гибкое хранилище */
+        display: flex;
+
+        /* Будут идни с лева на права и переместятся на след строку если не влезут */
+        flex-flow: row wrap;
+
+        /* Выравнивание по центру по вертикали */
+        align-items: center;
+
+        /* Выравнивание по центру по горизонтали */
+        justify-content: center;
+
+        /* Распределить по ширина с/без отступов по краям */
+        justify-content: space-around;
+        justify-content: space-between;
+    }
+
+    #child {
+        /* Элемент шириной в 1 часть и минимальным размером в 20px */
+        flex: 1 1 20px;
+
+        /* Порядок записи */
+        order: 1;
+    }
+
+    div:first-child {
+        /* Установить элемент по центру ячейки */
+        align-self: center;
+
+        /* Выравнивание контента */
+        align-content: center;
+    }
+
+/* Grid */
+    #parent {
+        /* Установить, что объект-сетка */
+        display: grid;
+        
+        /* Размеры столбцав/строк */
+        grid-template-columns: 50% 25% 25%;
+
+        grid-template-rows: 2fr 1fr;
+
+        grid-template-columns: repeat(3, 1fr);
+
+        grid-template-areas: "h h"
+                             "n a"
+                             "m a"
+                             "f f";
+
+
+        /* Минимальные размеры */
+        grid-auto-rows: 100px;
+        grid-auto-rows: minmax(100px, auto);
+
+        /* Расстояние между ячейками */
+        grid-column-gap: 1em;
+        grid-gap: 1em;
+    }
+
+    #child {
+        grid-column: 1 / 2;
+        grid-row: 2 / 3;
+        grid-row: 2 / span 3;
+
+        grid-area: child;
+    }

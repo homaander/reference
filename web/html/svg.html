@@ -1,0 +1,109 @@
+<svg width="100" height="100" viewBox="0 0 400 400">
+    <!-- Сгрупперовать не отресовывать -->
+    <defs>
+        <!-- Круг -->
+        <circle cx="50" cy="50" r="40" />
+
+        <circle cx="50" cy="50" r="40">
+            <title>При наведении видно этот текст</title>
+            
+            <desc>
+                Это просто описание
+            </desc>
+
+            <set dur="2s" attributeName="class" to="round" begin="me.click" />
+
+            <animate dur="10s" repeatCount="indefinite" attributeName="rx" values="0;5;0" />
+
+            <animateMotion dur="10s" repeatCount="indefinite" path="M20,50 C20,-50 180,150 180,50 C180-50 20,150 20,50 z" />
+
+            <animateMotion dur="10s" repeatCount="indefinite">
+                <mpath href="#pathid">
+            </animateMotion>
+        </circle>
+
+        <!-- Овал -->
+        <ellipse cx="50" cy="50" rx="40" ry="60" />
+
+        <!-- Прямоугольник -->
+        <rect x="1" y="2" rx="10" ry="10" width="400" height="100" class="el" />
+    </defs>
+
+    <!--
+        Сгрупперовать не отресовывать
+        Есть viewBox
+        Есть title и desc
+    -->
+    <symbol viewBox="0 0 400 400"></symbol>
+
+    <!-- Сгрупперовать и отресовать -->
+    <g id="lines">
+        <!-- Линии -->
+        <line x1="0" y1="0" x2="50" y2="75" />
+
+        <!-- Ломаная линия -->
+        <polyline points="0,0 10,30 45,2" />
+
+        <!-- Многоугольник -->
+        <polygon points="0,0 10,30 45,2" />
+
+        <!-- Текст -->
+        <text x="10" y="10">Текст</text>
+    </g>
+
+    <!-- Использование элемента -->
+    <use x="0" y="0" href="#lines" />
+
+    <!-- Построение (маленькая буква = относительная координата) -->
+    <path d="
+        M {x} {y} - Переместится в точку
+            M 10 10
+            m 10 10
+
+        L {x} {y} - Линия до точки
+            L 20 20
+            l 5 5
+
+        H {x} - Горизонтальная линия до 10
+            H 15
+            h 66
+
+        V {y} - Вертикальная линия до 5
+            V 5
+            v 10
+
+        C {x1} {y1}, {x2} {y2}, {x} {y} - Кубическая кривая (4 точки)
+            C 20 20, 30 30, 40 40
+            c 20 20, 30 30, 40 40
+
+        S {x2} {y2} {x} {y} - Продолжить кубическую отобразив последнюю
+            S 30 30, 40 40
+            s 30 30, 40 40
+
+        Q {x1} {y1}, {x} {y} - Квадратная кривая (3 точки)
+            Q 20 20, 30 30
+            q 20 20, 30 30
+
+        T {x} {y} - Продолжить квадратную кривую
+            T 30 30
+            t 30 30
+
+        A {rx} {ry} {x-asix-rotation} {large-arc-flag (>180 или нет)} {sweep-flag (+ или - напровление)} {x} {y} - 
+            A 40 40, 0, 1, 0, 30 30
+            a 40 40, 0, 1, 1, 30 30
+
+        Z       - Замкнуть фигуру
+    " />
+
+    <style>
+        .el {
+            opacity:        0.9;
+
+            fill:           rgb(0,0,255);
+            fill-opacity:   0.6;
+
+            stroke:         rgb(0,0,0);
+            stroke-width:   10;
+        }
+    </style>
+</svg>

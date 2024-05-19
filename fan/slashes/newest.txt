@@ -1,0 +1,33 @@
+Mark_all  
++1 +5 +10 x10 func
+auto complite many params
+test one name vars in interface
+repeat func
+
+вся программа выполняет одну функцию (может быть 4 порядок)
+
+
+<#end - Сквозной поровоз, например
+#upper>
+#upper><#end
+
+/[to_result]/[]{result}[]/
+[to_result]#p>hello world/
+
+cmp
+[cmp:upper!^^^]
+-> [upper][upper][upper][upper!]
+
+
+---------
+{letter:a}
+{letter:b}
+{letter:c}
+...
+{letter:A}
+{letter:B}
+{letter:C}
+...
+{number:1}
+{number:2}
+...

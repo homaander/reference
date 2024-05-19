@@ -1,0 +1,82 @@
+# File: .htaccess
+
+# Включить файл
+RewriteEngine On
+
+# Рабочая папка
+RewriteBase /
+
+# Редирект ссылки с test на index
+Redirect /test.php /index.php
+# Код 301 - перемещно навсегда
+
+# По регулярному выражению выдовать контент другой страницы
+RewriteRule ^test\.php index.php
+# Корманы
+RewriteRule ^test/(.*) index.php?a=$1
+# Отрицание регулярки
+RewriteRule !^test/(.*) index.php?a=$1
+# Игнор регистра
+RewriteRule !^test/(.*) index.php [NC]
+# Конечное перемещение
+RewriteRule !^test/(.*) index.php?a=$1 [L]
+# Несколько флагов
+RewriteRule !^test/(.*) index.php?a=$1 [NC,L]
+
+# Дополнительное условие (Логическое И)
+RewriteCond %{REQUEST_URI} !/test\.php
+RewriteCond %{REQUEST_URI} !/test\.php
+RewriteRule .* index.php
+
+# Дополнительное условие (Логическое ИЛИ)
+RewriteCond %{REQUEST_URI} !/test\.php [OR]
+RewriteCond %{REQUEST_URI} !/test\.php
+RewriteRule .* index.php
+
+# Корман из RewriteCond
+RewriteCond %{REQUEST_URI} !^/index\.php
+RewriteCond %{REQUEST_URI} (.*)\.php
+RewriteRule .* index.php?a=%1
+
+# Если существующий файл
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule .* index.php
+
+# Если существующий не пустой файл
+RewriteCond %{REQUEST_FILENAME} -s
+RewriteRule .* index.php
+
+# Если существующая папка
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule .* index.php
+
+# Если не существующая папка
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule .* index.php
+
+# Запретить доступ к папке с файлом htaccess
+Deny from all
+
+<If "req('Host') == 'best-spares.morvil.ru'">
+	AuthType Basic
+	AuthName "Thats protected Area!"
+	AuthUserFile /home/c/co37471/eljob-dev/public_html/.htpasswd
+	Require valid-user
+</If>
+
+# Направить 404 на index
+DirectoryIndex index.php
+ErrorDocument 404 /index.php
+
+
+#
+# /etc/apache2/apache2.conf
+#
+<Directory /var/www/>
+    Options Indexes FollowSymLinks
+    AllowOverride All 
+    Require all granted
+</Directory>
+
+# sudo a2enmod rewrite
+# systemctl restart apache2

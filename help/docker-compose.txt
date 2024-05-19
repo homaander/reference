@@ -1,0 +1,58 @@
+# CMD
+
+docker-compose build  # Построисть 
+
+docker-compose up            # Запустить
+docker-compase run <command> # Запустить и выполнить комманду
+
+docker-compose down --rmi local  # Остановить сборку (удалить контейнеры) и удалить локальные образы
+docker-compose down --rmi all    # Остановка с удалением всех задействованых контейнеров
+
+# File: docker-compose.yml
+
+services:                    #
+  <name>:                    #
+    image: <image>           # Подключить контейнер из образа
+                             #
+    working_dir: /code       # Рабочая папка
+    network_mode: none       # Указать драйвер сети
+                             #
+  <name>:                    #
+    build:                   # Указать файл расширения - путь и имя файла
+      context: .             #
+      dockerfile: mydocker   #
+                             #
+    volumes:                 # Связать папку проекта с папкой внутри образа (синхронизируется с контейнером в обе стороны)
+      - type: bind           #
+        source: ./code       #
+        target: /code        #
+                             #
+    networks:                # Указать сети
+      - <name>               #
+                             #
+    depends_on:              # Запустится после php
+      - php                  #
+                             #
+  php:                       #
+    build: .                 # Более короткое указание расширенного файла, ищет Dockerfile в задданной директории
+    container_name: <site>   # Название контейнера
+                             #
+    command: php -v          # Запустить команду после запуска образа
+                             #
+    volumes:                 # Файлы, созданные внутри контейнера в <path>, будут сохранятся. Данные в контенере обновляются только при перезапуске
+      - <v_name>:<path>      # Используется имя тома, файлы будут сохранятся в /var/lib/docker/volumes/<имя тома>
+      - <host_p>:<path>      # Данные будут сохранятся в указанную <host_p> папку
+                             #
+    envirinment:             # Переменная окружения
+      - <NAME>=<val>         #
+                             #
+    ports:                   # Указать порт для работы {Внешний}:{Внутрений}
+      - 8081:8080            #
+                             #
+volumes:                     #
+  <v_name>: null             #
+                             #
+networks:                    # Настройка сетей 
+  <name>:                    # Имя сети
+    driver: bridge           # Драйвер
+

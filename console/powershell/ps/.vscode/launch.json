@@ -1,0 +1,24 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "PS CRT + Run",
+            "type": "PowerShell",
+            "request": "launch",
+            "cwd": "${file}",
+            "script": "./_cert.ps1",
+            "args": ["${relativeFile}"],
+        },
+        {
+            "name": "PS Run",
+            "type": "PowerShell",
+            "request": "launch",
+            "script": "./signed/${relativeFile}",
+            "cwd": "${file}"
+        },
+        
+    ]
+}

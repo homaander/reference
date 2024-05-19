@@ -1,0 +1,2 @@
+-- map
+-- fromInteger (test a 10)

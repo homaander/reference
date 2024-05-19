@@ -1,0 +1,62 @@
+# CMD
+
+docker pull php    # Скачать образ
+
+docker info        # Информация о всех пакетах
+docker images      # Список всех образов
+docker ps -a       # Список всех контенеров
+docker network ls  # Список сетей
+docker volume  ls  # Список томов
+
+docker network inspect <name>               # Посмотреть информацию сети 
+docker network create -d bridge <name>      # Создать сеть
+docker network rm <name>                    # Удалить сеть
+docker network connect <name> <id|name>     # Подключить контейнер к сети
+docker network disconnect <name> <id|name>  # Отключить контейнер от сети
+
+docker volume inspect <name> # Информация о томе
+docker volume create <name>  # Создать том - папку в /var/lib/docker/volumes/ которая будет хранить данные контейнера
+docker volume rm <name>      # Удлить том
+
+docker build -t <title> . # Собрать образ из Dockerfile
+
+docker run --name <name> <id|name>  # Создать контенер и запустить приложение из образа
+docker run -it           <id|name>  # Интерактивный режим
+docker run --rm          <id|name>  # Удалить контенер после закрытия приложения
+docker run -d            <id|name>  # Запустить на заднем плане
+docker run -p <p>        <id|name>  # Указать переадресацию порта <p> = {Новый порт}:{Внутренний порт}
+
+docker run --net <n> <id|name>                                     # Указать сеть, в которой запустить приложение
+docker run --mount           source=<nm>,target=<pi> <id or name>  # <nm> = name, <pt> = path host.
+docker run --mount type=bind,source=<ph>,target=<pi> <id or name>  # <pi> = path inside, <ph> = path host
+
+docker inspect  <id|name>  # Информация о приложении в т.ч. сеть и ip аддрес
+
+docker exec -it <id|name>  bin/bash # Запустить bash интерактивного контейнера
+
+docker stop  <id|name>  # Остановить контейнер
+docker start <id|name>  # Запустить остановленный контейнер
+
+docker pause   <id|name>  # Поставить контейнер на паузу
+docker unpause <id|name>  # Снять контейнер с паузы
+
+docker rm  <id|name>  # Удалить контейнер
+docker rmi <id|name>  # Удалить образ
+
+docker login                          # Войти в аккаунт
+docker tag  <id|name> <login>/<name>  # Переименовать для dockerhub
+docker push <image>                   # Отправить
+
+
+
+# File: Dockerfile
+
+FROM php
+
+COPY . /php
+WORKDIR /php
+EXPOSE 80
+
+RUN php -v
+
+CMD ["java", "Main"]

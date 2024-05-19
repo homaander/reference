@@ -1,46 +1,53 @@
-﻿
+﻿# CMD
+
+# Статус проекта
 git status
-	:: Статус проекта
+
+# История изменений
 git log
-	:: История изменений
+
+# Внесённые изменения
 git diff
-	:: Внесённые изменения
 
 
-git add "index.html"
-git add -A
-	:: Подготовка отправки одного или всех файлов
-
+# Скачать репозиторий
 git clone https://github.com/homaander/test.git
 
-git commit -m "New index file"
-	:: Добовление коментария
+# Обновить репозиторий
+git pull
 
+
+# Подготовка отправки одного или всех файлов к отправке
+git add "index.html"
+git add -A
+
+# Добовление коментария
+git commit -m "New index file"
+
+# Вход в аккаунт
 git config --global user.email "you@example.com"
 git config --global user.name "Your Name"
 
+# Отправка проекта
 git push
-	:: Отправка проекта
 
-git pull
-	:: Обновить файлы с облока
-
-
+# 
 git remote show origin
 
+# Все ветки проекта
 git branch
-	:: Все ветки проекта
 
+# Создать ветку dev
 git branch dev
-	:: Создать ветку
+
+# Удалить ветку dev
 git branch -d dev
-	:: Удалить ветку
+
+# Изменить ветку dev
 git checkout dev
-	:: Изменить ветку
 
+# Присоединение ветки
 git merge dev
-	:: Присоединение ветки 
 
-
+# Просмотр истории
 gitk
-	:: Просмотр истории
