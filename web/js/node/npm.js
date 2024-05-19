@@ -1,13 +1,6 @@
-/* 
-    CMD
-    Инициализоровать
-        npm init
-*/
-
 // Fetch
 // npm install --save node-fetch
     const fetch = require('node-fetch');
-
 
 // WebSocket
 // npm install --save ws
