@@ -38,7 +38,7 @@ if_block
     *IF_A: > ,
     *IF_B: > ,
   set_nulrun
-    *IF_NUL: > xxxxx
+    *IF_NUL: > (xxxxx)
     *IF_RUN: > +
   <<<
 
