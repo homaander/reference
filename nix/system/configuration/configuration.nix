@@ -105,7 +105,6 @@
     pkgs.vscode
     pkgs.git
 
-    # pkgs-unstable.ghc
     pkgs.haskell.compiler.ghc965
     pkgs.haskell.compiler.ghc928
 
