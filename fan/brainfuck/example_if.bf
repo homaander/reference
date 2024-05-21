@@ -1,120 +1,103 @@
-# 255: отрицательное число
-# 254: блок
-# 253: разделение данных
-# 252: начало и конец программы
-
-# Смещение данных: 64 символа
-# Формат букв: letter плюс номер буквы в алфавите
-# Шаблон для цифр: 00000 00000
-
-start
-  >----
-    >storage1: 00000 > 00000
-    >storage2: 00000 > 00000
-
 data_block
-  > --
+  ----
     data1: "GTR"
-      > letter:07 'G' 00000 00000 00000 00000 000++ +++++
-      > letter:20 'T' 00000 00000 +++++ +++++ +++++ +++++
-      > letter:18 'R' 00000 00000 00+++ +++++ +++++ +++++
+      > letter:07 'G' (xxxxx xxxxx xxxxx xxx++ +++++)
+      > letter:20 'T' (xxxxx +++++ +++++ +++++ +++++)
+      > letter:18 'R' (xxxxx xx+++ +++++ +++++ +++++)
     > ---
     data2: "EQL"
-      > letter:05 'E' 00000 00000 00000 00000 00000 +++++
-      > letter:14 'Q' 00000 00000 000++ +++++ +++++ +++++
-      > letter:12 'L' 00000 00000 00000 000++ +++++ +++++
+      > letter:05 'E' (xxxxx xxxxx xxxxx xxxxx +++++)
+      > letter:14 'Q' (xxxxx xxx++ +++++ +++++ +++++)
+      > letter:12 'L' (xxxxx xxxxx xxx++ +++++ +++++)
     > ---
     data3: "LOW"
-      > letter:12 'L' 00000 00000 00000 000++ +++++ +++++ 
-      > letter:15 'O' 00000 00000 00000 +++++ +++++ +++++
-      > letter:23 'W' 00000 00+++ +++++ +++++ +++++ +++++
+      > letter:12 'L' (xxxxx xxxxx xxx++ +++++ +++++)
+      > letter:15 'O' (xxxxx xxxxx +++++ +++++ +++++)
+      > letter:23 'W' (xx+++ +++++ +++++ +++++ +++++)
     > ---
+
+any_block
   > --
 
 # Для перевода значения в число добавляется 64
 val_to_num
   loop 8
-    > ++++ ++++[-
-      goto_data_block
-        ++[--<++]--
-          < ++[--<++]-->
+    > (xx+++ +++++) [-
+      goto data_block
+        ++++[----<++++]---->
 
       foreach data_block as data
       ++[--
-        foreach data as cell
-        +++[---
-          add 8
-            00+++ +++++
-        >+++]---
+        add 8 foreach data as cell
+          +++[ (+++++) >+++]---
       >++]-->
-    ]<++<
+    ] <
 
 if_block
-  >--
-    get 2 vals
-      A: > ,
-      B: > ,
-    set_010_block
-      > 00000
-      > +
-      > 00000
-    <<<<
-  
-    # Вычесть B из A отрицательнй результат приравнивать к 255
-    init_if_num res
-      [-> +[->] >[<] <-<]
-  
-    if res is not 255
-      > +[-
-        if res positive
-          [
-            goto_data_block
-              ++[--<++]--
-                < ++[--<++]-->
+  get 2 vals
+    *IF_A: > ,
+    *IF_B: > ,
+  set_nulrun
+    *IF_NUL: > xxxxx
+    *IF_RUN: > +
+  <<<
 
-            goto_data3
-              +++[--->+++]--->
-              +++[--->+++]--->
-            foreach call in data3 print
-              +++[---(.)>+++]---
+  (*IF_A)
 
-            goto_if_block
-              ++[-->++]-->
-          ]
+  # Вычесть *IF_A из *IF_B в *IF_B отрицательнй результат приравнивать к 255
+  init
+    [-> (*IF_B) +[->] (*IF_NUL|*IF_B) >[<] (*IF_NUL) < (*IF_B) -< (*IF_A)]
 
-        if res is 0
-          >> [
-            goto_datablock
-              ++[--<++]--
-                < ++[--<++]-->
+  if not negative
+    > (*IF_B) +[-
+      if positive
+        [
+          goto data_block
+            ++++[----<++++]---->
 
-            goto_data2
-              +++[--->+++]--->
-            foreach call in data2 print
-              +++[---(.)>+++]---
+          goto data3
+            +++[--->+++]--->
+            +++[--->+++]--->
+          print foreach cell in data3
+            +++[---(.)>+++]---
 
-            goto_if_block
-              ++[-->++]-->
-          ]
+          goto if_block
+            ++[-->++]--> (*IF_A)
+        ]
 
-        ++[--<++]-->
-      ]
-    if res negative
-      >> [
-        goto_data_block
-          ++[--<++]--
-            < ++[--<++]-->
+      if zero
+        (*IF_A|*IF_B) >> (*IF_NUL|*IF_RUN) [
+          goto data_block
+            ++++[----<++++]---->
 
-        foreach call in data1 print
-          +++[---(.)>+++]---
+          goto data2
+            +++[--->+++]--->
+          print foreach cell in data2
+            +++[---(.)>+++]---
 
-        goto_if_block
-            ++[-->++]-->
-      ]
+          goto if_block
+            ++[-->++]--> (*IF_A)
+        ]
 
-    goto_if_block
-      ++[--<++]-->
+      correct_to if_block
+        ++[--<++]--> (*IF_A)
+    ]
+  if negative
+    (*IF_A|*IF_B) >> (*IF_NUL|*IF_RUN) [
+      goto data_block
+        ++++[----<++++]---->
 
-    >>>
-> --
+      print foreach cell in data1
+        +++[---(.)>+++]---
+
+      goto if_block
+        ++[-->++]--> (*IF_A)
+    ]
+
+  goto if_block
+    ++[--<++]--> (*IF_A)
+
+  clear if_block
+    >>>-
+    <<[-]<<
 

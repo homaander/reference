@@ -1,5 +1,4 @@
-
-window.onload = ll;
+window.onload = setup;
 
 setInterval(update, 500);
 
@@ -32,7 +31,7 @@ code_run.onclick = () => {
     //result.value = result.value + (text.replace(/\\([^])/g,(y,x)=>x=="/"?"":x).replace(/\/[^]*$/,""));
 }
 
-function ll() {
+function setup() {
     update();
     for (let i = 0; i < 200; i++) numbers.innerHTML = numbers.innerHTML + i + '<br>';
 }

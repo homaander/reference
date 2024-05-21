@@ -45,6 +45,7 @@
 = 
 = 
 = /# Одноразовая функция //
+= /[print] //
 = /[i:hello]/<i>/ -> /{i:a\}/hello/
 = /[i:world]/<i>/ -> /{i:a\}/world/
 = 
@@ -62,7 +63,6 @@
 = [upper{C}][!upper]
 = 
 = /{result}/#upper>{input}/
-= /[print] //
 = 
 = 
 = [print] {result}
