@@ -1,5 +1,0 @@
-# CMD
-
-npm init
-
-npm i express/express

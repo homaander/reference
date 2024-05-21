@@ -1,0 +1,7 @@
+cabal init
+
+cabal build
+
+cabal install aeson
+
+cabal repl

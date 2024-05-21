@@ -1,5 +1,0 @@
-# CMD
-
-composer init
-
-composer require imagine/imagine

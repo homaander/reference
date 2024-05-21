@@ -43,7 +43,7 @@ git branch dev
 # Удалить ветку dev
 git branch -d dev
 
-# Изменить ветку dev
+# Изменить ветку на dev
 git checkout dev
 
 # Присоединение ветки
