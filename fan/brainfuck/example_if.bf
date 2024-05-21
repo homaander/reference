@@ -42,11 +42,9 @@ if_block
     *IF_RUN: > +
   <<<
 
-  (*IF_A)
-
   # Вычесть *IF_A из *IF_B в *IF_B отрицательнй результат приравнивать к 255
   init
-    [-> (*IF_B) +[->] (*IF_NUL|*IF_B) >[<] (*IF_NUL) < (*IF_B) -< (*IF_A)]
+    (*IF_A) [-> (*IF_B) +[->] (*IF_NUL|*IF_B) >[<] (*IF_NUL) < (*IF_B) -< (*IF_A)]
 
   if not negative
     > (*IF_B) +[-
