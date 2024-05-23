@@ -62,16 +62,16 @@
 
 // Поиск элементов
   // По id
-    let obj = document.getElemetnById("go");
+    let obj1 = document.getElemetnById("go");
   // По классу
-    let child_obj = obj.getElemetnByClass("buttons");
+    let obj2 = obj.getElemetnByClass("buttons");
   // По тегу
-    let child_obj = obj.getElemetnByTagName("p");
+    let obj3 = obj.getElemetnByTagName("p");
 
   // По CSS селектору (первый элемент)
-    let child_obj = document.querySelector('#id');
+    let obj4 = document.querySelector('#id');
   // По CSS селектору (все)
-    let child_obj = document.querySelectorAll('ul > li:last-child');
+    let obj5 = document.querySelectorAll('ul > li:last-child');
 
 // Проверка, совподает ли элемент с CSS
   obj.matches('li{first}');
