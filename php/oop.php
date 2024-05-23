@@ -72,18 +72,18 @@ class People
 }
 
 // Объект класса
-	// Создание объекта
-	$obj = new People;
-	$obj = new People('Vitya', 17); // Передача двнных в конструктор
+  // Создание объекта
+  $obj = new People;
+  $obj = new People('Vitya', 17); // Передача двнных в конструктор
 
-	// Клонирование объекта (другое ячейка памяти)
-	$clone = clone $obj;
+  // Клонирование объекта (другое ячейка памяти)
+  $clone = clone $obj;
 
-	// Обращение к параметру
-	echo $obj->name;
+  // Обращение к параметру
+  echo $obj->name;
 
-	// Вызов метода
-	$obj->printName();
+  // Вызов метода
+  $obj->printName();
 
 
 
@@ -107,7 +107,7 @@ abstract class A
 class S
 {
     // Статическое свойство - не привязывается к объекту
-	public static $count;
+  public static $count;
 
     // Константа класса - статическая
     public const NAME = 'ok';
@@ -117,22 +117,22 @@ class S
      * Если нет, создаётся новый  
      */
     public static function сreate($name) {
-       	self::$count++; 
+         self::$count++; 
         return self::$loggers[$name] ?: self::$loggers[$name] = new self($name);
     }
 
-   	public static function delete($name) {
-    	self::$count--;
+     public static function delete($name) {
+      self::$count--;
         unset($loggers[$name]);
     }
 
     public static function where() { echo 'Hello from '.__CLASS__; }
     
-	/**
-	 * static - В отличие от self не привязывается к классу где был определён 
-   	 * и при наследовании будет вызыватся метод/свойство наследника
-   	 */
-	public static function test() { static::write(); }
+  /**
+   * static - В отличие от self не привязывается к классу где был определён 
+      * и при наследовании будет вызыватся метод/свойство наследника
+      */
+  public static function test() { static::write(); }
 }
 
 // Вызов
@@ -172,9 +172,9 @@ if ($obj instanceof $className) echo 'OK';
 // final - запрещает наследовать класс
 final class End
 {
-	public function p(string $msg) {
-		echo $msg;
-	}
+  public function p(string $msg) {
+    echo $msg;
+  }
 }
 
 
@@ -184,8 +184,8 @@ class Test
 {
     private $Name;
     
-	public function __construct($name) {
-    	$this->Name = $name;
+  public function __construct($name) {
+      $this->Name = $name;
     }
 
     public function anonym() {
@@ -226,19 +226,19 @@ trait F
 
 trait G 
 {
-	protected function write() { echo 'Lol G'; }
-	protected function read()  { echo 'Kek G'; }
+  protected function write() { echo 'Lol G'; }
+  protected function read()  { echo 'Kek G'; }
 }
 
 class T 
 { 
-	use F, G; 
+  use F, G; 
 }
 
 class T 
 { 
-	use F, G {
-    	// Использовать именно F::write и G::read при вызове
+  use F, G {
+      // Использовать именно F::write и G::read при вызове
             F::write insteadof G;
             G::read  insteadof F;
 
@@ -253,9 +253,9 @@ class T
 class MyExcepton extends Exception {}
 
 try {
-	// Сгенерировать исключения
-       	throw new Exception('Hello!');
-       	throw new MyException('Hello!');
+  // Сгенерировать исключения
+         throw new Exception('Hello!');
+         throw new MyException('Hello!');
     $a = 1 / 0;
 }
 catch (MyException $e) {
@@ -265,11 +265,11 @@ catch (Exception $e) {
     echo $e->GetMessage();
 
     // Идём дальше в следующий catch
-       	throw $e;
+         throw $e;
 }
 catch (Error $e) {
     // Базовый класс для всех внутр. ошибок
-       	echo 'Ошибка!';
+         echo 'Ошибка!';
 }
 finally {
         echo 'Всё ровны выполнится!';

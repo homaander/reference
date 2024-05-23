@@ -2,8 +2,8 @@ $(document).ready(() => {});
 $(() => {});
 
 // CSS Селекторы
-	let foo = $('.class');
-	let foo = $('#id');
+  let foo = $('.class');
+  let foo = $('#id');
 
 
 $(this).html('new html');
@@ -33,61 +33,61 @@ $(this).siblings();
 $(this).siblings('.selected');
 
 // Скрыть эелменты
-	$(this).hide();
+  $(this).hide();
 // Показать элементы
-	$(this).show();
+  $(this).show();
 
 
 // События
-	// Добавить событие клика
-		$('#button').on('click', function () {})
+  // Добавить событие клика
+    $('#button').on('click', function () {})
 
-	// Добавить события на все элементы блока по селектору
-		$(document).on(
-			'click',
-			'input[type="button"][value!="+"]', 
-			function () { $(this).html('ok'); }
-		);
+  // Добавить события на все элементы блока по селектору
+    $(document).on(
+      'click',
+      'input[type="button"][value!="+"]', 
+      function () { $(this).html('ok'); }
+    );
 
 $('p:last')
-	// Склонировать
-		.clone()
-	// Вставить после
-		.insertAfter('p:last');
+  // Склонировать
+    .clone()
+  // Вставить после
+    .insertAfter('p:last');
 
 // Удалить элемент
-	$('p:last').remove();
+  $('p:last').remove();
 
 // Загрузить данные из ссылки
-	$('#id').load('test.php .block ul');
+  $('#id').load('test.php .block ul');
 
 // Отправить форму
-	$('#form').submit();
+  $('#form').submit();
 
 
 // Cookie
-	// Создать
-		$.cookie('name', 'value', { expires: 7, path: '/' });
-	// Читать
-		let foo = $.cookie('name');
-	// Удалить
-		$.cookie('name', null);
+  // Создать
+    $.cookie('name', 'value', { expires: 7, path: '/' });
+  // Читать
+    let foo = $.cookie('name');
+  // Удалить
+    $.cookie('name', null);
 
 
 // AJAX
-	$.ajax({
-	    url: 'app.php',
-	    method: 'post',
+  $.ajax({
+      url: 'app.php',
+      method: 'post',
 
-	    data: {
-	      	name: 'Andrew',
-	      	age: 17
-	    },
+      data: {
+          name: 'Andrew',
+          age: 17
+      },
 
-	    success: function(result) {
-	      $('#weather-temp').html('<strong>' + result + '</strong>');
-	    }
-	});
+      success: function(result) {
+        $('#weather-temp').html('<strong>' + result + '</strong>');
+      }
+  });
 
 // FancyBox
-	$.fancybox.open(html);
+  $.fancybox.open(html);

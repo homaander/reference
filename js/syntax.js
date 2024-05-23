@@ -33,15 +33,15 @@
 
 
 // Вывод в консоль
-	// console.log()
-    	console.log('Hello World');
-    	// Подставить строку
-    		console.log('%sHello World', 'str');
-    	// Подставить числа
-	    	console.log('Hello World %d', 10);
-	    	console.log('Hello World %f', 10.5);
-	    // Прописать стиль
-    		console.log('%cHello\n%cWorld', 'color: red;', 'color: blue;');
+  // console.log()
+      console.log('Hello World');
+      // Подставить строку
+        console.log('%sHello World', 'str');
+      // Подставить числа
+        console.log('Hello World %d', 10);
+        console.log('Hello World %f', 10.5);
+      // Прописать стиль
+        console.log('%cHello\n%cWorld', 'color: red;', 'color: blue;');
 
     console.error('Errorr')
     console.warn('Warning')

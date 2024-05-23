@@ -1,16 +1,16 @@
 <?php
 
 // Переменные
-$num = 10;									// Целочисленная
-$num = 1.25;								// Плавающая запятая
-$str = 'str $a';							// Обычная строка
-$str = "str $a \n \t \u{0410} \$ \" "; 		// Строка с раскрытием переменных и доп.символами
-$bol = true;								// Логическая переменная
-$arr = [1,2,3];								// Массив
-$arr = [									// Асоциативный массив
-	'name'	=> 'Andrew',
-	'age'	=> 40,
-	'edy'	=> [1,2,3]
+$num = 10;                  // Целочисленная
+$num = 1.25;                // Плавающая запятая
+$str = 'str $a';              // Обычная строка
+$str = "str $a \n \t \u{0410} \$ \" ";     // Строка с раскрытием переменных и доп.символами
+$bol = true;                // Логическая переменная
+$arr = [1,2,3];                // Массив
+$arr = [                  // Асоциативный массив
+  'name'  => 'Andrew',
+  'age'  => 40,
+  'edy'  => [1,2,3]
 ];
 
 // Присвоить переменным значения массива
@@ -31,14 +31,14 @@ TEXT;
 
 
 // Операции
-$a = $b + 10;		// Приравнивание
-$a += 10;			// Прибавить
-$a = $a ** $b;		// Возведение в степень
-$a = $b ** 0.5;		// Квадратный корень
-$str .= ' руб';		// Добавить строку
-$arr[] = 1;			// Добавить элемент в конец
+$a = $b + 10;    // Приравнивание
+$a += 10;      // Прибавить
+$a = $a ** $b;    // Возведение в степень
+$a = $b ** 0.5;    // Квадратный корень
+$str .= ' руб';    // Добавить строку
+$arr[] = 1;      // Добавить элемент в конец
 
-$arr3 = $arr1 + $arr2;	// Слияние массивов
+$arr3 = $arr1 + $arr2;  // Слияние массивов
 
 // Примет значение 'ok', если $var это null
 $a = $var ?? 'ok';
@@ -51,9 +51,9 @@ $a ??= 'Hello';
 $a = $var ?: 'ok';
 
 $a = $a<<2; # Добавить 2 бита в конец двоичного кода
-$a = $a>>2;	# Убрать 2 последних бита в двоичном коде
+$a = $a>>2;  # Убрать 2 последних бита в двоичном коде
 
-@fopen('test.txt', 'r'); 	 # Не выдаёт ошибку, возращает false
+@fopen('test.txt', 'r');    # Не выдаёт ошибку, возращает false
 
 $command = `cmd.exe /c dir`; # Команды системной консоли сервера
 
@@ -74,29 +74,29 @@ $a = &$obj['name']; #Если элемента не существует, выв
 
 
 #Константы
-	define('MY_NAME', 'Andrew');
-	defined('MY_NAME'); #true(1), false('')
+  define('MY_NAME', 'Andrew');
+  defined('MY_NAME'); #true(1), false('')
 
 #Логические операции
 $num = 0;
-$str == true;	#Строка существует
-$num == false;	#0, "" и false - одно и то же
-$num === false;	#Сравнивает так же тип, вывод: false 
+$str == true;  #Строка существует
+$num == false;  #0, "" и false - одно и то же
+$num === false;  #Сравнивает так же тип, вывод: false 
 
 $a == $b and $a > $b or $a >= $b xor $a != $b;
 # &&, ||, ^ - более высокий приоритет (перед '=')
 $a <=> $b; # ($a < $b) = -1; ($a == $b) = 0; ($a > $b) = 1
 
-if ('str' == 0) 	echo 'OK'; 	#OK
-if ('str' == false) echo 'OK';	#-
+if ('str' == 0)   echo 'OK';   #OK
+if ('str' == false) echo 'OK';  #-
 
-if (false == 0) echo 'OK';		#OK
+if (false == 0) echo 'OK';    #OK
 
 
 
 # Программные константы:
     # Перевод строки согластно с системой
-		echo PHP_EOL;
+    echo PHP_EOL;
     # Путь к файлу скрипта
         echo __FILE__;
     # Путь к папке со скриптом
@@ -126,24 +126,24 @@ if (false == 0) echo 'OK';		#OK
 $a = ($b > 10)? 0 : 1;   # Если b > 10 то $a = 0, иначе $a = 1;
 
 if ($a > 10) { 
-	echo 1; 
+  echo 1; 
 } elseif ($a <= 10) {
-	echo 0; 
+  echo 0; 
 } else
-	echo -1;
+  echo -1;
 
 if (true):
 endif;
 
 switch ($x) {
-	case 1: echo 1; break;
-	case 2: echo 2;			#
-	case 3:	echo 3; break;	#После 2 выполнится 3
-	default:
+  case 1: echo 1; break;
+  case 2: echo 2;      #
+  case 3:  echo 3; break;  #После 2 выполнится 3
+  default:
 }
 
 switch ($x):
-	case 1:
+  case 1:
 endswitch;
 
 #Циклы
@@ -178,84 +178,84 @@ endforeach;
 
 // Статическая переменная - относительно первого x это другая переменная,
 // но со следующим вызовом переменная сохраняет своё значение
-	function fun()	{ static $x; $x++; }
+  function fun()  { static $x; $x++; }
 
 // Переменная становится глобальной и можно изменять её как первую
-	function fun(string $a, int $b)	{ global $x; $x++; }
+  function fun(string $a, int $b)  { global $x; $x++; }
 
 // Функция принимает либо строку, либо null
-	function fun(?string $str) {}
+  function fun(?string $str) {}
 
 // Использоание внешних функций (Замыкание)
-	$func = function($a, $b) use ($x)	{ return $a + $b + $x; };
-	$func = fn($a, $b) => $a + $b + $x;
+  $func = function($a, $b) use ($x)  { return $a + $b + $x; };
+  $func = fn($a, $b) => $a + $b + $x;
 
-	$func();
+  $func();
 
 // Позволяет изменять входящую переменную
-	function fun(&$a) {}
+  function fun(&$a) {}
 // Сколь угодное количество аргументов записывается в массив
-	function fun(...$args) {}
+  function fun(...$args) {}
 
 // Синхронизировать результат функции и переменную
-	function &fun() {
-		static $num = 10;
-		$num++;
-		return $num;
-	}
+  function &fun() {
+    static $num = 10;
+    $num++;
+    return $num;
+  }
 
-	$a = &fun();
-	fun();
-	echo $a; // 12
+  $a = &fun();
+  fun();
+  echo $a; // 12
 
-fun();			#Вызов
-fun(123);		#Вызов с аргументами
-fun(...$arg);	#Раскрыть массив в аргументы
+fun();      #Вызов
+fun(123);    #Вызов с аргументами
+fun(...$arg);  #Раскрыть массив в аргументы
 
-$str = 'func';	#Имя функции
-$str();			#Вызов функции по имени
+$str = 'func';  #Имя функции
+$str();      #Вызов функции по имени
 
 // Генераторы
-	function gener1() {
-		yield 1;
-		yield 2;
-	}
+  function gener1() {
+    yield 1;
+    yield 2;
+  }
 
-	foreach (gener() as $i) echo $i;
+  foreach (gener() as $i) echo $i;
 
-	// Возврат генератора
-		function gener2() {
-			yield 1;
-			yield from gener1();
-		}
-	
-	// Отправка в генератор
-		function gener3() {
-			$ret = yield;
-			echo $ret;
-		}
+  // Возврат генератора
+    function gener2() {
+      yield 1;
+      yield from gener1();
+    }
+  
+  // Отправка в генератор
+    function gener3() {
+      $ret = yield;
+      echo $ret;
+    }
 
-		$gen = gener3();
-		$gen->send('OK');
+    $gen = gener3();
+    $gen->send('OK');
 
-	// return в генераторах
-		function gener4() {
-			yield 1;
-			yield 2;
-			return 3;
-		}
+  // return в генераторах
+    function gener4() {
+      yield 1;
+      yield 2;
+      return 3;
+    }
 
-		$gen = gener4();
+    $gen = gener4();
 
-		$geen->next();
-		// or
-		$gen->send('OK');
+    $geen->next();
+    // or
+    $gen->send('OK');
 
-		echo $geen->current();
+    echo $geen->current();
 
-		$result = $gen->getReturn();
+    $result = $gen->getReturn();
 
 # Если файл не найден ошибки нет
-	include_once 'lib.php';
+  include_once 'lib.php';
 # Если файл не найден ошибка сервера
-	require_once 'lib.php';
+  require_once 'lib.php';

@@ -58,10 +58,10 @@ RewriteRule .* index.php
 Deny from all
 
 <If "req('Host') == 'best-spares.morvil.ru'">
-	AuthType Basic
-	AuthName "Thats protected Area!"
-	AuthUserFile /home/c/co37471/eljob-dev/public_html/.htpasswd
-	Require valid-user
+  AuthType Basic
+  AuthName "Thats protected Area!"
+  AuthUserFile /home/c/co37471/eljob-dev/public_html/.htpasswd
+  Require valid-user
 </If>
 
 # Направить 404 на index

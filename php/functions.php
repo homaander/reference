@@ -176,14 +176,14 @@ mail('to@mail.ru', 'Robobo', 'Hello');
         #(bool) Это truecolor изображение
             imageIsTrueColor($im);
 
-		#(bool) Копировать участок src (x,y,w,h) в участок изображения dst (x,y,w,h)
-        	imageCopyResized($dst, $src, $dx, $dy, $sx, $sy, $dw, $dh, $sw, $sh);
+    #(bool) Копировать участок src (x,y,w,h) в участок изображения dst (x,y,w,h)
+          imageCopyResized($dst, $src, $dx, $dy, $sx, $sy, $dw, $dh, $sw, $sh);
 
         #(bool) Копировать участок src (x,y,w,h) в участок изображения dst (x,y,w,h) и растянуть
-        	imageCopyResampled($dst, $src, $dx, $dy, $sx, $sy, $dw, $dh, $sw, $sh);
+          imageCopyResampled($dst, $src, $dx, $dy, $sx, $sy, $dw, $dh, $sw, $sh);
 
         #(bool) Удалить изображение
-        	imageDestroy($im);
+          imageDestroy($im);
 
 
         # Цвета
@@ -692,15 +692,15 @@ str_repeat('-', 5);                    # строка с 5 ю тере
      #Конструкция создаёт пустой файл, а если он есть ничего не делает
 
 flock($file, LOCK_SH);
-        #Ждём, пока наш процесс не станем единственным редактором файла
-        #LOCK_SH - разд. блокировка
-        #LOCK_EX - иск. блокировка
-        #LOCK_UN - снять блок (происходит при fclose())
-        #[+ LOCK_NB] - не ждать своей очереди, поделать что ни буть другое
+        # Ждём, пока наш процесс не станем единственным редактором файла
+        # LOCK_SH - разд. блокировка
+        # LOCK_EX - иск. блокировка
+        # LOCK_UN - снять блок (происходит при fclose())
+        # [+ LOCK_NB] - не ждать своей очереди, поделать что ни буть другое
 
-        #!!! НЕ ОТКРЫВАТЬ ФАЙЛ В РЕЖИМЕ W, ТОЛЬКО R+ 
+        # !!! НЕ ОТКРЫВАТЬ ФАЙЛ В РЕЖИМЕ W, ТОЛЬКО R+ 
         # И ИСПОЛЬЗОВАТЬ ftruncate($file, 0); после flock();
-        #!!! ПЕРЕД РАЗБЛОКИРОВКОЙ ПРОИЗВОДИТЬ fflush($file);
+        # !!! ПЕРЕД РАЗБЛОКИРОВКОЙ ПРОИЗВОДИТЬ fflush($file);
 
 copy('1.txt', '2.txt');            #Копирование
 rename('f', '2.txt');            #Переименовать
