@@ -4,7 +4,7 @@
     (
         type %App.name%.cmd
         echo.
-        type safc\Debug.cmd
+        type safc\lib\Debug.cmd
         echo.
     ) > safc\bin\%App.name% .cmd
 

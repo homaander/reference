@@ -1,19 +1,19 @@
 data_block
   ----
     data1: "GTR"
-      > letter:07 'G' (xxxxx xxxxx xxxxx xxx++ +++++)
-      > letter:20 'T' (xxxxx +++++ +++++ +++++ +++++)
-      > letter:18 'R' (xxxxx xx+++ +++++ +++++ +++++)
+      > {G = 07}: (xxxxx xxxxx xxxxx xxx++ +++++)
+      > {T = 20}: (xxxxx +++++ +++++ +++++ +++++)
+      > {R = 18}: (xxxxx xx+++ +++++ +++++ +++++)
     > ---
     data2: "EQL"
-      > letter:05 'E' (xxxxx xxxxx xxxxx xxxxx +++++)
-      > letter:14 'Q' (xxxxx xxx++ +++++ +++++ +++++)
-      > letter:12 'L' (xxxxx xxxxx xxx++ +++++ +++++)
+      > {E = 05}: (xxxxx xxxxx xxxxx xxxxx +++++)
+      > {Q = 14}: (xxxxx xxx++ +++++ +++++ +++++)
+      > {L = 12}: (xxxxx xxxxx xxx++ +++++ +++++)
     > ---
     data3: "LOW"
-      > letter:12 'L' (xxxxx xxxxx xxx++ +++++ +++++)
-      > letter:15 'O' (xxxxx xxxxx +++++ +++++ +++++)
-      > letter:23 'W' (xx+++ +++++ +++++ +++++ +++++)
+      > {L = 12}: (xxxxx xxxxx xxx++ +++++ +++++)
+      > {O = 15}: (xxxxx xxxxx +++++ +++++ +++++)
+      > {W = 23}: (xx+++ +++++ +++++ +++++ +++++)
     > ---
 
 any_block
@@ -28,26 +28,29 @@ val_to_num
 
       foreach data_block as data
       ++[--
-        add 8 foreach data as cell
-          +++[ (+++++) >+++]---
+        foreach data as cell
+          +++[---
+            add 8
+              (xx+++ +++++)
+          >+++]---
       >++]-->
     ] <
 
 if_block
   get 2 vals
-    *IF_A: > ,
-    *IF_B: > ,
+    > {*IF_A}: ,
+    > {*IF_B}: ,
   set_nulrun
-    *IF_NUL: > (xxxxx)
-    *IF_RUN: > +
+    > {*IF_NUL}: (xxxxx)
+    > {*IF_RUN}: +
   <<<
 
   # Вычесть *IF_A из *IF_B в *IF_B отрицательнй результат приравнивать к 255
   init
-    (*IF_A) [-> (*IF_B) +[->] (*IF_NUL|*IF_B) >[<] (*IF_NUL) < (*IF_B) -< (*IF_A)]
+    {*IF_A} [-> {*IF_B} +[->] {*IF_NUL | *IF_B} >[<] {*IF_NUL} < {*IF_B} -< {*IF_A}] {*IF_A}
 
   if not negative
-    > (*IF_B) +[-
+    {*IF_A} > {*IF_B} +[-
       if positive
         [
           goto data_block
@@ -56,44 +59,44 @@ if_block
           goto data3
             +++[--->+++]--->
             +++[--->+++]--->
-          print foreach cell in data3
+          print data3
             +++[---(.)>+++]---
 
           goto if_block
-            ++[-->++]--> (*IF_A)
+            ++[-->++]--> {*IF_A}
         ]
 
       if zero
-        (*IF_A|*IF_B) >> (*IF_NUL|*IF_RUN) [
+        {*IF_A | *IF_B} >> {*IF_NUL | *IF_RUN} [
           goto data_block
             ++++[----<++++]---->
 
           goto data2
             +++[--->+++]--->
-          print foreach cell in data2
+          print data2
             +++[---(.)>+++]---
 
           goto if_block
-            ++[-->++]--> (*IF_A)
+            ++[-->++]--> {*IF_A}
         ]
 
       correct_to if_block
-        ++[--<++]--> (*IF_A)
+        ++[--<++]--> {*IF_A}
     ]
   if negative
-    (*IF_A|*IF_B) >> (*IF_NUL|*IF_RUN) [
+    {*IF_A | *IF_B} >> {*IF_NUL | *IF_RUN} [
       goto data_block
         ++++[----<++++]---->
 
-      print foreach cell in data1
+      print data1
         +++[---(.)>+++]---
 
       goto if_block
-        ++[-->++]--> (*IF_A)
+        ++[-->++]--> {*IF_A}
     ]
 
   goto if_block
-    ++[--<++]--> (*IF_A)
+    ++[--<++]--> {*IF_A}
 
   clear if_block
     >>>-
