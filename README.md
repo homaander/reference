@@ -11,7 +11,7 @@ function fun() {
   alert("hello");
 }
 ```
-Ссылка [RegExp](help/RegExp.txt).
+Ссылка [RegExp](help/regexp.txt).
 
 Список
 - Первый
