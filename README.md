@@ -11,7 +11,7 @@ function fun() {
   alert("hello");
 }
 ```
-Ссылка [VK](vk.com).
+Ссылка [RegExp](help/RegExp.txt).
 
 Список
 - Первый
