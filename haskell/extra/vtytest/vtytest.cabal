@@ -4,11 +4,11 @@ cabal-version: 2.2
 --
 -- see: https://github.com/sol/hpack
 
-name:           tmptest
+name:           vtytest
 version:        0.1.0.0
-description:    Please see the README on GitHub at <https://github.com/githubuser/tmptest#readme>
-homepage:       https://github.com/githubuser/tmptest#readme
-bug-reports:    https://github.com/githubuser/tmptest/issues
+description:    Please see the README on GitHub at <https://github.com/githubuser/vtytest#readme>
+homepage:       https://github.com/githubuser/vtytest#readme
+bug-reports:    https://github.com/githubuser/vtytest/issues
 author:         Author name here
 maintainer:     example@example.com
 copyright:      2024 Author name here
@@ -19,51 +19,59 @@ extra-source-files:
 
 source-repository head
   type: git
-  location: https://github.com/githubuser/tmptest
+  location: https://github.com/githubuser/vtytest
 
 library
   exposed-modules:
       Lib
-      QQ
   other-modules:
-      Paths_tmptest
+      Paths_vtytest
   autogen-modules:
-      Paths_tmptest
+      Paths_vtytest
   hs-source-dirs:
       src
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
       base >=4.7 && <5
-    , template-haskell
+    , bytestring
+    , text
+    , vty
+    , vty-windows
   default-language: Haskell2010
 
-executable tmptest-exe
+executable vtytest-exe
   main-is: Main.hs
   other-modules:
-      Paths_tmptest
+      Paths_vtytest
   autogen-modules:
-      Paths_tmptest
+      Paths_vtytest
   hs-source-dirs:
       app
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
-    , template-haskell
-    , tmptest
+    , bytestring
+    , text
+    , vty
+    , vty-windows
+    , vtytest
   default-language: Haskell2010
 
-test-suite tmptest-test
+test-suite vtytest-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      Paths_tmptest
+      Paths_vtytest
   autogen-modules:
-      Paths_tmptest
+      Paths_vtytest
   hs-source-dirs:
       test
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
-    , template-haskell
-    , tmptest
+    , bytestring
+    , text
+    , vty
+    , vty-windows
+    , vtytest
   default-language: Haskell2010
