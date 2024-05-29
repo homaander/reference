@@ -17,9 +17,10 @@
       }
 
       // Сбрасывает значение на первое
-      public function rewind() {
+      public function rewind($x) {
           rewinddir($this->dir);
           $this->current = readdir($this->dir);
+          return true;
       }
 
       // Должени вернуть ключ
@@ -49,7 +50,7 @@
   {
       public $arr;
 
-      public function __construct($path) {
+      public function __construct($arr) {
           $this->arr = $arr;
       }
 
@@ -111,8 +112,8 @@
 
     // Рекурсия
       $dir = new RecursiveIteratorIterator(
-          new RecursiveDirectoryIterator('dir');
-          new RecursiveArrayIterator($arr);
+          new RecursiveDirectoryIterator('dir'),
+          new RecursiveArrayIterator($arr)
       );
       
       // Получить глубину рекурсии
@@ -362,7 +363,7 @@ $obj = dir('.');
       int lol() {
         return 10;
       }
-    ")
+    ");
 
     echo $obj->lol();
 
@@ -371,7 +372,7 @@ $obj = dir('.');
         char* name;
         int age;
       };
-    ")
+    ");
 
     $obj = new $ffi->user;
 

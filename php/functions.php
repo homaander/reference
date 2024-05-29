@@ -50,7 +50,7 @@
     #(array) Разбивает строку по рег. выражению
         preg_split($pattern, $subject);
     #(array) Для многобайтовых
-        preg_split('//u', $str, null, PREG_SPLIT_NO_EMPTY);
+        preg_split('//u', $str, -1, PREG_SPLIT_NO_EMPTY);
 
     #(string\array) Поиск по рег выражению и замену с помощью функции
         preg_replace_callback($pat, function($result) {}, $sub);
@@ -81,8 +81,9 @@
 
 
 #Письма:
-base64_encode(data);
-base64_decode(data);
+
+base64_encode($data);
+base64_decode($data);
 
 mail('to@mail.ru', 'Robobo', 'Hello');
 
@@ -298,23 +299,23 @@ mail('to@mail.ru', 'Robobo', 'Hello');
     #(string) Путь к каталогу с сессиями или его присвоение
         session_save_path();
 
-    #Собственные обработчики сессий
-    #Пример имён:
+    # Собственные обработчики сессий
+    # Пример имён:
         #(bool) Вызывается при session_start()
-            handler_open($path, $sessname);
+            # handler_open($path, $sessname);
         #(bool) После записи в хранилище
-            handler_close();
+            # handler_close();
         #(string) Чтении сессии(имяN=serialize(значениеN);...)
-            handler_read($sid);
+            # handler_read($sid);
         #(string) Записи в сессию
-            handler_write($sid, $data);
+            # handler_write($sid, $data);
         #(bool) Уничтожении ссессии
-            handler_destroy($sid);
+            # handler_destroy($sid);
         #(bool) По прошествию времени от закрытия
-            handler_gc($second);
+            # handler_gc($second);
 
     # Зарегистрировать обработчик
-        session_set_save_handler(open, close, read, write, destroy, gc);
+        session_set_save_handler($open, $close, $read, $write, $destroy, $gc);
 
 
 
