@@ -5,8 +5,6 @@ home-manager switch --flake .
 [sudo] nix-env /nix/var/nix/profile/system --list-generations
 [sudo] nix-collect-garbage -d
 
-
-
 nix-channel --list
 nix-channel --add https://nixos.org/channels/nixos-unstable nixos
 nix-chanell --update
@@ -16,3 +14,17 @@ nix-instantiate --eval file.nix
 
 # Попробовать пакет в окружении
 nix-shell -p stack
+nix shell nixpkgs#postgresql
+
+# Запустить проект по flake
+nix build
+nix run .#default
+nix run .#postgres
+
+# Запустить окружение резработки (devShells)
+nix develop
+
+nix flake show
+nix flake show --allow-import-from-derivation
+
+nix run .#default -- --help
