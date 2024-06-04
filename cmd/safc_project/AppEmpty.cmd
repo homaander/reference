@@ -14,7 +14,7 @@ color F0
 
 :: Safc
 set Safc.libs=Render Array
-set Safc.use=My_lib
+set Safc.use=TestLib
 
 :: Option
 set Render.path=img
