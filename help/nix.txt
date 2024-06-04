@@ -1,0 +1,18 @@
+home-manager switch --flake .
+
+[sudo] nixos-rebuild switch --flake .
+
+[sudo] nix-env /nix/var/nix/profile/system --list-generations
+[sudo] nix-collect-garbage -d
+
+
+
+nix-channel --list
+nix-channel --add https://nixos.org/channels/nixos-unstable nixos
+nix-chanell --update
+
+# Запустить скрипт NIX
+nix-instantiate --eval file.nix
+
+# Попробовать пакет в окружении
+nix-shell -p stack

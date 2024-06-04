@@ -95,7 +95,7 @@ addressLetter name location = locFunc name
 
 
 
-genIfEven f = (\x -> ifEven f x)
+genIfEven f = \x -> ifEven f x
 ifEvenInc = genIfEven inc
 
 genIfEvenX x = (\f -> ifEven f x)
@@ -117,7 +117,7 @@ getHomaanderApiRequestUrl = genHostApiRequestUrl getHomaanderRequestUrl "pcxwp3f
 -- flip - изменяет порядок двух аргументов
 substract2 = flip (-) 2
 
-myflip f = (\a b -> f b a)
+myflip f = \a b -> f b a
 
 
 
@@ -167,7 +167,7 @@ myDrop n (x:xs) = myDrop (n - 1) xs
 ee = map reverse ["abc", "xyz"]
 
 myMap _ [] = []
-myMap f (x:xs) = (f x) : myMap f xs
+myMap f (x:xs) = f x : myMap f xs
 
 yy = filter even [1..10]
 
