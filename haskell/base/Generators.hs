@@ -1,13 +1,13 @@
 powersOfTwo :: Int -> [Int]
 powersOfTwo n = do
     res <- [1 .. n]
-    pure (2^res)
+    pure (2 ^ res)
 
 powersOfTwo2 :: Int -> [Int]
 powersOfTwo2 n = [1 .. n] >>= (\res -> pure (2^res))
 
 powersOfTwo3 :: Int -> [Int]
-powersOfTwo3 n = map (\res -> 2^res) [1 .. n]
+powersOfTwo3 n = map (2 ^) [1 .. n]
 
 powersOfTwoAndThree :: Int -> [(Int, Int)]
 powersOfTwoAndThree n = do
