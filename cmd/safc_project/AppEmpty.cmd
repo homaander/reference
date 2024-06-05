@@ -13,16 +13,17 @@ title Game
 color F0
 
 :: Safc
-set Safc.libs=Render Array
-set Safc.use=TestLib
+:: set Safc.libs=Render Array
+:: set Safc.use=LibTest
 
 :: Option
-set Render.path=img
-set Render.files=logo test
+:: set Render.path=img
+:: set Render.files=logo test
 
 :: Run
 safc\autoload 2> nul
 
 :App
-    :: Code
+    :: LibTest function
+    call :Test Okey
 exit /b

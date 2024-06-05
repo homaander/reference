@@ -14,15 +14,11 @@ color F0
 
 :: Safc
 set Safc.libs=Array
-set Safc.use=TestLib
 
 :: Run
 safc\autoload 2> nul
 
 :App
-    :: TestLib function
-    call :TestF Okey
-
     call :Array.add arr Andrew
     call :Array.add arr Vitya
     call :Array.add arr Vanya

@@ -1,5 +1,5 @@
 :: Вставка изображения в код программы
-:Render_Load
+:Render.init
     :: Создание метода
     (
         echo :Render.load
