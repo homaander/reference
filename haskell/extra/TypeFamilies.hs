@@ -1,6 +1,5 @@
 {-# LANGUAGE TypeFamilies #-}
 
-
 import Data.Kind
 import Data.IntMap
 

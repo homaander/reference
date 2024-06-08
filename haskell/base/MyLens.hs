@@ -1,4 +1,4 @@
-module Lens where
+module MyLens where
 
 import Prelude (Int, String, Show, ($))
 

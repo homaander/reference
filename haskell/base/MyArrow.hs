@@ -1,3 +1,5 @@
+module MyArrow where
+
 import Control.Arrow
 import qualified Control.Category as C
 
