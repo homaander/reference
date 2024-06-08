@@ -1,12 +1,12 @@
 import Data.List
+
 import Data.Semigroup
 
-import qualified Data.Map as Map
 import qualified Data.Text as T
 
 calcChange owned given = if change > 0
-        then change
-        else 0
+                         then change
+                         else 0
     where change = given - owned
 
 inc x = x + 1
@@ -45,10 +45,10 @@ ifEven f x = if even x
              then f x
              else x
 
-names = [("A", "Z"),
-         ("B", "Y"),
-         ("C", "X"),
-         ("D", "W")]
+names = [("Axxx", "Zxxx"),
+         ("Bxxx", "Yxxx"),
+         ("Cxxx", "Xxxx"),
+         ("Dxxx", "Wxxx")]
 
 cmpLNames n1 n2 = if l1 > l2
                   then GT
@@ -88,7 +88,7 @@ getLocationFunction location =
         "ny" -> nyOffice
         "rn" -> rnOffice
         "ws" -> wsOffice
-        _ -> (\name -> (fst name) ++ " " ++ (snd name))
+        _    -> (\name -> fst name ++ " " ++ snd name)
 
 addressLetter name location = locFunc name
     where locFunc = getLocationFunction location
@@ -261,21 +261,21 @@ janeSmith = Patient (NameWithMiddle "Jane" "Elisabet" "Smith") Female 24 150 40 
 --           ageHeight = "(Age: " ++ show age ++ "; Height: " ++ show height ++ "sm)"
 
 data Patient2 = Patient2 {
-        name      :: Name,
-        sex       :: Sex,
-        age       :: Age,
-        height    :: Height,
-        weight    :: Widht,
-        bloodType :: BloodType
+      name      :: Name
+    , sex       :: Sex
+    , age       :: Age
+    , height    :: Height
+    , weight    :: Widht
+    , bloodType :: BloodType
     }
 
 johnDoe2 = Patient2 {
-        name      = Name "John" "Doe",
-        sex       =  Male,
-        age       = 43,
-        height    = 188,
-        weight    = 92,
-        bloodType = BloodType AB Pos
+      name      = Name "John" "Doe"
+    , sex       = Male
+    , age       = 43
+    , height    = 188
+    , weight    = 92
+    , bloodType = BloodType AB Pos
     }
 
 getJohnDoe2Age :: Age
@@ -318,7 +318,8 @@ instance Ord MyNames where
 
 -- import Data.List
 myMin :: Ord a => [a] -> a
-myMin = head . sort
+-- myMin = head . sort
+myMin = minimum
 
 --import Data.Semigroup
 
@@ -332,9 +333,9 @@ instance Semigroup AA where
     (<>) AA3 AA2 = AA1
     (<>) AA1 AA3 = AA2
     (<>) AA3 AA1 = AA2
-    (<>)   a AA0 = a
-    (<>) AA0   a = a
-    (<>) a b = AA0
+    (<>) a   AA0 = a
+    (<>) AA0 a   = a
+    (<>) a   b   = AA0
 
 instance Monoid AA where
     mempty :: AA
@@ -346,14 +347,15 @@ cartCombine :: (a -> b -> c) -> [a] -> [b] -> [c]
 cartCombine func l1 l2 = zipWith func newL1 newL2
     where
         nToAdd = length l2
-        repeatedL1 = map (take nToAdd . repeat) l1
+        repeatedL1 = map (replicate nToAdd) l1
         newL1 = mconcat repeatedL1
         newL2 = cycle l2
 
 
 -- types parametrs
 
-data Box a = Box a deriving (Show)
+newtype Box a = Box a
+    deriving (Show)
 
 warp :: a -> Box a
 warp = Box
@@ -368,13 +370,9 @@ type Point3D = Triple Double
 aPoint :: Point3D
 aPoint = Triple 0.1 0.2 0.3
 
-tripleGetX :: Triple a -> a
+tripleGetX, tripleGetY, tripleGetZ :: Triple a -> a
 tripleGetX (Triple x _ _) = x
-
-tripleGetY :: Triple a -> a
 tripleGetY (Triple _ x _) = x
-
-tripleGetZ :: Triple a -> a
 tripleGetZ (Triple _ _ x) = x
 
 tripleGetList :: Triple a -> [a]
@@ -384,79 +382,5 @@ tripleTransform :: (a -> a) -> Triple a -> Triple a
 tripleTransform f (Triple x y z) = Triple (f x) (f y) (f z) 
 
 data List a = Empty | Cons a (List a) deriving Show
-
-
--- Значение и ключ
--- import qualified Data.Map as Map
-
-data Organ = Heart | Brain | Kidney | Spleen deriving (Show, Eq)
-
-organs :: [Organ]
-organs = [Heart, Brain, Brain, Heart, Spleen, Spleen, Kidney]
-
-ids :: [Int]
-ids = [2,7,13,14,21,24,30]
-
-organPairs :: [(Int, Organ)]
-organPairs = zip ids organs
-
-organCatalog :: Map.Map Int Organ
-organCatalog = Map.fromList organPairs
-
-result :: Maybe Organ
-result = Map.lookup 7 organCatalog
-
-myList :: Map.Map Int String
-myList = Map.fromList [(1, "A"), (2, "B")]
-
-mapMain :: Maybe String
-mapMain = do
-    a <- Map.lookup 1 myList
-    b <- Map.lookup 2 myList
-    let c = a ++ b
-    return c
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

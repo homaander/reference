@@ -1,4 +1,4 @@
-cup ml = \message -> message ml
+cup ml message = message ml
 
 coffeCup :: (Int -> t) -> t
 coffeCup = cup 500

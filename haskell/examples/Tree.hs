@@ -1,6 +1,6 @@
 module Tree () where
 
-import Data.List
+import Data.List ( intercalate )
 
 data Tree = Empty | Node Int Tree Tree
   deriving (Show, Eq)
