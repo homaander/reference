@@ -8,7 +8,7 @@ newtype SimpleFunc a b = SimpleFunc {
   }
 
 instance Arrow SimpleFunc where
-  arr func = SimpleFunc func
+  arr = SimpleFunc
   first (SimpleFunc func) = SimpleFunc (mapFst func)
     where mapFst func (a,b) = (func a, b)
   second (SimpleFunc func) = SimpleFunc (mapSnd func)
