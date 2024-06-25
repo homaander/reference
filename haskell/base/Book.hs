@@ -1,17 +1,15 @@
+module Book where
+
+import Data.Semigroup ()
 import Data.List
-
-import Data.Semigroup
-
 import qualified Data.Text as T
-
-calcChange owned given = if change > 0
-                         then change
-                         else 0
-    where change = given - owned
 
 inc x = x + 1
 double x = x * 2
 square x = x ^ 2
+
+-- Int Integer Double Bool Char String
+toDouble = read "6" :: Double
 
 myf n = if isEven
         then n - 2
@@ -19,29 +17,22 @@ myf n = if isEven
     where
         isEven = even n
 
-sumSquareOrSquareSum x y =  if sumSquare > squareSum
-                            then sumSquare
-                            else squareSum
+sumSquareOrSquareSum x y =  max sumSquare squareSum
     where sumSquare = x^2 + y^2
           squareSum = (x + y)^2
 
-sumSquareOrSquareSum2 x y = (\sumSquare squareSum ->
-          if sumSquare > squareSum
-          then sumSquare
-          else squareSum) (x^2 + y^2) ((x + y)^2)
+sumSquareOrSquareSum2 x y = max (x^2 + y^2) ((x + y)^2)
 
 sumSquareOrSquareSum3 x y = let sumSquare = x^2 + y^2
                                 squareSum = (x + y)^2
                             in
-                              if sumSquare > squareSum
-                              then sumSquare
-                              else squareSum
+                              max sumSquare squareSum
 
 doubleDouble x = (\x -> x*2) (x*2)
 
 counter x = (\x -> (\x -> (x + 1)) (x + 1)) x
 
-ifEven f x = if even x
+ifEven f x = if   even x
              then f x
              else x
 
@@ -50,14 +41,18 @@ names = [("Axxx", "Zxxx"),
          ("Cxxx", "Xxxx"),
          ("Dxxx", "Wxxx")]
 
-cmpLNames n1 n2 = if l1 > l2
-                  then GT
-                  else if l1 < l2
-                       then LT
-                       else EQ
-    where
-        l1 = snd n1
-        l2 = snd n2
+calcChange owned given = if   change > 0
+                         then change
+                         else 0
+    where change = given - owned
+
+cmpLNames n1 n2
+    | l1 > l2 = GT
+    | l1 < l2 = LT
+    | otherwise = EQ
+  where
+      l1 = snd n1
+      l2 = snd n2
 
 cmpLNames2 n1 n2 = compare l1 l2
     where
@@ -71,16 +66,16 @@ sfOffice name = if lastName < "L"
                 else nameText ++ " San-Fran 94109"
     where
         lastName = snd name
-        nameText = (fst name) ++ " " ++ lastName
+        nameText = fst name ++ " " ++ lastName
 
 nyOffice name = nameText ++ ": New-York 10013"
-    where nameText = (fst name) ++ " " ++ (snd name)
+    where nameText = fst name ++ " " ++ snd name
 
 rnOffice name = nameText ++ " Rino 89523"
-    where nameText = (fst name) ++ " " ++ (snd name)
+    where nameText = fst name ++ " " ++ snd name
 
 wsOffice name = "Dear " ++ nameText ++ " Wash 89523"
-    where nameText = (fst name) ++ " " ++ (snd name)
+    where nameText = fst name ++ " " ++ snd name
 
 getLocationFunction location =
     case location of
@@ -100,201 +95,101 @@ ifEvenInc = genIfEven inc
 
 genIfEvenX x = (\f -> ifEven f x)
 
-getRequestUrl host apiKey resource id =
-    host ++ "/" ++ resource ++ "/" ++ id ++ "?token=" ++ apiKey
-
-genHostRequestUrl host =
-    (\apiKey resource id -> getRequestUrl host apiKey resource id)
-
-getHomaanderRequestUrl = genHostRequestUrl "http://homaander.logogon.ru"
-getHomaanderRequestUrl2 = getRequestUrl "http://homaander.logogon.ru"
-
-genHostApiRequestUrl hostGen apiKey =
-    (\resource id -> hostGen apiKey resource id)
-
-getHomaanderApiRequestUrl = genHostApiRequestUrl getHomaanderRequestUrl "pcxwp3fhj23"
+-- Границы типа
+mySucc :: (Bounded a, Eq a, Enum a) => a -> a
+mySucc n = if   n == maxBound
+           then minBound
+           else succ n
 
 -- flip - изменяет порядок двух аргументов
 substract2 = flip (-) 2
 
-myflip f = \a b -> f b a
+myflip f a b = f b a
 
+-- * List functions
 
+arr :: [Int]
+arr = [5, 3, 5, 6, 3]
+    -- 5 : 3 : 5 : 6 : 3 : []
+    -- [5, 3, 5] ++ [6, 3]
+    -- [1,2 .. 10]
 
-arr1 = [5, 3, 5, 6]
-val1 = head arr1
-arr1_ = tail arr1
+firstVal = head arr
+otherVal = tail arr
 
-arr2 = 4 : 5 : []
+elemOnIndex4 = arr !! 4
 
-arr3 = [5,6] ++ [7,8]
+findVal  = 4 `elem` arr
+takeVals = take 5 arr
+dropVals = drop 3 arr
 
-arr4 = [1,2 .. 10]
-val4 = arr4 !! 4
+arrInfin = cycle [1,2]
+arrInfin' = repeat 1
 
-arr5 = [3, 7, 5, 4, 3]
-findVal  = elem 4 arr5
-takeVals = take 5 arr5
-dropVals = drop 3 arr5
-
-infinArr = cycle [1]
-
-aa = zip [1,2,3] ["A", "B", "C"]
+arrPair = zip [1,2,3] ["A", "B", "C"]
 
 mySum a b = a + b
-tt = 4 `mySum` 4
+infixRun = 4 `mySum` 4
 
-findGCD a b = if ost == 0
+findGCD a b = if   ost == 0
               then b
               else findGCD b ost
     where
         ost = mod a b
 
-myFindGCD a 0 = a
-myFindGCD a b = myFindGCD b ost
+findGCD' a 0 = a
+findGCD' a b = findGCD' b ost
     where
         ost = mod a b
 
-myTake2 0 _ = []
-myTake2 _ [] = []
-myTake2 n (x:xs) = x : myTake2 (n - 1) xs
+myTake 0 _ = []
+myTake _ [] = []
+myTake n (x:xs) = x : myTake (n - 1) xs
 
 myDrop 0 list = list
 myDrop n (x:xs) = myDrop (n - 1) xs
 
+myElem a list = not (null res)
+    where res = filter (== a) list
+
 -- Функции высшего порядка
 
-ee = map reverse ["abc", "xyz"]
+mapTest = map reverse ["abc", "xyz"]
 
 myMap _ [] = []
 myMap f (x:xs) = f x : myMap f xs
 
-yy = filter even [1..10]
+filterTest = filter even [1..10]
 
+myRemove :: (a -> Bool) -> [a] -> [a]
 myRemove f [] = []
 myRemove f (x:xs) = if f x
                     then myRemove f xs
                     else x : myRemove f xs
 
-ff = foldl (+) 0 [1..10]
+foldrTest = foldr (-) 0 [1,2,3,4]
+foldlTest = foldl' (-) 0 [1..10]
+foldlContact = foldl (\a b -> a ++ "," ++ b) "" ["A", "B", "C"]
 
-contactAll :: [Char]
-contactAll = foldl (++) "" ["A", "B", "C"]
+concatTest = concat ["A", "B", "C"]
 
 myFoldR _ init [] = init
 myFoldR f init (x:xs) = f x res
     where res = myFoldR f init xs
 
-gg = foldr (-) 0 [1,2,3,4]
-
-myElem a list = length res > 0
-    where res = filter (\x -> x == a) list
-
--- ООП
-
--- Int Integer Double Bool Char String
-
-d = read "6" :: Double
-
 makeTriple :: a -> b -> c -> (a, b, c)
 makeTriple a b c = (a, b, c)
 
-type FirstName  = String
-type MiddleName = String
-type LastName   = String
+-- Классы
 
-type Age    = Int
-type Height = Int
-type Widht  = Int
-
-data Name = Name FirstName LastName
-            | NameWithMiddle FirstName MiddleName LastName
-
-data Sex = Male | Female
-
-data RhType = Pos | Neg
-data ABOType = A | B | AB | O
-data BloodType = BloodType ABOType RhType
-
-data Patient = Patient Name Sex Age Height Widht BloodType
-
-showName :: Name -> String
-showName (Name f l) = f ++ " " ++ l
-showName (NameWithMiddle f m l) = f ++ " " ++ m ++ " " ++ l  
-
-sexInitial :: Sex -> Char
-sexInitial Male = 'M'
-sexInitial Female = 'F'
-
-showRh :: RhType -> String
-showRh Pos = "+"
-showRh Neg = "-"
-
-showABO :: ABOType -> String
-showABO A  = "A"
-showABO B  = "B"
-showABO AB = "AB"
-showABO O  = "O"
-
-showBloodType :: BloodType -> String
-showBloodType (BloodType abo rh) = showABO abo ++ showRh rh
-
-canDonateTo :: BloodType -> BloodType -> Bool
-canDonateTo (BloodType O _) _  = True
-canDonateTo _ (BloodType AB _) = True
-canDonateTo (BloodType A _) (BloodType A _)  = True
-canDonateTo (BloodType B _) (BloodType B _)  = True
-canDonateTo _ _ = False
-
-johnDoe :: Patient
-johnDoe = Patient (Name "John" "Doe") Male 43 188 92 (BloodType AB Pos)
-
-johnDoe2 :: Patient2
-
-janeSmith :: Patient
-janeSmith = Patient (NameWithMiddle "Jane" "Elisabet" "Smith") Female 24 150 40 (BloodType A Neg)
-
-
--- patientInfo :: PatientName -> Age -> Height -> String
--- patientInfo patientName age height = name ++ " " ++ ageHeight
---     where name = getFirstName patientName ++ ", " ++ getLastName patientName
---           ageHeight = "(Age: " ++ show age ++ "; Height: " ++ show height ++ "sm)"
-
-data Patient2 = Patient2 {
-      name      :: Name
-    , sex       :: Sex
-    , age       :: Age
-    , height    :: Height
-    , weight    :: Widht
-    , bloodType :: BloodType
-    }
-
-johnDoe2 = Patient2 {
-      name      = Name "John" "Doe"
-    , sex       = Male
-    , age       = 43
-    , height    = 188
-    , weight    = 92
-    , bloodType = BloodType AB Pos
-    }
-
-getJohnDoe2Age :: Age
-getJohnDoe2Age = age johnDoe2
-newJohnDoe2 :: Patient2
-newJohnDoe2 = johnDoe2 { age = 44 }
-
-
-data Icream = Vanila | Chocolatle deriving (Show, Eq, Ord)
-
-mySucc :: (Bounded a, Eq a, Enum a) => a -> a
-mySucc n = if n == maxBound
-           then minBound
-           else succ n
+data Icream = Vanila | Chocolatle
+    deriving (Show, Eq, Ord)
 
 class Describable a where
     describe :: a -> String
 
-data SixDie = S1 | S2 | S3 | S4 | S5 | S6 deriving (Eq, Ord, Enum)
+data SixDie = S1 | S2 | S3 | S4 | S5 | S6
+    deriving (Eq, Ord, Enum)
 
 instance Show SixDie where
     show :: SixDie -> String
@@ -305,8 +200,7 @@ instance Show SixDie where
     show S5 = "Five"
     show S6 = "Six"
 
-
--- data MyNames = MyNames (String, String) deriving (Show, Eq)
+-- newtype используется при одном конструкторе, и проверяется на этапе компиляции
 newtype MyNames = MyNames (String, String) deriving (Show, Eq)
 
 instance Ord MyNames where
@@ -314,17 +208,17 @@ instance Ord MyNames where
     compare (MyNames (a1, b1)) (MyNames (a2, b2)) = compare (b1, a1) (b2, a2)
 
 
--- Компазиция
-
 -- import Data.List
-myMin :: Ord a => [a] -> a
+-- myMin :: Ord a => [a] -> a
 -- myMin = head . sort
+
+myMin :: Ord a => [a] -> a
 myMin = minimum
 
---import Data.Semigroup
 
 data AA = AA0 | AA1 | AA2 | AA3 deriving (Show, Enum)
 
+-- import Data.Semigroup
 instance Semigroup AA where
     (<>) :: AA -> AA -> AA
     (<>) AA1 AA2 = AA3
@@ -352,7 +246,6 @@ cartCombine func l1 l2 = zipWith func newL1 newL2
         newL2 = cycle l2
 
 
--- types parametrs
 
 newtype Box a = Box a
     deriving (Show)
@@ -363,8 +256,9 @@ warp = Box
 unwarp :: Box a -> a
 unwarp (Box a) = a
 
-data Triple a = Triple a a a deriving (Show)
 
+
+data Triple a = Triple a a a deriving (Show)
 type Point3D = Triple Double
 
 aPoint :: Point3D
@@ -379,7 +273,7 @@ tripleGetList :: Triple a -> [a]
 tripleGetList (Triple x y z) = [x, y, z]
 
 tripleTransform :: (a -> a) -> Triple a -> Triple a
-tripleTransform f (Triple x y z) = Triple (f x) (f y) (f z) 
+tripleTransform f (Triple x y z) = Triple (f x) (f y) (f z)
 
 data List a = Empty | Cons a (List a) deriving Show
 

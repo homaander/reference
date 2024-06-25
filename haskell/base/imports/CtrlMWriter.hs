@@ -1,5 +1,7 @@
-module MyWriter where
+module CtrlMWriter where
 import Control.Monad.Writer
+
+-- Первый аргумент - сам буфер, должен быть членом класса Monoid
 
 myVal :: Writer String Int
 myVal = writer (2, "")

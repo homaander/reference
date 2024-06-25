@@ -1,4 +1,4 @@
-module MyReader where
+module CtrlMReader where
 
 import Control.Monad.Reader
 

@@ -1,6 +1,6 @@
 module MyLens where
 
-import Prelude (Int, String, Show, ($))
+import Prelude hiding ((.))
 
 data Car = Car {
     cName  :: String

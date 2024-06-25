@@ -1,4 +1,4 @@
-module MyState where
+module CtrlMState where
 
 import Control.Monad.State
 

@@ -35,6 +35,7 @@ instance ToJSON ErrorMesage where
 someFunc :: IO ()
 someFunc = putStrLn "someFunc"
 
+
 mySuperFunction :: Int -> Int -> Int
 mySuperFunction a b = if a > b
                       then b + 10

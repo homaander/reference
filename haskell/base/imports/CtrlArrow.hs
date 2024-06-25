@@ -1,4 +1,4 @@
-module MyArrow where
+module CtrlArrow where
 
 import Control.Arrow
 import qualified Control.Category as C

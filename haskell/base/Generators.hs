@@ -1,3 +1,5 @@
+module Generators where
+
 powersOfTwo :: Int -> [Int]
 powersOfTwo n = do
     res <- [1 .. n]
@@ -16,5 +18,5 @@ powersOfTwoAndThree n = do
     let pOfThree = 3^val
     return (pOfTwo, pOfThree)
 
-powersOfTwoAndThree2 :: Int -> [(Int, Int)]
-powersOfTwoAndThree2 n = [(2^v, 3^v) | v <- [1 .. n]]
+powersOfTwoAndThree' :: Int -> [(Int, Int)]
+powersOfTwoAndThree' n = [(2^v, 3^v) | v <- [1 .. n]]

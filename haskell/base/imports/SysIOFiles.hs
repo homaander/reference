@@ -1,3 +1,4 @@
+module SysIOFiles where
 import System.IO
 
 main :: IO ()

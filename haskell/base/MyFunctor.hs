@@ -1,6 +1,5 @@
 module RFunctor where
 
-
 data Pair a = Pair a a | NotPair
 
 type IntPair = Pair Int
