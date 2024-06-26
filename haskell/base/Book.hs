@@ -4,13 +4,16 @@ import Data.Semigroup ()
 import Data.List
 import qualified Data.Text as T
 
+inc, double, square :: Num a => a -> a
 inc x = x + 1
 double x = x * 2
 square x = x ^ 2
 
 -- Int Integer Double Bool Char String
-toDouble = read "6" :: Double
+toDouble :: String -> Double
+toDouble = read
 
+myf :: Integral a => a -> a
 myf n = if isEven
         then n - 2
         else 3 * n - 1
@@ -28,18 +31,26 @@ sumSquareOrSquareSum3 x y = let sumSquare = x^2 + y^2
                             in
                               max sumSquare squareSum
 
-doubleDouble x = (\x -> x*2) (x*2)
+doubleDouble :: Num a => a -> a
+doubleDouble x = (* 2) (x * 2)
 
-counter x = (\x -> (\x -> (x + 1)) (x + 1)) x
+counter x = (\x ->
+                (\x ->
+                    x + 1
+                ) (x + 1)
+            ) x
 
 ifEven f x = if   even x
              then f x
              else x
 
-names = [("Axxx", "Zxxx"),
-         ("Bxxx", "Yxxx"),
-         ("Cxxx", "Xxxx"),
-         ("Dxxx", "Wxxx")]
+names :: [(String, String)]
+names  = [
+           ("Axxx", "Zxxx")
+         , ("Bxxx", "Yxxx")
+         , ("Cxxx", "Xxxx")
+         , ("Dxxx", "Wxxx")
+         ]
 
 calcChange owned given = if   change > 0
                          then change
@@ -276,5 +287,3 @@ tripleTransform :: (a -> a) -> Triple a -> Triple a
 tripleTransform f (Triple x y z) = Triple (f x) (f y) (f z)
 
 data List a = Empty | Cons a (List a) deriving Show
-
-

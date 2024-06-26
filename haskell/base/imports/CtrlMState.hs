@@ -3,10 +3,10 @@ module CtrlMState where
 import Control.Monad.State
 
 myVal :: State Int Int
-myVal = state (44,)
+myVal  = state (44,)
 
 myMain :: State Int Int
-myMain = do
+myMain  = do
     x <- get
     let res = x + 1
     put 4
@@ -14,7 +14,7 @@ myMain = do
     return res
 
 main :: IO ()
-main = do
+main  = do
     let
         all = runState  myMain 5
         val = evalState myMain 5

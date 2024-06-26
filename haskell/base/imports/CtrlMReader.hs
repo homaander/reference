@@ -3,19 +3,19 @@ module CtrlMReader where
 import Control.Monad.Reader
 
 myVal :: Reader Int Int
-myVal = reader $ const 44
+myVal  = reader $ const 44
 
 gg :: Reader Int Int
-gg = local (+ 100) myMain
+gg  = local (+ 100) myMain
 
 myMain :: Reader Int Int
-myMain = do
+myMain  = do
     x <- ask
     let res = x + 1
     return res
 
 main :: IO ()
-main = do
+main  = do
     let
         all = runReader myMain 5
     putStrLn "Test Read:"
