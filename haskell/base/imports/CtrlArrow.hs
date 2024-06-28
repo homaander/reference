@@ -90,14 +90,27 @@ runArrowChTestXY'' = runMyArrow runArrowChTestXY (Right 1)
 -- ?   arr (\(f, x) -> f x)
 
 
+-- * ArrowLoop
+
+
+-- * ArrowEmpty
+-- ? zeroArrow
+
+
+-- * ArrowPlus
+-- ? <+>
+-- ? Для большенства типов это "или" - то-есть если первый не empty (zeroArray)
+-- ? Для [] это конкатинация
+
+
 -- * Kleisli - монадическая стрелка со всеми вышеописанными классами
 -- ?  newtype Kleisli m a b = Kleisli {
 -- ?      runKleisli :: (a -> m b) 
 -- ?      }
 
 plusminus, double, h2 :: Kleisli [] Int Int
-plusminus = Kleisli (\x -> [x, 2 * x])
-double    = arr (* 2)
+plusminus = Kleisli (\x -> [x, 2 * x])   -- Не получится использовать arr, потому-что мы сами указываем контекст
+double    = arr (* 2)                    -- Тут результат будет автоматически добавлен в контекст
 h2        = liftA2 (+) plusminus double
 
 h2Output :: [Int]
@@ -107,15 +120,20 @@ main :: IO ()
 main = do
     let
         xs = do
-           list <- ["test", "foobar"]
+           list <- ["test"{-, "foobar"-}]
            runKleisli xform list
 
-        xform = withId (prepend "<") >>>
-                withId (append  ">") >>>
-                withId (prepend "!"  >>> append "!")
+        -- Т-е идет перебор списка, returnA оставляет элемент без изменений и <+> добавляет после него обновленный элемент
+        xform = withId (prepend "<") >>> -- [test, <test]
+                withId (append  ">") >>> -- [test, test>, <test, <test>]
+                withId (prepend "("  >>> -- [test, (test), test>, (test>), <test, (<test), <test>, (<test>)]
+                        append  ")")
 
+        -- Для [] - возвращает [x, t(x)]
         withId  t = returnA <+> t
+
         prepend x = arr (x ++)
         append  x = arr (++ x)
 
-    mapM_ putStrLn xs
+    -- mapM_ putStrLn xs
+    print xs
