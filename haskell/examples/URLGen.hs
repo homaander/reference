@@ -1,21 +1,20 @@
 module URLGen where
 
-getRequestUrl :: [Char] -> [Char] -> [Char] -> [Char] -> [Char]
+type Host = String
+type ApiKey = String
+type Resource = String
+type ResourceId = String
+type ApiUrl = String
+
+getRequestUrl :: Host -> ApiKey -> Resource -> ResourceId -> ApiUrl
 getRequestUrl host apiKey resource id =
     host ++ "/" ++ resource ++ "/" ++ id ++ "?token=" ++ apiKey
 
-genHostRequestUrl :: [Char] -> [Char] -> [Char] -> [Char] -> [Char]
-genHostRequestUrl host =
-    (\apiKey resource id -> getRequestUrl host apiKey resource id)
+getMyRequestUrl :: ApiKey -> Resource -> ResourceId -> ApiUrl
+getMyRequestUrl  = getRequestUrl "http://homaander.logogon.ru"
 
-getHomaanderRequestUrl :: [Char] -> [Char] -> [Char] -> [Char]
-getHomaanderRequestUrl = genHostRequestUrl "http://homaander.logogon.ru"
+getMyApiRequestUrl :: Resource -> ResourceId -> ApiUrl
+getMyApiRequestUrl  = getMyRequestUrl "pcxwp3fhj23"
 
-getHomaanderRequestUrl2 :: [Char] -> [Char] -> [Char] -> [Char]
-getHomaanderRequestUrl2 = getRequestUrl "http://homaander.logogon.ru"
-
-genHostApiRequestUrl :: ([Char] -> [Char] -> [Char] -> [Char]) -> [Char] -> [Char] -> [Char] -> [Char]
-genHostApiRequestUrl hostGen = hostGen
-
-getHomaanderApiRequestUrl :: [Char] -> [Char] -> [Char]
-getHomaanderApiRequestUrl = genHostApiRequestUrl getHomaanderRequestUrl "pcxwp3fhj23"
+getMyApiItemsRequestUrl :: ResourceId -> ApiUrl
+getMyApiItemsRequestUrl  = getMyApiRequestUrl "items"
