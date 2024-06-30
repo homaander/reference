@@ -23,7 +23,11 @@ data Point = Point
   }
     deriving Show
 
+-- Пример создания линзы самостоятельно
+-- myScore :: Lens' Game Int
+-- myScore  = lens _score (\game v -> game { _score = v })
 
+-- Авто создание линзы
 makeLenses 'Game
 makeLenses 'Unit
 makeLenses 'Point
