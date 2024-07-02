@@ -3,6 +3,9 @@
 import qualified Data.Text as T
 import qualified Data.Text.IO as TIO
 
+-- ! Написать примеры
+import qualified Data.Text.Encoding as E
+
 myVal :: T.Text
 myVal = "Привет!"
 

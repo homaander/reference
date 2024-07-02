@@ -52,7 +52,7 @@ names  = [
          , ("Dxxx", "Wxxx")
          ]
 
-calcChange owned given = if   change > 0
+calcChange owned given = if   change - 1 > 0
                          then change
                          else 0
     where change = given - owned
