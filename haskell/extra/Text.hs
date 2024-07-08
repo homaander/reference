@@ -3,19 +3,22 @@
 import qualified Data.Text as T
 import qualified Data.Text.IO as TIO
 
--- ! Написать примеры
+-- * Работа с кодировками
 import qualified Data.Text.Encoding as E
+-- ? encodeUtf8 :: Text -> ByteString
+-- ? decodeUtf8 :: ByteString -> Text
+
+-- >>> :t T.pack
+-- >>> :t T.unpack
+-- T.pack :: String -> Text
+-- T.unpack :: Text -> String
+
 
 myVal :: T.Text
-myVal = "Привет!"
-
-digs :: Integral x => x -> [x]
-digs 0 = []
-digs x = digs (x `div` 10) ++ [x `mod` 10]
-
-ll :: Num a => [a] -> [a] -> [a]
-ll = zipWith (+)
+myVal = "Привет, "
 
 main :: IO ()
 main = do
-    TIO.putStrLn myVal
+    TIO.putStr "Имя: "
+    name <- TIO.getLine
+    TIO.putStrLn $ T.concat [myVal, name, " АБВ!"]

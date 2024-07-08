@@ -1,14 +1,13 @@
 {-# LANGUAGE RecordWildCards #-}
 
-data Person = Person {
-    name :: String
-  , age :: Int
-  }
-
-myf :: Person -> String
-myf (Person {..}) = "a" ++ name ++ show age
+data Person = Person 
+  { name :: String
+  , age  :: Int }
 
 data C = C {a :: Int, b :: Int, c :: Int, d :: Int}
 
-f :: C -> Int
-f (C {a = 1, ..}) = b + c + d
+f :: Person -> String
+f (Person {..}) = "a" ++ name ++ show age
+
+g :: C -> Int
+g (C {a = 1, ..}) = b + c + d

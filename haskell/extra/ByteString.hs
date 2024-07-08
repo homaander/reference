@@ -13,7 +13,7 @@ import qualified Data.ByteString.Char8 as BC
 
 -- >>> :t B.pack
 -- >>> :t BC.pack
--- B.pack :: [Word8] -> ByteString
+-- B.pack  :: [Word8] -> ByteString
 -- BC.pack :: String -> ByteString
 
 -- >>> B.pack (map fromIntegral [96 + 1 .. 96 + 26])

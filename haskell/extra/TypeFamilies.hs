@@ -1,42 +1,48 @@
 {-# LANGUAGE TypeFamilies #-}
 
 import Data.Kind
-import Data.IntMap
 
 -- Declare a list-like data family
-data family XList a
+data family XList a :: Type
 
--- Declare a list-like instance for Char
 data instance XList Char = XCons !Char !(XList Char) | XNil
+data instance XList ()   = XListUnit !Int
 
--- Declare a number-like instance for ()
-data instance XList () = XListUnit !Int
-
-class GMapKey k where
-  data GMap k :: Type -> Type
-  empty       :: GMap k v
-  lookup      :: k -> GMap k v -> Maybe v
-  insert      :: k -> v -> GMap k v -> GMap k v
-
-instance GMapKey Int where
-  data GMap Int v        = GMapInt (Data.IntMap.IntMap v)
-  empty                  = GMapInt Data.IntMap.empty
-  lookup k   (GMapInt m) = Data.IntMap.lookup k m
-  insert k v (GMapInt m) = GMapInt (Data.IntMap.insert k v m)
+-- >>> :t XCons 'A' (XCons 'B' XNil)
+-- >>> :t XListUnit 12
+-- XCons 'A' (XCons 'B' XNil) :: XList Char
+-- XListUnit 12 :: XList ()
 
 
+-- >>> f $ XCons 'A' (XCons 'B' XNil)
+-- >>> f $ XListUnit 12
+-- 10
+-- 10
+f :: XList a -> Int
+f a = 10
 
-class MyC f where
-  data MyF f :: Type -> Type
-  myZipNum :: MyF f Int -> (f, Int)
-  myZipOth :: (Show resT) => MyF f resT -> (f, String)
 
-data MyNames = Andrew | Vitya
-  deriving Show
+data MyNames = Andrew 
+             | Vitya
+    deriving Show
 
-instance MyC MyNames where
-  data MyF MyNames Int    = MyPNum MyNames Int
+class MyZip a where
+    data ZipConteiner a b
+    myZipPack :: (a, b) -> ZipConteiner a b
+    myZipNum  :: ZipConteiner a Int -> (a, Int)
+    myZipOth  :: Show b => ZipConteiner a b -> (a, String)
 
-  myZipNum (MyPNum a b) = (a, b)
-  myZipOth v = (Andrew, "12")
+instance MyZip MyNames where
+    data ZipConteiner MyNames b = MyZipNum MyNames b
+    myZipPack (a, b) = MyZipNum a b
+    myZipNum (MyZipNum a i) = (a, i + 100)
+    myZipOth (MyZipNum a s) = (a, show s ++ "!!")
+
+val :: ZipConteiner MyNames Int
+val = myZipPack (Vitya, 2)
+
+-- >>> myZipNum val
+-- >>>
+-- >>>
+-- (Vitya,102)
 
