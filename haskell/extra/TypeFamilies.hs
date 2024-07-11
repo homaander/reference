@@ -1,7 +1,7 @@
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE DataKinds #-}
-{-# LANGUAGE UndecidableInstances #-}
 -- * :seti -XDataKinds
+{-# LANGUAGE UndecidableInstances #-}
 
 import Data.Kind
 import Data.Bool
@@ -9,6 +9,7 @@ import Data.Bool
 import Data.Functor.Identity
 import Data.Binary
 import Data.Maybe
+
 import Data.ByteString ( ByteString )
 import qualified Data.ByteString as ByteString
 
@@ -33,17 +34,23 @@ hkdMbPlus a = (+1) <$> a
 
 
 
--- >>> hdFPlus (Just 1)
--- >>> hdFPlus (Identity 1)
--- Just 2
--- Identity 2
+-- >>> hdFPlus (Just 5)
+-- >>> hdMPlus (Just 5)
+-- >>> hdFPlus (Identity 5)
+-- >>> hdMPlus (Identity 5)
+-- Just 6
+-- Just 10
+-- Identity 6
+-- Identity 10
 
 type family HD f a where
-  HD f        a = f a
+  HD f a = f a
 
 hdFPlus :: (Functor f) => HD f Int -> f Int
 hdFPlus a = (+1) <$> a
 
+hdMPlus :: (Monad f) => HD f Int -> f Int
+hdMPlus a = (+) <$> a <*> a
 
 
 type MaybeIf :: Bool -> Type -> Type
