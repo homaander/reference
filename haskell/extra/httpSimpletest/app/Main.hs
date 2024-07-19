@@ -34,6 +34,6 @@ main = do
     if  status == 200
         then do
             let body = getResponseBody response
-            putStrLn $ (T.unpack (TE.decodeUtf8 body))
+            putStrLn $ T.unpack $ TE.decodeUtf8 body
         else
             print ("Err" :: String)

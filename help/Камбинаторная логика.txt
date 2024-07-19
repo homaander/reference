@@ -1,0 +1,40 @@
+Kab  -> a
+Sabc -> ac(bc)
+
+"I" через "KS"
+Ia   -> a
+
+SKKa -> Ka(Ka) -> a
+Ia    = SK(_)a -> Ka(_a)
+
+"BCW" через "KS"
+Babc -> a(bc)
+Cabc -> acb
+Wab  -> abb
+
+Babc = S(KS)Kabc
+  S(KS)Kabc -> KSa(Ka)bc -> S(Ka)bc -> (Ka)c(bc) -> a(bc)
+
+Cabc = S(BBS)(KK)abc
+  Cabc = S((S(KS)K)(S(KS)K)S)(KK)abc = S(BBS)(KK)
+  S(BBS)(KK)abc -> BBSa(KKa)bc -> B(Sa)(KKa)bc -> Sa(KKab)c -> acKKabc -> acKbc -> acb
+
+Wab  = SS(K(SKK))ab = SS(KI)ab
+  SS(KI)ab -> Sa(KIa)b -> abKIab -> abIb -> abb
+
+"true/false" через "KS"
+
+"true"ab  = Kab   -> a
+"false"ab = KIab -> b
+
+"if"abc = Iabc
+
+"not"a  = C(C"if""false")"true"a
+
+"and"ab = B(CC"false")"if"ab
+
+"or"ab  = C"if""true"ab = CIKab -> IaKb -> aKb
+   Если a = "true"   = K,  b = "true"  = K  то KKK     -> K = "true"
+   Если a = "true"   = K,  b = "false" = KI то KK(KI)  -> K = "true"
+   Если a = "false"  = KI, b = "true"  = K  то KIKK    -> IK    -> K  = "true"
+   Если a = "false"  = KI, b = "false" = KI то KIK(KI) -> I(KI) -> KI = "false"

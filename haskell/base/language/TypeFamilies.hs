@@ -13,6 +13,18 @@ import Data.Maybe
 import Data.ByteString ( ByteString )
 import qualified Data.ByteString as ByteString
 
+
+-- >>> jj (10 :: A (Maybe Int)) (10 :: A (Maybe Int))
+-- 20
+
+type family A f
+type instance A (Maybe Int) = Int
+type instance A (Either String Int) = Int
+
+jj :: (Num a, a ~ c, b ~ c, A (Maybe a) ~ A (Either String b)) => a -> b -> c
+jj a b = a + b
+
+
 -- >>> hkdIdPlus hkdId
 -- >>> hkdMbPlus hkdMb
 -- 11
@@ -92,23 +104,13 @@ type instance Label Bool   = Int
 
 
 -- Declare a list-like data family
-data family XList a :: Type
-data instance XList Char = XCons !Char !(XList Char) | XNil
-data instance XList ()   = XListUnit !Int
+data family XVal a :: Type
+newtype instance XVal Int  = XInt Int
+newtype instance XVal Char = XChar Char
+newtype instance XVal ()   = XNil Int
 
--- >>> :t XCons 'A' (XCons 'B' XNil)
--- >>> :t XListUnit 12
--- XCons 'A' (XCons 'B' XNil) :: XList Char
--- XListUnit 12 :: XList ()
-
--- >>> f $ XCons 'A' (XCons 'B' XNil)
--- >>> f $ XListUnit 12
--- 10
--- 10
-f :: XList a -> Int
-f a = 10
-
-
+instance Show (XVal a) where
+  show _ = "XVal"
 
 -- >>> elements [1]
 -- >>> elements $ Just 1
@@ -137,12 +139,12 @@ instance Container ByteString where
 
 
 
+data MyNames = Andrew | Vitya
+    deriving Show
+
 -- data ZipConteiner внутри класса обьявляет data family
 -- внутри instance иы определяем data instance
 -- Есть значение по умолчанию
-
-data MyNames = Andrew | Vitya
-    deriving Show
 
 class MyZip a where
     data ZipConteiner a b
@@ -160,7 +162,5 @@ val :: ZipConteiner MyNames Int
 val = myZipPack (Vitya, 2)
 
 -- >>> myZipNum val
--- >>>
--- >>>
 -- (Vitya,102)
 

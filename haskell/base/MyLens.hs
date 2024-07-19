@@ -17,11 +17,17 @@ data User = User {
 
 data Lens a b = Lens (a -> b) (b -> a -> a)
 
-lGet :: forall a b. Lens a b -> (a -> b)
-lGet (Lens g _) = g
+get_ :: Lens a b -> (a -> b)
+get_ (Lens g _) = g
 
-lSet :: forall a b. Lens a b -> (b -> a -> a)
-lSet (Lens _ s) = s
+set_ :: Lens a b -> (b -> a -> a)
+set_ (Lens _ s) = s
+
+(+.) :: a -> Lens a b -> b
+(+.) = flip get_
+
+(.=) :: Lens a b -> (b -> a -> a)
+(.=) = set_
 
 (.) :: Lens b c -> Lens a b -> Lens a c
 (Lens get1 set1) . (Lens get2 set2) = Lens get set
@@ -43,14 +49,23 @@ myUser = User {
   , uAge       = 20
   }
 
-myLensUser :: Lens Car User
-myLensUser = Lens cOwner (\n s -> s {cOwner = n})
+-- >>> :t cName
+-- >>> :t cOwner
+-- cName :: Car -> String
+-- cOwner :: Car -> User
 
-myLensAge :: Lens User Int
-myLensAge = Lens uAge (\n s -> s {uAge = n})
+_owner :: Lens Car User
+_owner = Lens cOwner (\n s -> s {cOwner = n})
 
--- lGet (myLensAge) myUser
--- lSet (myLensAge) 3 myUser
+_age :: Lens User Int
+_age = Lens uAge (\n s -> s {uAge = n})
 
--- lGet (myLensAge . myLensUser) myCar 
--- lSet (myLensAge . myLensUser) 3 myCar
+-- >>> get_ (_age) (myCar+._owner)
+-- >>> set_ (_age) 3 (myCar+._owner)
+-- 20
+-- User {uFirstName = "Andrew", uLastName = "X", uAge = 3}
+
+-- >>> myCar +. (_age._owner)
+-- >>> set_ (_age._owner) 3 myCar
+-- 20
+-- Car {cName = "BMW", cOwner = User {uFirstName = "Andrew", uLastName = "X", uAge = 3}}

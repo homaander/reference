@@ -8,8 +8,6 @@ import Data.STRef
 import Data.Array.Unboxed
 import Data.Array.ST
 
-import Lib
-
 zeroIndexArray :: UArray Int Bool
 zeroIndexArray = array (0, 9) [(3, True)]
 

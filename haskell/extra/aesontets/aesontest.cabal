@@ -4,11 +4,11 @@ cabal-version: 2.2
 --
 -- see: https://github.com/sol/hpack
 
-name:           noaa
+name:           aesontest
 version:        0.1.0.0
-description:    Please see the README on GitHub at <https://github.com/githubuser/noaa#readme>
-homepage:       https://github.com/githubuser/noaa#readme
-bug-reports:    https://github.com/githubuser/noaa/issues
+description:    Please see the README on GitHub at <https://github.com/githubuser/json#readme>
+homepage:       https://github.com/githubuser/json#readme
+bug-reports:    https://github.com/githubuser/json/issues
 author:         Author name here
 maintainer:     example@example.com
 copyright:      2024 Author name here
@@ -17,62 +17,65 @@ build-type:     Simple
 
 source-repository head
   type: git
-  location: https://github.com/githubuser/noaa
+  location: https://github.com/githubuser/json
 
 library
   exposed-modules:
       Lib
   other-modules:
-      Paths_noaa
+      Paths_aesontest
   autogen-modules:
-      Paths_noaa
+      Paths_aesontest
   hs-source-dirs:
       src
   default-extensions:
       OverloadedStrings
+      DeriveGeneric
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
-      base >=4.7 && <5
+      aeson
+    , base >=4.7 && <5
     , bytestring
-    , http-conduit
     , text
   default-language: Haskell2010
 
-executable noaa-exe
+executable aesontest-exe
   main-is: Main.hs
   other-modules:
-      Paths_noaa
+      Paths_aesontest
   autogen-modules:
-      Paths_noaa
+      Paths_aesontest
   hs-source-dirs:
       app
   default-extensions:
       OverloadedStrings
+      DeriveGeneric
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      aeson
+    , aesontest
+    , base >=4.7 && <5
     , bytestring
-    , http-conduit
-    , noaa
     , text
   default-language: Haskell2010
 
-test-suite noaa-test
+test-suite aesontest-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      Paths_noaa
+      Paths_aesontest
   autogen-modules:
-      Paths_noaa
+      Paths_aesontest
   hs-source-dirs:
       test
   default-extensions:
       OverloadedStrings
+      DeriveGeneric
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      aeson
+    , aesontest
+    , base >=4.7 && <5
     , bytestring
-    , http-conduit
-    , noaa
     , text
   default-language: Haskell2010
