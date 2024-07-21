@@ -46,7 +46,7 @@ S(KS)abcd = KSb(ab)cd = S(ab)cd = abd(cd)
 Cabc -> acb
         <- aRbc
         <- RRabc
-C = RR
+C = RR 
 
 -- use [Double]  as D,
        [Reverse] as R
