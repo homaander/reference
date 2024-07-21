@@ -1,0 +1,8 @@
+
+
+
+sqlite> .open main.db
+sqlite> .read build.sql
+sqlite> .save main_new.db
+
+

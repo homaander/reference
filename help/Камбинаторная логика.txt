@@ -1,40 +1,123 @@
+
+
 Kab  -> a
 Sabc -> ac(bc)
 
-"I" через "KS"
+-- I через K и S
 Ia   -> a
 
 SKKa -> Ka(Ka) -> a
 Ia    = SK(_)a -> Ka(_a)
 
-"BCW" через "KS"
+-- B, C, W через K и S
 Babc -> a(bc)
 Cabc -> acb
 Wab  -> abb
 
-Babc = S(KS)Kabc
-  S(KS)Kabc -> KSa(Ka)bc -> S(Ka)bc -> (Ka)c(bc) -> a(bc)
+-- [True] и [False] через K и S
+[True]ab  = Kab   -> a
+[False]ab = KIab -> b
 
-Cabc = S(BBS)(KK)abc
-  Cabc = S((S(KS)K)(S(KS)K)S)(KK)abc = S(BBS)(KK)
-  S(BBS)(KK)abc -> BBSa(KKa)bc -> B(Sa)(KKa)bc -> Sa(KKab)c -> acKKabc -> acKbc -> acb
+[If]abc = Iabc
 
-Wab  = SS(K(SKK))ab = SS(KI)ab
-  SS(KI)ab -> Sa(KIa)b -> abKIab -> abIb -> abb
+[Not]a  = C(C"if""false")"true"a
 
-"true/false" через "KS"
+[And]ab = B(CC"false")"if"ab
 
-"true"ab  = Kab   -> a
-"false"ab = KIab -> b
+[Or]ab  = C[If][True]ab = CIKab -> IaKb -> aKb
+   Если a = K,  b = K  то KKK     -> K = "true"
+   Если a = K,  b = KI то KK(KI)  -> K = "true"
+   Если a = KI, b = K  то KIKK    -> IK    -> K  = "true"
+   Если a = KI, b = KI то KIK(KI) -> I(KI) -> KI = "false"
 
-"if"abc = Iabc
+Разбор
+Babc -> a(bc)
+        <- Kac(bc)
+        <- S(Ka)bc
+        <- KSa(Ka)bc
+        <- S(KS)Kabc
+B = S(KS)K
 
-"not"a  = C(C"if""false")"true"a
+S(K..) = B..
+BSabcd    = S(ab)cd   = abd(cd)
+S(KS)abcd = KSb(ab)cd = S(ab)cd = abd(cd)
 
-"and"ab = B(CC"false")"if"ab
+-- use [Reverse] as R
+Cabc -> acb
+        <- aRbc
+        <- RRabc
+C = RR
 
-"or"ab  = C"if""true"ab = CIKab -> IaKb -> aKb
-   Если a = "true"   = K,  b = "true"  = K  то KKK     -> K = "true"
-   Если a = "true"   = K,  b = "false" = KI то KK(KI)  -> K = "true"
-   Если a = "false"  = KI, b = "true"  = K  то KIKK    -> IK    -> K  = "true"
-   Если a = "false"  = KI, b = "false" = KI то KIK(KI) -> I(KI) -> KI = "false"
+-- use [Double]  as D,
+       [Reverse] as R
+Wab -> abb
+       <- aDb
+       <- RDab
+       == BBSIK(SII)ab
+       == S(KS)K(S(KS)K)SIK(SII)ab
+          -> KS(S(KS)K)(K(S(KS)K))SIK(SII)ab
+          -> S(K(S(KS)K))SIK(SII)ab
+          -> K(S(KS)K)I(SI)K(SII)ab
+          -> S(KS)K(SI)K(SII)ab
+          -> KS(SI)(K(SI))K(SII)ab
+          -> S(K(SI))K(SII)ab
+          -> K(SI)(SII)(K(SII))ab
+          -> SI(K(SII))ab
+          -> Ia(K(SII)a)b
+          -> a(K(SII)a)b
+          -> a(SII)b
+          -> aIb(Ib)
+          -> abb
+W = RD
+
+[Double]a = aa
+            <- Ia(Ia)
+            <- SIIa
+[Double] = SII
+
+-- use [Double] as D
+[Triple]a = aaa
+            <- Ia(Ia)a
+            <- Da(Ia)
+            <- SDIa
+[Triple] = SDI
+
+-- use B
+[Reverse]ab = ba
+              <- Ib(Kab)
+              <- SI(Ka)b
+              <- B(SI)Kab
+              <- BBSIKab
+[Reverse] = BBSIK
+
+[Reverse]ab = ba
+              <- Ib(Kab)
+              <- SI(Ka)b    
+              <- K(SI)a(Ka)b
+              <- S(K(SI))Kab  == B(SI)Kab
+
+
+-- use B, [Reverse] as R
+[Reverse3]abc = cba
+                <- (Rbc)a
+                <- Rbc(Ka(bc))
+                <- SR(Ka)(bc)   == (SR)(Ka)(bc)
+                <- B(SR)Ka(bc)
+                <- BBSRKa(bc)   == (BBSRKa)(bc)
+                <- B(BBSRKa)bc  == B((BBSRK)a)bc
+                <- BB(BBSRK)abc
+[Reverse3] = BB(BBSRK)
+
+-- use [Reverse] as R
+[Reverse3]abc = cba
+                <- c(Rab)
+                <- с(K(Rab)c)
+                <- Ic(K(Rab)c)
+                <- SI(K(Rab))c
+                <- K(SI)(Rab)(K(Rab))C
+                <- S(K(SI))K(Rab)c
+                <- K(S(K(SI))K)(ab)(Rab)c
+                <- S(K(S(K(SI))K))R(ab)c
+                <- K(S(K(S(K(SI))K))R)b(ab)c
+                <- S(K(S(K(S(K(SI))K))R))abc
+

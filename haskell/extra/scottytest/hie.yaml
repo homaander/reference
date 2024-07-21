@@ -1,0 +1,10 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "simpleapi:lib"
+
+    - path: "./app/Main.hs"
+      component: "simpleapi:exe:simpleapi-exe"
+
+    - path: "./test"
+      component: "simpleapi:test:simpleapi-test"
