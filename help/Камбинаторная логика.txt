@@ -1,123 +1,89 @@
 
 
-Kab  -> a
-Sabc -> ac(bc)
+K a b   -> a
+S a b c -> ac(bc)
 
 -- I через K и S
-Ia   -> a
+I a -> a
 
-SKKa -> Ka(Ka) -> a
-Ia    = SK(_)a -> Ka(_a)
+S K K a -> K a (Ka)  -> a
+I a     -> S K (_) a -> K a (_a)
 
 -- B, C, W через K и S
-Babc -> a(bc)
-Cabc -> acb
-Wab  -> abb
+B a b c -> a(bc)
+C a b c -> acb
+W a b   -> abb
 
 -- [True] и [False] через K и S
-[True]ab  = Kab   -> a
-[False]ab = KIab -> b
+[True]  a b = K a b   -> a
+[False] a b = K I a b -> I b -> b
 
-[If]abc = Iabc
+[If] a b c = I a bc -> abc
 
-[Not]a  = C(C[If][False])[True]a
+[Not] a   = C (C [If] [False]) [True] a
 
-[And]ab = B(CC[False])"if"ab
+[And] a b = B (C C [False]) [If] a b
 
-[Or]ab  = C[If][True]ab = CIKab -> IaKb -> aKb
-   Если a = K,  b = K  то KKK     -> K = [True]
-   Если a = K,  b = KI то KK(KI)  -> K = [True]
-   Если a = KI, b = K  то KIKK    -> IK    -> K  = [True]
-   Если a = KI, b = KI то KIK(KI) -> I(KI) -> KI = [False]
+[Or] a b  = C [If] [True] a b = C I K a b -> I a Kb -> aKb
+  | a  | b  | [Or] a b
+  | K  | K  | K K K      -> K = [True]
+  | K  | KI | K K (KI)   -> K = [True]
+  | KI | K  | K I K K    -> I K    -> K  = [True]
+  | KI | KI | K I K (KI) -> I (KI) -> KI = [False]
 
-Разбор
-Babc -> a(bc)
-        <- Kac(bc)
-        <- S(Ka)bc
-        <- KSa(Ka)bc
-        <- S(KS)Kabc
+B a b c -> a(bc)
+        <- K a c (bc)
+        <- S (Ka) b c
+        <- K S a (Ka)bc
+        <- S (KS) K a bc
 B = S(KS)K
 
-S(K..) = B..
-BSabcd    = S(ab)cd   = abd(cd)
-S(KS)abcd = KSb(ab)cd = S(ab)cd = abd(cd)
+S(Ka) = Ba
+B S a b cd    -> S (ab) c d     -> abd(cd)
+S (KS) a b cd -> K S b (ab)cd = -> S(ab)cd -> abd(cd)
 
--- use [Reverse] as R
-Cabc -> acb
+-- use [<->] as R
+C a b c -> acb
         <- aRbc
         <- RRabc
 C = RR 
 
--- use [Double]  as D,
-       [Reverse] as R
-Wab -> abb
-       <- aDb
-       <- RDab
-       == BBSIK(SII)ab
-       == S(KS)K(S(KS)K)SIK(SII)ab
-          -> KS(S(KS)K)(K(S(KS)K))SIK(SII)ab
-          -> S(K(S(KS)K))SIK(SII)ab
-          -> K(S(KS)K)I(SI)K(SII)ab
-          -> S(KS)K(SI)K(SII)ab
-          -> KS(SI)(K(SI))K(SII)ab
-          -> S(K(SI))K(SII)ab
-          -> K(SI)(SII)(K(SII))ab
-          -> SI(K(SII))ab
-          -> Ia(K(SII)a)b
-          -> a(K(SII)a)b
-          -> a(SII)b
-          -> aIb(Ib)
-          -> abb
+-- use [x2]  as D,
+       [<->] as R
+W a b -> abb
+       <- aD b
+       <- R D a b
 W = RD
 
-[Double]a = aa
-            <- Ia(Ia)
-            <- SIIa
-[Double] = SII
+[x2] a -> aa
+            <- I a (I a)
+            <- S I I a
+[x2] = SII
 
--- use [Double] as D
-[Triple]a = aaa
-            <- Ia(Ia)a
-            <- Da(Ia)
-            <- SDIa
-[Triple] = SDI
+-- use [x2] as D
+[x3] a = aaa
+            <- I a (I a) a
+            <- D a (I a)
+            <- S D I a
+[x3] = SDI
 
 -- use B
-[Reverse]ab = ba
-              <- Ib(Kab)
-              <- SI(Ka)b
-              <- B(SI)Kab
-              <- BBSIKab
-[Reverse] = BBSIK
+[<->] a b -> ba
+              <- I b (K a b)
+              <- S I (K a) b
+              <- B (SI) K a b
+              <~ B B S I Kab
+[<->] = B (SI) K
 
-[Reverse]ab = ba
-              <- Ib(Kab)
-              <- SI(Ka)b    
-              <- K(SI)a(Ka)b
-              <- S(K(SI))Kab  == B(SI)Kab
-
-
--- use B, [Reverse] as R
-[Reverse3]abc = cba
-                <- (Rbc)a
-                <- Rbc(Ka(bc))
-                <- SR(Ka)(bc)   == (SR)(Ka)(bc)
-                <- B(SR)Ka(bc)
-                <- BBSRKa(bc)   == (BBSRKa)(bc)
-                <- B(BBSRKa)bc  == B((BBSRK)a)bc
-                <- BB(BBSRK)abc
-[Reverse3] = BB(BBSRK)
-
--- use [Reverse] as R
-[Reverse3]abc = cba
-                <- c(Rab)
-                <- c(K(Rab)c)
-                <- Ic(K(Rab)c)
-                <- SI(K(Rab))c
-                <- K(SI)(Rab)(K(Rab))C
-                <- S(K(SI))K(Rab)c
-                <- K(S(K(SI))K)(ab)(Rab)c
-                <- S(K(S(K(SI))K))R(ab)c
-                <- K(S(K(S(K(SI))K))R)b(ab)c
-                <- S(K(S(K(S(K(SI))K))R))abc
+-- use B, 
+       [<->] as R
+       [x3]  as T
+[<->3] a b c = cba
+                <- cR a b
+                <- R (Rab) c
+                <- B R (Ra) b c
+                <- B (BR) R a bc
+                <~ B B B R Rabc
+                <~ T B RRabc
+[<->3] = B(BR)R
 
