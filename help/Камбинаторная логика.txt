@@ -40,12 +40,12 @@ B = S(KS)K
 
 S(Ka) = Ba
 B S a b cd    -> S (ab) c d     -> abd(cd)
-S (KS) a b cd -> K S b (ab)cd = -> S(ab)cd -> abd(cd)
+S (KS) a b cd -> K S b (ab)cd = -> S (ab) c d -> abd(cd)
 
 -- use [<->] as R
 C a b c -> acb
-        <- aRbc
-        <- RRabc
+        <- aR b c
+        <- R R a bc
 C = RR 
 
 -- use [x2]  as D,
@@ -62,8 +62,9 @@ W = RD
 
 -- use [x2] as D
 [x3] a = aaa
-            <- I a (I a) a
-            <- D a (I a)
+            <- aI a a
+            <- I a (Ia)a
+            <- D a (Ia)
             <- S D I a
 [x3] = SDI
 
@@ -73,7 +74,7 @@ W = RD
               <- S I (K a) b
               <- B (SI) K a b
               <~ B B S I Kab
-[<->] = B (SI) K
+[<->] = B(SI)K
 
 -- use B, 
        [<->] as R

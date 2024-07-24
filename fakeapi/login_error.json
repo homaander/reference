@@ -1,0 +1,7 @@
+{
+  "error": 1,
+  "message": "Неверный пароль",
+  "data": { 
+    "session_key": ""
+  }
+}
