@@ -67,12 +67,12 @@ buildUI wenv model = widgetTreeS
       ]
 
 
-
 handleEvent :: WidgetEnv' -> WidgetNode' -> AppModel -> AppEvent -> [AppEventResp']
 handleEvent wenv node model evt = case evt of
   AppInit     -> []
   AppIncrease -> [Model (model & clickCount +~ 1)]
   AppAddHP x  -> [Model (model & addHP x)]
+
 
 addHP :: Int -> AppModel -> AppModel
 addHP x m = (hps +~ (m ^. clickCount)) m

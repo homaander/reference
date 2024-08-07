@@ -1,90 +1,107 @@
-
-
 K a b   -> a
 S a b c -> ac(bc)
 
--- I через K и S
 I a -> a
 
-S K K a -> K a (Ka)  -> a
-I a     -> S K (_) a -> K a (_a)
-
--- B, C, W через K и S
 B a b c -> a(bc)
 C a b c -> acb
 W a b   -> abb
 
--- [True] и [False] через K и S
-[True]  a b = K a b   -> a
-[False] a b = K I a b -> I b -> b
+-- I через K и S
+I a -> a
+    <- K a (_a)
+    <- S K (_) a
 
-[If] a b c = I a bc -> abc
-
-[Not] a   = C (C [If] [False]) [True] a
-
-[And] a b = B (C C [False]) [If] a b
-
-[Or] a b  = C [If] [True] a b = C I K a b -> I a Kb -> aKb
-  | a  | b  | [Or] a b
-  | K  | K  | K K K      -> K = [True]
-  | K  | KI | K K (KI)   -> K = [True]
-  | KI | K  | K I K K    -> I K    -> K  = [True]
-  | KI | KI | K I K (KI) -> I (KI) -> KI = [False]
-
+-- B, C, W через K и S
+S(Ka)bc = Babc
 B a b c -> a(bc)
-        <- K a c (bc)
+        <- K a c,(bc)
         <- S (Ka) b c
-        <- K S a (Ka)bc
-        <- S (KS) K a bc
+        <- K S a,(Ka)bc
+        <- S (KS) K a,bc
 B = S(KS)K
 
-S(Ka) = Ba
-B S a b cd    -> S (ab) c d     -> abd(cd)
-S (KS) a b cd -> K S b (ab)cd = -> S (ab) c d -> abd(cd)
-
--- use [<->] as R
+-- use R
 C a b c -> acb
-        <- aR b c
-        <- R R a bc
-C = RR 
+        <- a,R b c
+        <- R R a,bc
+C = RR
 
--- use [x2]  as D,
-       [<->] as R
+-- use D, R
 W a b -> abb
-       <- aD b
-       <- R D a b
+      <- a,D b
+      <- R D a,b
 W = RD
 
-[x2] a -> aa
-            <- I a (I a)
-            <- S I I a
-[x2] = SII
 
--- use [x2] as D
-[x3] a = aaa
-            <- aI a a
-            <- I a (Ia)a
-            <- D a (Ia)
-            <- S D I a
-[x3] = SDI
+-- newtype {Bool} :: _ a b
+-- [True] и [False]
+
+[True] :: {Bool}
+[True] a b -> a
+           <- K a b
+[True] = K
+
+[False] :: {Bool}
+[False] a b -> b
+            <- K I a,b
+[False] = KI
+
+[If] :: {Bool} -> _
+[If] a b c -> abc
+[If] = I
+
+[Not] :: {Bool} -> {Bool}
+[Not] a -> a [False] [True] 
+        <- [If] a [False] [True]
+        <- C [If] [False] a,[True] 
+        <- C (C[If][False]) [True] a 
+
+[And] :: {Bool} -> {Bool} -> {Bool}
+[And] a b -> a b [False]
+          <- [If] a b,[False]
+          <- C ([If] a) [False] b
+          <- C C [False] ([If] a),b
+          <- B (CC[False]) [If] a b
+
+             a b [False]
+          <- C a [False] b
+          <- C C [False] a b
+
+[Or] :: {Bool} -> {Bool} -> {Bool}
+[Or] a b -> a [True] b 
+         <- [If] a,[True]b
+         <- C [If] [True] a b
+
+
+D a -> aa
+    <- I a (I a)
+    <- S I I a
+D = SII
+
+-- use D
+T a -> aaa
+    <- a,I a,a
+    <- I a,(Ia)a
+    <- D a,(Ia)
+    <- S D I a
+T = SDI
 
 -- use B
-[<->] a b -> ba
-              <- I b (K a b)
-              <- S I (K a) b
-              <- B (SI) K a b
-              <~ B B S I Kab
-[<->] = B(SI)K
+R a b -> ba
+      <- I b,(K a b)
+      <- S I (Ka) b
+      <- B (SI) K a,b
+      <~ B B S I,Kab
+R = B(SI)K
 
--- use B, 
-       [<->] as R
-       [x3]  as T
-[<->3] a b c = cba
-                <- cR a b
-                <- R (Rab) c
-                <- B R (Ra) b c
-                <- B (BR) R a bc
-                <~ B B B R Rabc
-                <~ T B RRabc
-[<->3] = B(BR)R
+-- use B, R, T
+[<->] a b c -> cba
+            <- c,R a b
+            <- R (Rab) c
+            <- B R (Ra) b,c
+            <- B (BR) R a,bc
+            <~ B B B R,Rabc
+            <~ T B,RRabc
+[<->] = B(BR)R = TBRR
 
