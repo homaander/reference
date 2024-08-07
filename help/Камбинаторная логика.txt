@@ -62,7 +62,7 @@ W = RD
           <- [If] a b,[False]
           <- C ([If] a) [False] b
           <- C C [False] ([If] a),b
-          <- B (CC[False]) [If] a b
+          <- B (CC[False]) [If] a,b
 
              a b [False]
           <- C a [False] b
