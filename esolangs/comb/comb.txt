@@ -1,0 +1,41 @@
+(.._..) -> _
+
+Kab  -> a
+Sabc -> ac(bc)
+
+Ia -> a
+<- Ka(K_a)
+<- SK_a
+== SK_
+
+Babc -> a(bc)
+<- Kac(bc)
+<- S(Ka)bc
+<- KSa(Ka)bc
+<- S(KS)Kabc
+== S(KS)K
+
+Cabc -> acb
+<- ac(Kbc)
+<- Sa(Kb)c
+<- K(Sa)b(Kb)c
+<- S(K(Sa))Kbc
+<- KS(Sa)(K(Sa))Kbc
+<- S(KS)K(Sa)bc
+<- K(S(KS)K)a(Sa)bc
+<- S(K(S(KS)K))Sabc
+<- S(KB)Sabc
+
+
+D'a -> aa
+<- Ia(Ia)
+<- SIIa
+== SII
+
+R'ab -> ba
+<- Ib(Kab)
+<- SI(Ka)b
+<- K(SI)a(Ka)b
+<- S(K(SI))Kab
+== S(K(SI))K
+

@@ -15,58 +15,58 @@ I a -> a
 -- B, C, W через K и S
 S(Ka)bc = Babc
 B a b c -> a(bc)
-        <- K a c,(bc)
-        <- S (Ka) b c
-        <- K S a,(Ka)bc
-        <- S (KS) K a,bc
-B = S(KS)K
+<- K a c,(bc)
+<- S (Ka) b c
+<- K S a,(Ka)bc
+<- S (KS) K a,bc
+== S(KS)K
 
 -- use R
 C a b c -> acb
-        <- a,R b c
-        <- R R a,bc
-C = RR
+<- a,R b c
+<- R R a,bc
+== RR
 
 -- use D, R
 W a b -> abb
-      <- a,D b
-      <- R D a,b
+<- a,D b
+<- R D a,b
 W = RD
 
 
--- newtype {Bool} :: _ a b
+-- newtype {Bool} :: \a b -> _
 -- [True] и [False]
 
 [True] :: {Bool}
 [True] a b -> a
-           <- K a b
-[True] = K
+<- K a b
+== K
 
 [False] :: {Bool}
 [False] a b -> b
-            <- K I a,b
-[False] = KI
+<- K I a,b
+== KI
 
 [If] :: {Bool} -> _
 [If] a b c -> abc
-[If] = I
+== I
 
 [Not] :: {Bool} -> {Bool}
 [Not] a -> a [False] [True] 
-        <- [If] a [False] [True]
-        <- C [If] [False] a,[True] 
-        <- C (C[If][False]) [True] a 
+<- a [False] [True]
+<- X [True] [False] a
+== X[True][False]
 
 [And] :: {Bool} -> {Bool} -> {Bool}
 [And] a b -> a b [False]
-          <- [If] a b,[False]
-          <- C ([If] a) [False] b
-          <- C C [False] ([If] a),b
-          <- B (CC[False]) [If] a,b
+    <- [If] a b,[False]
+    <- C ([If] a) [False] b
+    <- C C [False] ([If] a),b
+    <- B (CC[False]) [If] a,b
 
-             a b [False]
-          <- C a [False] b
-          <- C C [False] a b
+        a b [False]
+    <- C a [False] b
+    <- C C [False] a b
 
 [Or] :: {Bool} -> {Bool} -> {Bool}
 [Or] a b -> a [True] b 
@@ -74,18 +74,18 @@ W = RD
          <- C [If] [True] a b
 
 
-D a -> aa
-    <- I a (I a)
-    <- S I I a
-D = SII
+D' a -> aa
+<- I a (I a)
+<- S I I a
+D' = SII
 
 -- use D
-T a -> aaa
-    <- a,I a,a
+T' a -> aaa
+    <- D a,(I a)
     <- I a,(Ia)a
     <- D a,(Ia)
     <- S D I a
-T = SDI
+T' = SDI
 
 -- use B
 R a b -> ba
@@ -96,12 +96,12 @@ R a b -> ba
 R = B(SI)K
 
 -- use B, R, T
-[<->] a b c -> cba
+X a b c -> cba
             <- c,R a b
             <- R (Rab) c
             <- B R (Ra) b,c
             <- B (BR) R a,bc
             <~ B B B R,Rabc
             <~ T B,RRabc
-[<->] = B(BR)R = TBRR
+X = B(BR)R = TBRR
 
