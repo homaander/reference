@@ -5,8 +5,6 @@ import qualified Data.Text.IO as TIO
 
 -- * Работа с кодировками
 import qualified Data.Text.Encoding as E
--- ? encodeUtf8 :: Text -> ByteString
--- ? decodeUtf8 :: ByteString -> Text
 
 -- >>> :t T.pack
 -- >>> :t T.unpack

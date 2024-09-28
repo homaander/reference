@@ -1,6 +1,8 @@
+-- For type|data family
 {-# LANGUAGE TypeFamilies #-}
+-- For values as type|kind
 {-# LANGUAGE DataKinds #-}
--- * :seti -XDataKinds
+-- For ~ in constraint
 {-# LANGUAGE UndecidableInstances #-}
 
 import Data.Kind
@@ -10,7 +12,7 @@ import Data.Functor.Identity
 import Data.Binary
 import Data.Maybe
 
-import Data.ByteString ( ByteString )
+import Data.ByteString (ByteString)
 import qualified Data.ByteString as ByteString
 
 
