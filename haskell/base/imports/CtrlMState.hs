@@ -5,6 +5,9 @@ import Control.Monad.State
 myVal :: State Int Int
 myVal  = state (44,)
 
+-- State s a
+-- runState :: s -> (s, a)
+
 myMain :: State Int Int
 myMain  = do
     x <- get
