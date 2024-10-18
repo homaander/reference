@@ -17,7 +17,7 @@
 -- 
 {-# LANGUAGE InstanceSigs #-}
 
-module Code.TT where
+module FunctionalDependencies where
 import GHC.TypeLits
 
 data LL = AA | BB

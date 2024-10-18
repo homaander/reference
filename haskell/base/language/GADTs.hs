@@ -1,6 +1,6 @@
 {-# LANGUAGE GADTs #-}
 
-module LanguageGADT (Term(..), eval) where
+module GADTs where
 -- import Data.Kind
 
 data Term a where
