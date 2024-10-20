@@ -13,6 +13,15 @@ body {
     left: 55vw;
 }
 
+@media print {
+    .no-print, .no-print * {
+        display: none !important;
+    }
+    #code, #code_highlight {
+        border: none !important;
+    }
+}
+
 #numbers {
     margin-top: 20px;
     width: 65px;
@@ -50,4 +59,5 @@ body {
 
 #result {
     width: 500px;
+    height: 500px;
 }
