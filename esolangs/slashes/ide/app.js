@@ -33,7 +33,7 @@ code_run.onclick = () => {
 
 function setup() {
     update();
-    for (let i = 0; i < 200; i++) numbers.innerHTML = numbers.innerHTML + i + '<br>';
+    for (let i = 0; i < 873; i++) numbers.innerHTML = numbers.innerHTML + i + '<br>';
 }
 
 function update() {
@@ -50,15 +50,14 @@ let list_slashes = [
     // {style: 'color: #555',           regs: ['( -&#62; )', '(\n= )']},
     {style: 'color: #FF0000',        regs: ['(\\/\\[[a-zA-Z0-9\\-\\+_!:{}]+\\^\\/\\[[a-zA-Z0-9\\-\\+_!:{}]+\\]\\[[a-z]+\\/)']},   // Строка умножения функции
     {style: 'color: #5555FF;'
-       +    'font-weight: bold;',    regs: ['(?<!\\^\\/)(\\[[a-zA-Z0-9\\-\\+_!:{}]+?\\])']},    // Функция
+       +    'font-weight: bold;',    regs: ['(?<!\\^\\/)(\\[[a-zA-Z0-9\\-\\+_!:{}]{2,}?\\])']},    // Функция
     {style: 'color: #FBB917;',       regs: ['(\\@[a-zA-Z0-9!:\\-\\+_{}]+?\\;)']},               // Фикс
-    {style: 'color: #5555FF',        regs: ['(\\[\\])']},                                       // Замена 2 порядка
+    {style: 'color: #5555FF',        regs: ['(\\[\\\d\\])']},                                       // Замена 2 порядка
     {style: 'color: #46C7C7',        regs: ['(?<!&)(#[^\\/ ]*?&#62;)']},                        // Указатель >
     {style: 'color: #46C7C7',        regs: ['(&#60;[^\\/ ]*?(?<!&)#)']},                        // Указатель <
     {style: 'color: #AAAAFF;'
       +     'font-weight: bold;',    regs: ['(&#60;[a-zA-Z0-9!:\\-\\+_{}]+?&#62;)']},           // Интерфейс
-    {style: 'color: #AAAAFF',        regs: ['(&#60;&#62;)', '(\\\*\\\*)']},                     // Замена 3 порядка
-    {style: 'color: #777',           regs: ['(\\/#[^\\/]+\\/\\/)'],},                    // Коментарий
+    {style: 'color: #777',           regs: ['(\\/#[^\\/]+\\/\\/)'],},                           // Коментарий
     {style: 'color: pink',           regs: ['(\\\\\\\\)', '(\\\\\\\/)']},                       // Замена 1 порядка
     {style: 'color: #55FF55',        regs: ['({[a-zA-Z0-9\\-\\+_!\\\\:]+?})',
                                             '(?<!\\[[a-z]+)(\\^+)']},                           // Переменные и счетчик

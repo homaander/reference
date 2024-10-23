@@ -64,7 +64,7 @@
 =   /{text}/lol pin !code hello world/
 = 
 = 
-= /# INTERFACES //
+= /# RANK 3 //
 =   /<set_code>/
 =     [log] code has set[br]
 =     <>!code@3;<>436782648721<>
@@ -91,7 +91,7 @@
 =     <>
 =     /
 = 
-= /# FUNCTIONS //
+= /# RANK 2 //
 =   /[upper^/[+upper][upper/
 =   /[+upper]/
 =     []#upper>@2;a[]A#upper>[]
@@ -155,7 +155,7 @@
 =     []<reverse#@2;[][]
 =     /
 = 
-=   /# Реализация интерфейса //
+=   /# Реализация RANK 3 //
 =   /[fix:1]/<fix>/
 =           /{fix:fixed}@1;/hello/
 =   /[fix:2]/<fix>/
@@ -168,14 +168,14 @@
 =               /{replace:from}@1;/lol/
 =               /{replace:to}@1;/kek/
 =   
-=   /# Анонимная функция и спуск интерфейса //
+=   /# Анонимная функция и спуск RANK 3 //
 =   /[init]/
 =     []{test:val}@1;[]!code[]
 =     <set_code>
 =     /
 =     /{test:val}@1;/pin/
 = 
-= /# APP //
+= /# RANK 1 //
 =   [fix:1]
 =   [fix:2]
 =   [unfix:1]
@@ -190,6 +190,7 @@
 =   [lover{4}]
 =   /{reversed}/#lover>#reverse{9}>#upper>{first}<reverse#/
 = 
+= /# RANK 0 //
 =   [print] Upper result: {result}[br]
 =   [print] Reversed result: {reversed}[br]
 =   [print] Other text: {text}

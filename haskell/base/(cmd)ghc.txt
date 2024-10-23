@@ -1,0 +1,23 @@
+-- компиляци с наилучшей оптимизацией и потоками
+ghc -O2 rpar.hs -threaded
+
+stack ghc -- book/rpar.hs -O2 -threaded
+
+-- Запуск с 2 ядрами
+./book/rpar +RTS -N2 -RTS
+-- вывод времени
+./book/rpar +RTS -N2 -s -RTS
+-- вывод журнала для threadscope
+./book/rpar +RTS -N2 -s -l -RTS
+
+-- stack
+stack run -- +RTS -N2 -s -RTS
+
+
+cabal umpack ...
+
+cabal instal --only-dependencies
+cabal configure
+
+cabal build
+cabal run
