@@ -48,16 +48,19 @@ let list_default = [
 
 let list_slashes = [
     // {style: 'color: #555',           regs: ['( -&#62; )', '(\n= )']},
-    {style: 'color: #FF0000',        regs: ['(\\/\\[[a-zA-Z0-9\\-\\+_!:{}]+\\^\\/\\[[a-zA-Z0-9\\-\\+_!:{}]+\\]\\[[a-z]+\\/)']},   // Строка умножения функции
     {style: 'color: #5555FF;'
-       +    'font-weight: bold;',    regs: ['(?<!\\^\\/)(\\[[a-zA-Z0-9\\-\\+_!:{}]{2,}?\\])']},    // Функция
-    {style: 'color: #FBB917;',       regs: ['(\\@[a-zA-Z0-9!:\\-\\+_{}]+?\\;)']},               // Фикс
-    {style: 'color: #5555FF',        regs: ['(\\[\\\d\\])']},                                       // Замена 2 порядка
-    {style: 'color: #46C7C7',        regs: ['(?<!&)(#[^\\/ ]*?&#62;)']},                        // Указатель >
-    {style: 'color: #46C7C7',        regs: ['(&#60;[^\\/ ]*?(?<!&)#)']},                        // Указатель <
+          + 'font-weight: bold;',    regs: ['(?<!\\^\\/)(\\[[a-zA-Z0-9\\-\\+_!:{}]{2,}?\\])']}, // Функция
+    {style: 'color: #777',           regs: ['(\\/###\\\/[^\\/]+\\/)'],},                        // Коментарий
+    {style: 'color: #FBB917;',       regs: ['(\\@[a-zA-Z0-9\\-]+?\\;)']},                          // Ранг
+    {style: 'color: #5555FF',        regs: ['(\\[\\\d\\])']},                                   // Замена 2 порядка
+
+    {style: 'color: #46C7C7;'
+          + 'font-style: italic;',       regs: [ '(?<!&)(#(?!&#60;)[^\\/ ]*?&#62;)']},              // Указатель >
+
+    {style: 'color: #46C7C7;'
+          + 'font-style: italic;',        regs: ['(&#60;[^\\/ ]*?(?<!&#62;)(?<!&)#)']},              // Указатель <
     {style: 'color: #AAAAFF;'
-      +     'font-weight: bold;',    regs: ['(&#60;[a-zA-Z0-9!:\\-\\+_{}]+?&#62;)']},           // Интерфейс
-    {style: 'color: #777',           regs: ['(\\/#[^\\/]+\\/\\/)'],},                           // Коментарий
+          + 'font-weight: bold;',    regs: ['(&#60;[a-zA-Z0-9!:\\-\\+_{}]+?&#62;)']},           // Интерфейс
     {style: 'color: pink',           regs: ['(\\\\\\\\)', '(\\\\\\\/)']},                       // Замена 1 порядка
     {style: 'color: #55FF55',        regs: ['({[a-zA-Z0-9\\-\\+_!\\\\:]+?})',
                                             '(?<!\\[[a-z]+)(\\^+)']},                           // Переменные и счетчик
@@ -89,8 +92,8 @@ function highlight(text) {
         })
     });
 
-    text = text.replace(/( -&#62; )/g, "<span style='color: #555'>•-&#62;•</span>");
-    text = text.replace(/(\n= )/g, "<span style='color: #555'>\n=•</span>");
+    text = text.replace(/( -&#62; )/g, "<span style='color: #555'>·-&#62;·</span>");
+    text = text.replace(/(\n= )/g, "<span style='color: #555'>\n=·</span>");
 
     return text;
 }
