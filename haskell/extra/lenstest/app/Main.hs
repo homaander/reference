@@ -10,17 +10,17 @@ import Control.Monad.Trans.State
 import Lib
 
 startCfg :: Game
-startCfg = Game 
-  { _score = 0
-  , _units = 
-      [ Unit 100 (Point 3 3.1)
-      , Unit 150 (Point 3 3)
-      ]
-  , _boss = Unit 500 (Point 0 0)
+startCfg = Game {
+  _score = 0,
+  _units = [
+    Unit 100 (Point 3 3.1),
+    Unit 150 (Point 3 3)
+    ],
+  _boss = Unit 500 (Point 0 0)
   }
 
 -- * Получение информации через линзы:
--- >>> startCfg^.boss.hp
+-- >>> startCfg ^. boss . hp
 -- 500
 
 -- * Выполнить действие и получить результат
@@ -34,7 +34,7 @@ strike = do
 
 -- * Получить свойство из свойства списка
 -- >>> toListOf partyHP startCfg
--- >>> startCfg^..(units.traversed.pos)
+-- >>> startCfg ^.. (units.traversed.pos)
 -- [100,150]
 -- [Point {_x = 3.0, _y = 3.1},Point {_x = 3.0, _y = 3.0}]
 partyHP :: Traversal' Game Int

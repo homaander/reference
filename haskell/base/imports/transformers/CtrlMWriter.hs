@@ -1,5 +1,5 @@
 module CtrlMWriter where
-import Control.Monad.Writer
+import  Control.Monad.Trans.Writer
 
 -- Первый аргумент - сам буфер, должен быть членом класса Monoid
 

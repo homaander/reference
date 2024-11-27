@@ -1,3 +1,4 @@
+cup :: Int -> (Int -> Int) -> Int
 cup ml message = message ml
 
 coffeCup :: (Int -> t) -> t

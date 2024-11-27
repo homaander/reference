@@ -1,6 +1,6 @@
 module CtrlMReader where
 
-import Control.Monad.Reader
+import  Control.Monad.Trans.Reader
 
 myVal :: Reader Int Int
 myVal  = reader $ const 44
