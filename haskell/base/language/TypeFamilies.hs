@@ -5,6 +5,8 @@
 -- For ~ in constraint
 {-# LANGUAGE UndecidableInstances #-}
 
+
+
 import Data.Kind
 import Data.Bool
 
@@ -16,15 +18,16 @@ import Data.ByteString (ByteString)
 import qualified Data.ByteString as ByteString
 
 
--- >>> jj (10 :: A (Maybe Int)) (10 :: A (Maybe Int))
+-- >>> mySum (10 :: A (Maybe Int)) (10 :: A (Maybe Int))
 -- 20
 
-type family A f
-type instance A (Maybe Int) = Int
+type family   A f
+type instance A (Maybe  Int)        = Int
 type instance A (Either String Int) = Int
 
-jj :: (Num a, a ~ c, b ~ c, A (Maybe a) ~ A (Either String b)) => a -> b -> c
-jj a b = a + b
+mySum :: (Num a, a ~ c, b ~ c, A (Maybe a) ~ A (Either String b))
+      => a -> b -> c
+mySum a b = a + b
 
 
 -- >>> hkdIdPlus hkdId
@@ -104,6 +107,14 @@ type instance Label Double = Int
 type instance Label String = Int
 type instance Label Bool   = Int
 
+
+data family TT a
+data instance TT Int  = A Int | B Int
+data instance TT Char = C Int | D Int
+
+funfun :: TT Int -> String
+funfun (A t) = show t
+funfun (B t) = show t
 
 -- Declare a list-like data family
 data family XVal a :: Type

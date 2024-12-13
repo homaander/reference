@@ -198,7 +198,7 @@
 =   [fst:upper{4}]
 =   [fst:sort{9}]
 = 
-=   /{result}/
+=   /{fst:result}/
 =     #fst:sort{9}>
 =       #fst:upper>
 =         {text}
@@ -208,7 +208,7 @@
 =   [snd:flip{X}{X}]
 =   [snd:lover{X}{X}]
 = 
-=   /{flipd}/
+=   /{snd:result}/
 =     #snd:lover>
 =       #snd:flip{X}{X}>
 =         #snd:upper>
@@ -217,5 +217,5 @@
 =     /
 = 
 = /###/ RANK 0 /
-=   [print] Upper result:    {result}[br]
-=   [print] Reversed result: {flipd}[br]
+=   [print] Upper result:    {fst:result}[br]
+=   [print] Reversed result: {snd:result}[br]
