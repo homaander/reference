@@ -5,3 +5,11 @@ cabal build
 cabal install aeson
 
 cabal repl
+
+cabal umpack ...
+
+cabal instal --only-dependencies
+cabal configure
+
+cabal run
+cabal run hCodeGUI-exe +RTS -s -RTS -O2

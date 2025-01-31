@@ -1,17 +1,3 @@
-# CMD
-
-ghc   # скомпелировать
-ghci  # интерактивая оболочка
-
-runghc      # запуск без компиляции
-
-# Интерактивная консоль:
-:help
-:type <expr>
-
-:quit
-
-# Stack:
 # Скачать stack
 sudo curl -sSL https://get.haskellstack.org/ | sh
 
@@ -35,3 +21,6 @@ stack runghc app/helloworld.hs
 
 # Выполнить комманду
 stack exec ghc-pkg -- list
+
+stack ghc -- book/rpar.hs -O2 -threaded
+stack run -- +RTS -N2 -s -RTS

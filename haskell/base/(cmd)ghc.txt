@@ -1,8 +1,6 @@
 -- компиляци с наилучшей оптимизацией и потоками
 ghc -O2 rpar.hs -threaded
 
-stack ghc -- book/rpar.hs -O2 -threaded
-
 -- Запуск с 2 ядрами
 ./book/rpar +RTS -N2 -RTS
 -- вывод времени
@@ -10,14 +8,20 @@ stack ghc -- book/rpar.hs -O2 -threaded
 -- вывод журнала для threadscope
 ./book/rpar +RTS -N2 -s -l -RTS
 
--- stack
-stack run -- +RTS -N2 -s -RTS
+ghc   # скомпелировать
+ghci  # интерактивая оболочка
 
+runghc      # запуск без компиляции
 
-cabal umpack ...
+# Интерактивная консоль:
+:help
+:type <expr>
 
-cabal instal --only-dependencies
-cabal configure
+# Repeat last command
+:
 
-cabal build
-cabal run
+:{
+  -- commands
+:}
+
+:quit
