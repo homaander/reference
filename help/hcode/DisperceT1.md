@@ -132,6 +132,7 @@ foldl sumData x5z0 [x5z3 ^-> 163, x5z7 ^-> 256]
 
 -- x5z4 -> x5z4, x5z6, x5z8
 foldl sumData x5z0 [x5z6 ^-> 151, x5z4 ^-> (150 + 23), x5z8 ^-> (150 + 52)]
+
 -- x5z1 -> x5z1, x5z9
 foldl sumData x5z0 [x5z1 ^-> 705, x5z9 ^-> 733]
 
