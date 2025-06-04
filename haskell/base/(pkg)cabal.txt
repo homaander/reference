@@ -12,4 +12,5 @@ cabal instal --only-dependencies
 cabal configure
 
 cabal run
+cabal run exes +RTS -s -RTS -O2
 cabal run hCodeGUI-exe +RTS -s -RTS -O2
