@@ -51,7 +51,7 @@ let list_slashes = [
     {style: 'color: #5555FF;'
           + 'font-weight: bold;',    regs: ['(?<!\\^\\/)(\\[[a-zA-Z0-9\\-\\+_!:{}]{2,}?\\])']}, // Функция
     {style: 'color: #777',           regs: ['(\\/###\\\/[^\\/]+\\/)'],},                        // Коментарий
-    {style: 'color: #FBB917;',       regs: ['(\\@[a-zA-Z0-9\\-]+?\\;)']},                          // Ранг
+    {style: 'color: #FBB917;',       regs: ['(\\\'[a-zA-Z0-9\\-]+?\\;)']},                          // Ранг
     {style: 'color: #5555FF',        regs: ['(\\[\\\d\\])']},                                   // Замена 2 порядка
 
     {style: 'color: #46C7C7;'
