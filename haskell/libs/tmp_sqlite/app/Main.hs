@@ -1,8 +1,17 @@
-module Tools where
+module Main where
 
-import MainDB
 import Data.Time
 import Database.SQLite.Simple
+
+withConn :: String -> (Connection -> IO ()) -> IO ()
+withConn dbName action = do
+  conn <- open dbName
+  action conn
+  close conn
+
+firstOrNothing :: [a] -> Maybe a
+firstOrNothing []    = Nothing
+firstOrNothing (x:_) = Just x
 
 data Tool = Tool { toolId :: Int
                  , toolName :: String
@@ -86,3 +95,74 @@ checkinAndUpdate :: Int -> IO ()
 checkinAndUpdate tid = do
   checkin tid
   updateToolTable tid
+
+
+
+
+data User = User { userId :: Int
+                 , userName :: String }
+  deriving Show
+
+instance FromRow User where
+  fromRow = User <$> field <*> field
+
+addUser :: String -> IO ()
+addUser user = 
+  withConn "databases/main.db" $
+    \conn -> do
+      execute conn "INSERT INTO users (username) VALUES (?)" (Only user)
+      putStrLn "Success added"
+
+printUsers :: IO ()
+printUsers = 
+  withConn "databases/main.db" $
+    \conn -> do
+      resp <- query_ conn "SELECT * FROM users;" :: IO [User]
+      mapM_ print resp
+
+
+
+
+promptAddUser, promptAddTool, promptCheckout, promptCheckin :: IO ()
+
+promptAddUser = do
+  putStrLn "Name: "
+  name <- getLine
+  addUser name
+
+promptAddTool = do
+  putStrLn "Name: "
+  name <- getLine
+  putStrLn "Description: "
+  description <- getLine
+  addTool name description
+
+promptCheckout = do
+  putStrLn "User ID: "
+  userID <- read <$> getLine
+  putStrLn "Tool ID: "
+  toolID <- read <$> getLine
+  checkout userID toolID
+
+promptCheckin = do
+  putStrLn "Tool ID: "
+  toolID <- read <$> getLine
+  checkinAndUpdate toolID
+
+performCommand :: String -> IO ()
+performCommand "users"    = printUsers >> main
+performCommand "tools"    = printTools >> main
+performCommand "adduser"  = promptAddUser >> main
+performCommand "addtool"  = promptAddTool >> main
+performCommand "checkout" = promptCheckout >> main
+performCommand "checkin"  = promptCheckin >> main
+performCommand "in"       = printToolsAvailable >> main
+performCommand "out"      = printToolsCheckedout >> main
+performCommand "quit"     = putStrLn "Exiting..."
+performCommand _          = putStrLn "Command not found" >> main
+
+main :: IO ()
+main = do
+    putStrLn "Command:"
+    command <- getLine
+    performCommand command

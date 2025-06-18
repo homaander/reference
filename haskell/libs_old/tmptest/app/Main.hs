@@ -6,6 +6,9 @@ module Main (main) where
 import Lib
 import QQ
 
+tt :: Int -> Int -> Int
+tt a b = a^4 + 4 * a * b
+
 dd :: String
 dd = [myqq| ewqwqww |]
 
