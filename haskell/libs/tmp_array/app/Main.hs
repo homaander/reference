@@ -43,12 +43,12 @@ listToUArray vals = runSTUArray $ do
 
 swapST :: (Int, Int) -> (Int, Int)
 swapST (x, y) = runST $ do
-    x_ <- newSTRef x
-    y_ <- newSTRef y
-    writeSTRef x_ y
-    writeSTRef y_ x
-    resx <- readSTRef x_
-    resy <- readSTRef y_
+    x' <- newSTRef x
+    y' <- newSTRef y
+    writeSTRef x' y
+    writeSTRef y' x
+    resx <- readSTRef x'
+    resy <- readSTRef y'
     return (resx, resy)
 
 myData :: UArray Int Int
@@ -68,4 +68,4 @@ bubbleSort myArray = runSTUArray $ do
     return stArray
 
 main :: IO ()
-main = someFunc
+main = print (myData)

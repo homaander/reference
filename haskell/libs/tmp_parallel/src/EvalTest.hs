@@ -1,53 +1,53 @@
 module EvalTest (
-    ppT
-  , pssT
+    testEval
+
+  , ppT
   , ppssT
 
-  , myStratPair
-
-  , fib
+  , my_parPair
 ) where
 
 -- import Control.Parallel
 import Control.Parallel.Strategies
-import Control.DeepSeq
+-- import Control.DeepSeq
 
-fib :: Integer -> Integer
-fib 0 = 1
-fib 1 = 1
-fib n = fib (n-1) + fib (n-2)
+import CoreCalc
+
+testEval :: IO ()
+testEval = do
+  let x = map fib [1..40] `using` parList rdeepseq
+  print x
+
+my_parPair :: Strategy a -> Strategy (a, a)
+my_parPair strat (a, b) = do
+  a' <- strat a
+  b' <- strat b
+  pure (a', b')
 
 -- rpar/rpar - pure before calc
 ppT :: Eval (Integer, Integer)
 ppT = do
-  x <- rpar (fib 36)
-  y <- rpar (fib 35)
+  x <- rpar (fib 33)
+  y <- rpar (fib 44)
   return (x,y)
-
 
 -- rpar/pseq - calc before pure
-pssT:: Eval (Integer, Integer)
-pssT= do
-  x <- rpar (fib 36)
-  y <- rseq (fib 35)
-  rseq x
-  return (x,y)
-
 ppssT :: Eval (Integer, Integer)
 ppssT = do
-  x <- rpar (fib 36)
-  y <- rpar (fib 35)
+  x <- rpar (fib 32)
+  y <- rpar (fib 45)
   rseq x
   rseq y
   return (x,y)
-
-
 
 -- >>> :t force
 -- force :: NFData a => a -> a
 
 -- >>> :t rdeepseq
 -- rdeepseq :: NFData a => Strategy a
+
+-- >>> :t parPair
+-- parPair :: Strategy a -> Strategy b -> Strategy (a, b)
 
 -- ? rpar :: Strategy a
 -- * Strategy a == a -> Eval a
@@ -59,13 +59,4 @@ ppssT = do
 -- parMap :: Strategy b -> (a -> b) -> [a] -> [b]
 -- parList :: Strategy a -> Strategy [a]
 -- evalList :: Strategy a -> Strategy [a]
-
-f :: Integer
-f = fib 2 `using` rpar
-
-myStratPair :: Strategy Integer -> Strategy (Integer, Integer)
-myStratPair strat (a, b) = do
-  a' <- strat a
-  b' <- strat b
-  pure (a', b')
 
